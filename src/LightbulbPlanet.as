@@ -6,6 +6,8 @@ package
 	 */
 	public class LightbulbPlanet extends Planet
 	{
+		public const LIGHTBULB_MASS:int = 1;
+		
 		private var planet_background:PlanetBackground;
 		
 		
@@ -18,6 +20,8 @@ package
 			this.loadGraphic(lightbulb_planet, true, false, 332, 330);
 			this.addAnimation("Flash", [0, 1, 2, 3], 1, true);
 			planet_background = new PlanetBackground(this.x, this.y, lightbulb_background);
+			this.planetMass = LIGHTBULB_MASS;
+			this.checkpoint = 0;			
 		}
 
 		
@@ -34,5 +38,9 @@ package
 			super.draw();		
 		}
 		
+		override public function playerCollision(player:Player):void
+		{
+			player.dies();
+		}
 	}
 }

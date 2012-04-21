@@ -84,10 +84,7 @@ package
 		
 		public function playerCollision(player:Player):void
 		{
-			if (this.isCheckpoint() == true)
-			{
-				player.reachedCheckpoint(this);
-			}
+			
 		}
 		
 		public function getRadii():Number {

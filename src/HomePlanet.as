@@ -4,21 +4,21 @@ package
 	 * ...
 	 * @author Chris
 	 */
-	public class SpongePlanet extends Planet 
+	public class HomePlanet extends Planet 
 	{
-		public const SPONGE_MASS:int = 1;
+		public const HOME_MASS:int = 1;
 		
 		private var planet_background:PlanetBackground;
 		
 		//[Embed(source = "../assets/planets/*-planet.png")] private var *_planet:Class;		
 		//[Embed(source = "../assets/planets/*background.png")] private var *_background:Class;
 		
-		public function SpongePlanet(x:int, y:int, checkpoint:int) 
+		public function HomePlanet(x:int, y:int, checkpoint:int) 
 		{
 			super(x, y, checkpoint);
-			//this.loadGraphic(sponge_planet, , , , );
-			//planet_background = new PlanetBackground(this.x, this.y, sponge_background);
-			this.planetMass = SPONGE_MASS;
+			//this.loadGraphic(home_planet, , , , );
+			//planet_background = new PlanetBackground(this.x, this.y, home_planet_background);
+			this.planetMass = HOME_MASS;
 		}
 		
 		/*override public function update():void
@@ -35,7 +35,7 @@ package
 		
 		override public function playerCollision(player:Player):void
 		{
-			player.reachedCheckpoint(this);
+			player.success();
 		}
 	}
 

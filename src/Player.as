@@ -25,6 +25,9 @@ package
 		//player checkpoint
 		private var currentCheckpoint:Planet;
 		
+		//player wins
+		private var winButton:FlxButton;
+		
 		//player boosts
 		private var timer:FlxTimer = new FlxTimer();
 		
@@ -103,12 +106,30 @@ package
 			currentCheckpoint = checkpointPlanet;
 		}
 		
+		// function for player success
+		public function success():void
+		{
+			FlxG.mouse.show();
+			winButton = new FlxButton(0, 0, "You win!", winGame);
+			add(winButtonButton);
+		}
+		private function winGame():void
+		{
+			FlxG.switchState(MenuState);
+		}
+		
 		// function for player death
-		public function playerDies():void
+		public function dies():void
 		{
 			// run death animation
 			this.x = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).x;
 			this.y = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).y;
+		}
+		
+		// return the player's location as a point
+		public function playerLocation():FlxPoint
+		{
+			return new FlxPoint(this.x, this.y);
 		}
 		
 		// change player to frozen
@@ -124,12 +145,6 @@ package
 		{
 			// return animation to normal
 			this.frozen = false;
-		}
-		
-		// return the player's location as a point
-		public function playerLocation():FlxPoint
-		{
-			return new FlxPoint(this.x, this.y);
 		}
 	}
 

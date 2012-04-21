@@ -25,9 +25,11 @@ package
 		{			
 			// create all the planets for the level
 			planets = new FlxGroup();
+			planets.add(new SpongePlanet(50, 50, 1));
 			planets.add(new LightbulbPlanet(100, 70, 1));
-			planets.add(new LightbulbPlanet(800, 240, 0));
+			planets.add(new LightbulbPlanet(800, 740, 0));
 			planets.add(new LightbulbPlanet(400, 490, 0));
+			planets.add(new SpongePlanet(50, 500, 1));
 
 			// create all the obstacles for the level
 			obstacles = new FlxGroup();
