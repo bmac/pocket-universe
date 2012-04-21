@@ -22,6 +22,9 @@ package
 		public const G:Number = 90;
 		public const ANTI_GRAVITY:Number = -100;
 		
+		//player win
+		private var levelSuccess:Boolean = false;
+		
 		//player checkpoint
 		private var currentCheckpoint:Planet;
 		
@@ -106,9 +109,13 @@ package
 		}
 		
 		// function for player success
-		public function success():void
+		public function setSuccess():void
 		{
-			
+			levelSuccess = true;
+		}
+		public function getSuccess():Boolean
+		{
+			return levelSuccess;
 		}
 		
 		// function for player death

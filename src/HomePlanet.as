@@ -35,7 +35,7 @@ package
 		
 		override public function playerCollision(player:Player):void
 		{
-			player.success();
+			player.setSuccess();
 		}
 	}
 
