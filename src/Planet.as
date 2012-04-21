@@ -85,7 +85,7 @@ package
 			}
 		}
 		
-		public function getRadii() {
+		public function getRadii():Number {
 			return height / 2;
 		}
 	}
