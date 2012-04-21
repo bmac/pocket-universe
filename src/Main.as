@@ -1,25 +1,14 @@
 package 
 {
-	import flash.display.Sprite;
-	import flash.events.Event;
+	import org.flixel.*;
 
-	[Frame(factoryClass="Preloader")]
-	public class Main extends Sprite
+ 
+	public class Main extends FlxGame
 	{
-		public function Main():void
+ 
+		public function Main():void 
 		{
-			if (stage)
-			{
-				init();
-			} else {
-				addEventListener(Event.ADDED_TO_STAGE, init);
-			}
-		}
-		private function init(e:Event = null):void
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			var game:FirstGame = new FirstGame;
-			addChild(game);
+			super(800, 450, MenuState, 1);
 		}
 	}
 }

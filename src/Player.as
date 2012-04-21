@@ -12,6 +12,9 @@ package
 	public class Player extends FlxSprite
 	{
 		
+		[Embed (source = "../assets/drop/jump_frame_1.png")] private var player_Sprite:Class;
+
+		
 		private var planets:FlxGroup;
 		private var anti_gravity_flag:Boolean = false;
 		
@@ -32,6 +35,11 @@ package
 		{
 			this.planets = planets;
 			super(20, 60);
+			this.loadGraphic(player_Sprite);
+			this.scale.x = 0.1;
+			this.scale.y = 0.1;
+			this.height = 0.1 * this.height;
+			this.width = 0.1 * this.width;
 			currentCheckpoint = planets.members[0];
 		}
 		
