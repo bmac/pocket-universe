@@ -11,6 +11,8 @@ package
 		private var _size:int;
 		private var _mass:int;
 		
+		[Embed (source = "../assets/planets/Apple.png")] private var apple_sprite:Class;
+
 		/** 
 		 * if 0, not a checkpoint. 
 		 * If 1 to 360 the planet is a checkpoint,
@@ -20,9 +22,11 @@ package
 		
 		public function Planet(x:int, y:int, checkpoint:int) 
 		{
-			this.x = x;
-			this.y = y;
 			this._checkpoint = checkpoint;
+			super(x, y);
+			//this.loadGraphic(apple_sprite);
+			//this.scale.x = 1;
+			//this.scale.y = 1;
 		}
 		
 		//The Rectangular Size of this planet (ie the texture size)
