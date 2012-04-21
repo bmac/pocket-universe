@@ -78,7 +78,8 @@ package
 			return point;
 		}
 		
-		public function PlaceOnPlanet(gameObject:Player):void
+		//TODO: If we need to place obstacles, we need an abstract class
+		public function PlaceOnPlanet(gameObject:Player):void 
 		{
 			
 			//Height adjustment to make the object appear ontop of the planet... also adjusts for any gaps on the sprite
