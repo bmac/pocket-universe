@@ -40,7 +40,7 @@ package
 		
 		override public function playerCollision(player:Player):void
 		{
-			player.dies();
+			//player.dies();
 		}
 	}
 }
