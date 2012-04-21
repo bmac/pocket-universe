@@ -23,7 +23,6 @@ package
 			this.scale = new FlxPoint(scale,scale);
 		}
 		
-		
 		override public function playerCollision(player:Player):void
 		{
 			player.reachedCheckpoint(this);
