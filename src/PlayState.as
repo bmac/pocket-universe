@@ -44,7 +44,6 @@ package
 			add(planets);
 			add(obstacles);
 			add(player);
-			add(camera);
 		}
 	}
 }
