@@ -28,15 +28,15 @@ package
 		//player checkpoint
 		private var currentCheckpoint:Planet;
 		
-		//player boosts
+		/*/player boosts
 		private var timer:FlxTimer = new FlxTimer();
+				
+		private var frozen:Boolean = false;*/
 		
 		private var _currentPlanet:Planet;
 		
 		//The player's position on the current planet
 		private var _locationOnPlanet:Number = 1;
-		
-		private var frozen:Boolean = false;
 		
 		private var _playerSpeed:int = 1;
 		
@@ -53,7 +53,7 @@ package
 		
 		override public function update():void
 		{
-			if (!FlxG.overlap(this, planets)){
+			if (!_currentPlanet){
 				do_planet_gravity();
 			} else {
 				velocity.x = 0;
@@ -84,16 +84,21 @@ package
 				}
 			}
 			
+			// player jumps perpendicular using spacebar
+			if (FlxG.keys.justPressed("SPACE") && (_currentPlanet != null)) {
+				var tempPlanet:Planet = _currentPlanet;
+				_currentPlanet = null;
+				velocity.x = this.x - tempPlanet.getCenter().x * ANTI_GRAVITY;
+				velocity.y = this.y - tempPlanet.getCenter().y * ANTI_GRAVITY;
+			}
+			
+			// player walks around the current planet using left and right arrow keys
 			if (this.getIsWalking())
-			{
-					
+			{	
 				_currentPlanet.PlaceOnPlanet(this);
 				
 				if ((FlxG.keys.RIGHT || FlxG.keys.LEFT) ) 
-				{
-						
-						var playerSpeed:int = 1;
-					
+				{					
 						//Move the player left or right on the planet
 						if (FlxG.keys.RIGHT)
 							_locationOnPlanet+= _playerSpeed;
@@ -111,12 +116,6 @@ package
 						}
 							
 						this._currentPlanet.PlaceOnPlanet(this);
-				}
-				if (FlxG.keys.SPACE && (_currentPlanet != null)) {
-				do_planet_gravity();
-				velocity.x = this.x - _currentPlanet.getCenter().x * ANTI_GRAVITY;
-				velocity.y = this.y - _currentPlanet.getCenter().y * ANTI_GRAVITY;
-				_currentPlanet = null;
 				}
 			}
 		}
@@ -181,15 +180,7 @@ package
 		{
 			return new FlxPoint(this.x, this.y);
 		}
-		
-		// change player to frozen
-		public function freeze():void 
-		{
-			// change animation to frozen
-			this.frozen = true;
-			timer.start(10, 1, this.defrost);
-		}
-		
+
 		public function getLocationOnPlanet():int
 		{
 			return _locationOnPlanet;
@@ -203,13 +194,21 @@ package
 			
 			_locationOnPlanet = location;
 		}
+				
+		/*/ change player to frozen
+		public function freeze():void 
+		{
+			// change animation to frozen
+			this.frozen = true;
+			timer.start(10, 1, this.defrost);
+		}
 		
 		// defrosts player
 		public function defrost():void
 		{
 			// return animation to normal
 			this.frozen = false;
-		}
+		}*/
 	}
 
 }

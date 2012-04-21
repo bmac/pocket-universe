@@ -38,7 +38,7 @@ package
 			player = new Player(planets.members[0], planets);
 			
 			// create camera
-			//FlxG.camera.target = player;
+			FlxG.camera.target = player;
 			
 			
 			

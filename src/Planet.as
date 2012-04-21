@@ -90,8 +90,6 @@ package
 			//newPosition is relative to the planet's origin
 			var newPosition: FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet()); 
 			
-			trace("new X {0} and new Y {1}", newPosition.x, newPosition.y);
-			
 			//This should adjust the position of the object based on it's size
 			//newPosition.x = newPosition.x - (gameObject.width / 2);
 			//newPosition.y = newPosition.y - (gameObject.height)
