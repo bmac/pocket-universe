@@ -78,7 +78,7 @@ package
 					for (var i:int = 0, len:int = planets.length; i < len; i++)
 					{
 						planet = planets.members[i];
-						if (this.is_on_planet())
+						if (FlxG.overlap(this, planet))
 						{
 							_currentPlanet = planet;
 							break;
