@@ -25,9 +25,6 @@ package
 		//player checkpoint
 		private var currentCheckpoint:Planet;
 		
-		//player wins
-		private var winButton:FlxButton;
-		
 		//player boosts
 		private var timer:FlxTimer = new FlxTimer();
 		
@@ -109,13 +106,7 @@ package
 		// function for player success
 		public function success():void
 		{
-			FlxG.mouse.show();
-			winButton = new FlxButton(0, 0, "You win!", winGame);
-			add(winButtonButton);
-		}
-		private function winGame():void
-		{
-			FlxG.switchState(MenuState);
+			
 		}
 		
 		// function for player death
