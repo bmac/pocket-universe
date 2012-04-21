@@ -25,17 +25,17 @@ package
 		{			
 			// create all the planets for the level
 			planets = new FlxGroup();
-			planets.add(new SpongePlanet(50, 50, 1));
-			planets.add(new LightbulbPlanet(100, 70, 1));
-			planets.add(new LightbulbPlanet(800, 740, 0));
-			planets.add(new LightbulbPlanet(400, 490, 0));
-			planets.add(new SpongePlanet(50, 500, 1));
+			//planets.add(new SpongePlanet(50, 50, 1));
+			//planets.add(new LightbulbPlanet(100, 70, 1));
+			//planets.add(new LightbulbPlanet(800, 740, 0));
+			planets.add(new LightbulbPlanet(200, 150, 0));
+			//planets.add(new SpongePlanet(50, 500, 1));
 
 			// create all the obstacles for the level
 			obstacles = new FlxGroup();
 			
 			// create the player
-			player = new Player(planets.members[0].getPointAt(planets.members[0].getCheckpoint()), planets);
+			player = new Player(planets.members[0], planets);
 			
 			// create camera
 			//FlxG.camera.target = player;

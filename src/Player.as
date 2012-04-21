@@ -41,11 +41,12 @@ package
 		private var _lastWalkTime:int;
 		private var _walkRate:int = 1; //In ticks?
 		
-		public function Player(point:FlxPoint, planets:FlxGroup)
+		public function Player(firstPlanet:Planet, planets:FlxGroup)
 		{
 			this.planets = planets;
 			super(20, 60);
-			currentCheckpoint = planets.members[0];
+			currentCheckpoint = firstPlanet;
+			firstPlanet.PlaceOnPlanet(this);
 		}
 		
 		override public function update():void
