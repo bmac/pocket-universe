@@ -36,7 +36,9 @@ package
 			player = new Player(planets.members[0].getPointAt(planets.members[0].getCheckpoint()), planets);
 			
 			// create camera
-			camera = new Camera(cameraOrigin, width, height, player, zoom);
+			FlxG.camera.target = player;
+			
+			
 			
 			// add all to the world
 			add(planets);
