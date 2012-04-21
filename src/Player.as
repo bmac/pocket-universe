@@ -43,12 +43,11 @@ package
 		public function Player(firstPlanet:Planet, planets:FlxGroup)
 		{
 			this.planets = planets;
-			super(20, 60);
 
 			currentCheckpoint = firstPlanet;
 			firstPlanet.PlaceOnPlanet(this);
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
-			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6);
+			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
 		}
 		
 		override public function update():void
@@ -60,7 +59,7 @@ package
 				velocity.y = 0;
 			}
 			do_input();
-			do_animation();
+			//do_animation();
 			super.update();		
 		}
 		
@@ -90,33 +89,45 @@ package
 			
 			if (this.getIsWalking())
 			{
-					
-				_currentPlanet.PlaceOnPlanet(this);
+				if (FlxG.keys.U)
+				{
+					_locationOnPlanet = 360;
+					_currentPlanet.PlaceOnPlanet(this);
+				}
 				
 				if ((FlxG.keys.RIGHT || FlxG.keys.LEFT) ) 
 				{
-						
-						var playerSpeed:int = 1;
+					
+						this.play("crawl");
 					
 						//Move the player left or right on the planet
 						if (FlxG.keys.RIGHT)
-							_locationOnPlanet+= _playerSpeed;
+						{
+							_locationOnPlanet += _playerSpeed;
+							this.facing = FlxObject.RIGHT;
+						}
 						if (FlxG.keys.LEFT)
-							_locationOnPlanet-= _playerSpeed;
+						{
+							_locationOnPlanet -= _playerSpeed;
+							this.facing = FlxObject.LEFT;
+						}
 						
 						//Makes sure that the new position is within bounds
 						if (_locationOnPlanet > 360)
 						{
 							_locationOnPlanet -= 360;
 						}
-						if (_locationOnPlanet < 0)
+						if (_locationOnPlanet <= 0)
 						{
 							_locationOnPlanet += 360;
 						}
 							
 						this._currentPlanet.PlaceOnPlanet(this);
 				}
+				
 			}
+			
+			
 			
 			if (FlxG.keys.SPACE && FlxG.overlap(this, planets) ) {
 				_currentPlanet = null;
@@ -152,10 +163,7 @@ package
 			}
 		}
 		
-		public function do_animation():void
-		{
-			//this.play("crawl");
-		}		
+		
 		
 		// function for touching checkpoint
 		public function reachedCheckpoint(checkpointPlanet:Planet):void

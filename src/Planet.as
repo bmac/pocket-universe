@@ -56,10 +56,10 @@ package
 		
 		
 		//Returns a point at the specified position on this planet
-		public function getPointAt(position:int):FlxPoint
+		public function getPointAt(angle:int, adjustHeight:int = 0):FlxPoint
 		{
 			
-			if ((position < 1) || (position > 360))
+			if ((angle < 1) || (angle > 360))
 			{
 				throw new ArgumentError("Position is out of bounds. Must be within 1-360");
 			}
@@ -68,37 +68,37 @@ package
 			
 			var centerX:int = this.getCenter().x;
 			var centerY:int = this.getCenter().y;
-			var radius:Number = this.getRadius();
+			var radius:Number = this.getRadius() + adjustHeight;
 			
-			var newAngle:int = position - 90; //This is done so that 0 is at the top of the planets
+			var newAngle:int = angle - 90; //This is done so that 0 is at the top of the planets
 			
-			//angleInDegrees * Math.PI / 180F
 			point.x = centerX + radius * Math.cos(newAngle * Math.PI /180);
 			point.y = centerY + radius * Math.sin(newAngle * Math.PI /180);
 			
 			return point;
 		}
 		
-		//TODO: If we need to place obstacles, we need an abstract class
-		public function PlaceOnPlanet(gameObject:Player) 
+		public function PlaceOnPlanet(gameObject:Player):void
 		{
 			
-			//For now, let's force the player's position to 0
-			//gameObject.x = this.x + this.origin.x - (gameObject.width /2);
-			//gameObject.y = this.y - (gameObject.height);
-						
-			//newPosition is relative to the planet's origin
-			var newPosition: FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet()); 
+			//Height adjustment to make the object appear ontop of the planet... also adjusts for any gaps on the sprite
+			var heightAdjustment:int = (gameObject.height / 2) - 8;
 			
-			trace("new X {0} and new Y {1}", newPosition.x, newPosition.y);
+			//newPosition is relative to the planet's origin
+			var newPosition: FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet(), heightAdjustment); 
+			
 			
 			//This should adjust the position of the object based on it's size
-			//newPosition.x = newPosition.x - (gameObject.width / 2);
-			//newPosition.y = newPosition.y - (gameObject.height)
+			newPosition.x = newPosition.x - (gameObject.width / 2);
+			newPosition.y = newPosition.y - (gameObject.height / 2);
 			
 			gameObject.x = newPosition.x;
 			gameObject.y = newPosition.y;
 			
+			gameObject.angle = gameObject.getLocationOnPlanet();
+			
+			//Uncoment the line below to have the planet rotate in the opposite direction
+			//this.angle = -1 * gameObject.getLocationOnPlanet();
 		}
 		
 		public function getCheckpoint():int
