@@ -126,6 +126,7 @@ package
 			this.frozen = false;
 		}
 		
+		// return the player's location as a point
 		public function playerLocation():FlxPoint
 		{
 			return new FlxPoint(this.x, this.y);
