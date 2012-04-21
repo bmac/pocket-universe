@@ -23,8 +23,9 @@ package
 		[Embed(source = "../assets/audio/incidental_8.mp3")] 	public var inc_8:Class;
 		private var incidentals:Array =  new Array(inc_1, inc_2, inc_3, inc_4, inc_5, inc_6, inc_7, inc_8);
 		
-		private var incidentalDelayMin:Number = 7;
-		private var incidentalDelayMax:Number = 10;
+		private var incidentalDelayMin:int = 7;
+		private var incidentalDelayMax:int = 10;
+		private var lastIncidental:int = 999;
 		
 		public function MusicController() 
 		{
@@ -35,8 +36,14 @@ package
 		
 		public function fireIncidental(unused:Object):void
 		{
-			FlxG.play(incidentals[randomMinMax(0, incidentals.length - 1)], 0.6);
-			//FlxG.play(incidentals[1]);
+			var nextIncidental:int;
+			do
+			{
+				nextIncidental = randomMinMax(0, incidentals.length - 1);
+			} while (nextIncidental == lastIncidental);
+			FlxG.play(incidentals[nextIncidental], 0.6);
+			lastIncidental = nextIncidental;
+
 			eventTimer.stop();
 			eventTimer.start(randomMinMax(incidentalDelayMin, incidentalDelayMax), 1, this.fireIncidental);
 		}
