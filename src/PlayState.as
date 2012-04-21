@@ -36,7 +36,7 @@ package
 			planets.add(new SpongePlanet(50, 500, 1));
 
 			// create all the obstacles for the level
-			obstacles = new FlxGroup();
+			//obstacles = new FlxGroup();
 			
 			// create the player
 			player = new Player(planets.members[0], planets);
@@ -48,7 +48,7 @@ package
 			
 			// add all to the world
 			add(planets);
-			add(obstacles);
+			//add(obstacles);
 			add(player);
 		}
 		

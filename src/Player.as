@@ -69,11 +69,7 @@ package
 		
 		public function do_input():void
 		{
-			if (this.getIsWalking()) //Player already landed on a planet
-			{
-				//Jump code goes here?
-			}
-			else
+			if (!this.getIsWalking()) //Player already landed on a planet
 			{
 				//player is floating around, check to see if he has landed on a planet
 				if (FlxG.overlap(this, planets))
@@ -122,13 +118,12 @@ package
 				}
 			}
 			
-			if (FlxG.keys.SPACE && FlxG.overlap(this, planets))
+			if (FlxG.keys.SPACE && (_currentPlanet != null))
 			{
-				planet = _currentPlanet;
-				_currentPlanet = null;
 				do_planet_gravity();
-				velocity.x = this.x - planet.getCenter().x * ANTI_GRAVITY;
-				velocity.y = this.y - planet.getCenter().y * ANTI_GRAVITY;
+				velocity.x = this.x - _currentPlanet.getCenter().x * ANTI_GRAVITY;
+				velocity.y = this.y - _currentPlanet.getCenter().y * ANTI_GRAVITY;
+				_currentPlanet = null;
 			}
 		}
 		
@@ -245,7 +240,7 @@ package
 		}
 		
 		//Returns the center of this Circle in the world
-		public function getCenter():FlxPoint 
+		public function getCenter():FlxPoint
 		{
 			return new FlxPoint(this.origin.x + this.x, this.origin.y + this.y);
 		}
