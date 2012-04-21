@@ -84,5 +84,9 @@ package
 				player.reachedCheckpoint(this);
 			}
 		}
+		
+		public function getRadii() {
+			return height / 2;
+		}
 	}
 }
