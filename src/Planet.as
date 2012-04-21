@@ -80,7 +80,7 @@ package
 		}
 		
 		//TODO: If we need to place obstacles, we need an abstract class
-		public function PlaceOnPlanet(gameObject:Player) 
+		public function PlaceOnPlanet(gameObject:Player):void 
 		{
 			
 			//For now, let's force the player's position to 0
