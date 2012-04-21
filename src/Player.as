@@ -17,7 +17,7 @@ package
 		public const GRAVITY:Number = 400;
 		public const JUMP_FORCE:Number = 140;
 		public const JUMP_HOLD_FORCE:Number = 150;
-		public const G:Number = 1;
+		public const G:Number = 9.8;
 		
 		public function Player(planets:FlxGroup)
 		{
@@ -48,9 +48,13 @@ package
 				var r:Number = Math.sqrt( xx * xx + yy * yy );
 				
 				var gravitational_strength:Number = G * planet.mass / Math.pow(r, 2);
-				angle = Math.atan2(this.x - planet.x, -(this.y - planet.y));
-				velocity.x += Math.sin(angle) * gravitational_strength;
-				velocity.y += Math.cos(angle) * gravitational_strength;
+
+				var gravity_x:Number = planet.x - this.x;
+				var gravity_y:Number = planet.y - this.y;
+				
+				this.velocity.x = gravity_x * gravitational_strength;
+				this.velocity.y = gravity_y * gravitational_strength;
+				
 				
 			}
 		}
