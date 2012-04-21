@@ -20,7 +20,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = -25;
+		public const ANTI_GRAVITY:Number = -100;
 		
 		//player checkpoint
 		private var currentCheckpoint:Planet;
@@ -35,11 +35,6 @@ package
 		{
 			this.planets = planets;
 			super(20, 60);
-			this.loadGraphic(player_Sprite);
-			this.scale.x = 0.1;
-			this.scale.y = 0.1;
-			this.height = 0.1 * this.height;
-			this.width = 0.1 * this.width;
 			currentCheckpoint = planets.members[0];
 		}
 		
