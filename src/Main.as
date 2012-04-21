@@ -8,7 +8,7 @@ package
  
 		public function Main():void 
 		{
-			super(800, 450, MenuState, 1);
+			super(960, 540, MenuState, 1);
 		}
 	}
 }

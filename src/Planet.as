@@ -11,7 +11,7 @@ package
 		private var _size:int;
 		private var _mass:int;
 		
-		[Embed (source = "../assets/planets/Apple.png")] private var apple_sprite:Class;
+		[Embed (source = "../assets/planets/grape-planet.png")] private var apple_sprite:Class;
 
 		/** 
 		 * if 0, not a checkpoint. 
@@ -24,7 +24,7 @@ package
 		{
 			this._checkpoint = checkpoint;
 			super(x, y);
-			//this.loadGraphic(apple_sprite);
+			this.loadGraphic(apple_sprite);
 			//this.scale.x = 1;
 			//this.scale.y = 1;
 		}

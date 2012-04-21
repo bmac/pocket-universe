@@ -17,9 +17,9 @@ package
 		{
 			// create all the planets for the level
 			planets = new FlxGroup();
-			planets.add(new Planet(10, 20, 1));
-			planets.add(new Planet(200, 40, 0));
-			planets.add(new Planet(40, 90, 0));
+			planets.add(new GrapePlanet(100, 70, 1));
+			planets.add(new GrapePlanet(800, 240, 0));
+			planets.add(new GrapePlanet(400, 490, 0));
 
 			// create all the obstacles for the level
 			obstacles = new FlxGroup();
