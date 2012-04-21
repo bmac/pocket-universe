@@ -59,7 +59,7 @@ package
 		public function getPointAt(angle:int, adjustHeight:int = 0):FlxPoint
 		{
 			
-			if ((angle < 1) || (angle > 360))
+			if ((angle <= 0) || (angle > 360))
 			{
 				throw new ArgumentError("Position is out of bounds. Must be within 1-360");
 			}
@@ -86,7 +86,7 @@ package
 			var heightAdjustment:int = (gameObject.height / 2) - 8;
 			
 			//newPosition is relative to the planet's origin
-			var newPosition: FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet(), heightAdjustment); 
+			var newPosition:FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet(), heightAdjustment); 
 			
 			//This should adjust the position of the object based on it's size
 			newPosition.x = newPosition.x - (gameObject.width / 2);

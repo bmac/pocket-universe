@@ -36,7 +36,7 @@ package
 		private var _currentPlanet:Planet;
 		
 		//The player's position on the current planet
-		private var _locationOnPlanet:Number = 1;
+		private var _locationOnPlanet:Number;
 		
 		private var _playerSpeed:int = 1;
 		
@@ -44,7 +44,8 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
-			firstPlanet.PlaceOnPlanet(this);
+			_locationOnPlanet = currentCheckpoint.getCheckpoint()
+			//firstPlanet.PlaceOnPlanet(this);
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
 		}
