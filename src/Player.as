@@ -17,19 +17,24 @@ package
 		public const GRAVITY:Number = 400;
 		public const JUMP_FORCE:Number = 140;
 		public const JUMP_HOLD_FORCE:Number = 150;
-		public const G:Number = 9.8;
+		public const G:Number = 90.8;
 		
 		public function Player(planets:FlxGroup)
 		{
 			this.planets = planets;
-			super(20, 20);
+			super(60, 20);
 		
 		}
 		
 		override public function update():void
 		{
+			if (!FlxG.overlap(planets, this)){
+				do_gravity();
+			} else {
+				velocity.x = 0;
+				velocity.y = 0;
+			}
 			do_input();
-			do_gravity();
 			do_animation();
 			super.update();		
 		}
