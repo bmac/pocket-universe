@@ -12,7 +12,7 @@ package
 	public class Player extends FlxSprite
 	{
 		
-		[Embed (source = "../assets/drop/jump_frame_1.png")] private var player_Sprite:Class;
+		[Embed(source="../assets/drop/sprite sheet smaller.png")] private var player_Sprite:Class;
 
 		
 		private var planets:FlxGroup;
@@ -36,6 +36,8 @@ package
 			this.planets = planets;
 			super(20, 60);
 			currentCheckpoint = planets.members[0];
+			this.loadGraphic(player_Sprite, true, true, 70, 50);
+			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6);
 		}
 		
 		override public function update():void
@@ -94,7 +96,7 @@ package
 		
 		public function do_animation():void
 		{
-			// run appropriate animation
+			this.play("crawl");
 		}		
 		
 		// function for touching checkpoint
