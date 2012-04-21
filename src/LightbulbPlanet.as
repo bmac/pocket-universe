@@ -18,7 +18,7 @@ package
 		{
 			super(x, y, checkpoint, 332);
 			this.loadGraphic(lightbulb_planet, true, false, 332, 330);
-			this.addAnimation("Flash", [0, 1, 2, 3], 1, true);
+			this.addAnimation("Flash", [0, 1, 2, 3, 2, 1], 1, true);
 			planet_background = new PlanetBackground(this.x, this.y, lightbulb_background);
 			this.planetMass = LIGHTBULB_MASS;
 			this.checkpoint = 0;			

@@ -12,8 +12,8 @@ package
 	public class Player extends FlxSprite
 	{
 		
-		[Embed(source="../assets/drop/sprite sheet smaller.png")] private var player_Sprite:Class;
-
+		[Embed(source="../assets/drop/sprite sheet smaller.png")]
+		private var player_Sprite:Class;
 		
 		private var planets:FlxGroup;
 		private var anti_gravity_flag:Boolean = false;
@@ -43,24 +43,24 @@ package
 		public function Player(firstPlanet:Planet, planets:FlxGroup)
 		{
 			this.planets = planets;
-			super(20, 60);
-
 			currentCheckpoint = firstPlanet;
 			firstPlanet.PlaceOnPlanet(this);
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
-			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6);
+			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
 		}
 		
 		override public function update():void
 		{
 			if (!_currentPlanet){
 				do_planet_gravity();
-			} else {
+			}
+			else
+			{
 				velocity.x = 0;
 				velocity.y = 0;
 			}
 			do_input();
-			do_animation();
+
 			super.update();		
 		}
 		
@@ -73,9 +73,10 @@ package
 				{
 					// find the overlaping planet (ie the planet the player landed on)
 					var planet:Planet;
-					for (var i:int = 0, len:int = planets.length; i < len; i++) {
+					for (var i:int = 0, len:int = planets.length; i < len; i++)
+					{
 						planet = planets.members[i];
-						if (FlxG.overlap(this, planet)) 
+						if (FlxG.overlap(this, planet))
 						{
 							_currentPlanet = planet;
 							break;
@@ -94,16 +95,29 @@ package
 			
 			// player walks around the current planet using left and right arrow keys
 			if (this.getIsWalking())
-			{	
-				_currentPlanet.PlaceOnPlanet(this);
+			{
+				if (FlxG.keys.U)
+				{
+					_locationOnPlanet = 360;
+					_currentPlanet.PlaceOnPlanet(this);
+				}
 				
-				if ((FlxG.keys.RIGHT || FlxG.keys.LEFT) ) 
-				{					
+				
+				if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
+				{				
+						this.play("crawl");
+
 						//Move the player left or right on the planet
 						if (FlxG.keys.RIGHT)
-							_locationOnPlanet+= _playerSpeed;
+						{
+							_locationOnPlanet += _playerSpeed;
+							this.facing = FlxObject.RIGHT;
+						}
 						if (FlxG.keys.LEFT)
-							_locationOnPlanet-= _playerSpeed;
+						{
+							_locationOnPlanet -= _playerSpeed;
+							this.facing = FlxObject.LEFT;
+						}
 						
 						//Makes sure that the new position is within bounds
 						if (_locationOnPlanet > 360)
@@ -116,11 +130,31 @@ package
 						}
 							
 						this._currentPlanet.PlaceOnPlanet(this);
+					
+					var playerSpeed:int = 1;
+					
+					//Move the player left or right on the planet
+					if (FlxG.keys.RIGHT)
+						_locationOnPlanet += _playerSpeed;
+					if (FlxG.keys.LEFT)
+						_locationOnPlanet -= _playerSpeed;
+					
+					//Makes sure that the new position is within bounds
+					if (_locationOnPlanet > 360)
+					{
+						_locationOnPlanet -= 360;
+					}
+					if (_locationOnPlanet < 0)
+					{
+						_locationOnPlanet += 360;
+					}
+					
+					this._currentPlanet.PlaceOnPlanet(this);
 				}
 			}
 		}
 		
-		public function getIsWalking():Boolean 
+		public function getIsWalking():Boolean
 		{
 			return (this._currentPlanet != null);
 		}
@@ -129,27 +163,23 @@ package
 		{
 			if (!this.getIsWalking())
 			{
-				for (var i:int = 0, len:int = planets.length; i < len; i++) {
-					var planet:Planet = planets.members[i]; 
-					var xx:Number = planet.x - this.x;
-					var yy:Number = planet.y - this.y;
-					var r:Number = Math.sqrt( xx * xx + yy * yy );
+				for (var i:int = 0, len:int = planets.length; i < len; i++)
+				{
+					var planet:Planet = planets.members[i];
+					var xx:Number = planet.getCenter().x - this.getCenter().x;
+					var yy:Number = planet.getCenter().y - this.getCenter().y;
+					var r:Number = Math.sqrt(xx * xx + yy * yy);
 					
 					var gravitational_strength:Number = G * planet.getMass() / Math.pow(r, 2);
-
-					var gravity_x:Number = planet.x - this.x;
-					var gravity_y:Number = planet.y - this.y;
+					
+					var gravity_x:Number = planet.getCenter().x - this.getCenter().x;
+					var gravity_y:Number = planet.getCenter().y - this.getCenter().y;
 					
 					this.velocity.x += gravity_x * gravitational_strength;
-					this.velocity.y += gravity_y * gravitational_strength;	
+					this.velocity.y += gravity_y * gravitational_strength;
 				}
 			}
 		}
-		
-		public function do_animation():void
-		{
-			//this.play("crawl");
-		}		
 		
 		// function for touching checkpoint
 		public function reachedCheckpoint(checkpointPlanet:Planet):void
@@ -162,6 +192,7 @@ package
 		{
 			levelSuccess = true;
 		}
+		
 		public function getSuccess():Boolean
 		{
 			return levelSuccess;
@@ -185,7 +216,8 @@ package
 		{
 			return _locationOnPlanet;
 		}
-		public function setLocationOnPlanet(location:int):void 
+		
+		public function setLocationOnPlanet(location:int):void
 		{
 			if ((location < 1) || (location > 360))
 			{
@@ -209,6 +241,31 @@ package
 			// return animation to normal
 			this.frozen = false;
 		}*/
+		
+		public function is_on_planet():Boolean
+		{
+			for (var i:int = 0, len:int = planets.length; i < len; i++)
+			{
+				var planet:Planet = planets.members[i];
+				if (this.getRadii() + planet.getRadii() > FlxU.getDistance(new FlxPoint(getCenter().x, getCenter().y), planet.getCenter()))
+				{
+					return true;
+				}
+			}
+			return false;
+		
+		}
+		
+		public function getRadii():Number
+		{
+			return height / 2;
+		}
+		
+		//Returns the center of this Circle in the world
+		public function getCenter():FlxPoint
+		{
+			return new FlxPoint(this.origin.x + this.x, this.origin.y + this.y);
+		}
 	}
 
 }
