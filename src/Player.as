@@ -45,7 +45,7 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
-			_locationOnPlanet = currentCheckpoint.getCheckpoint()
+			//_locationOnPlanet = currentCheckpoint.getCheckpoint()
 			//firstPlanet.PlaceOnPlanet(this);
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
