@@ -8,6 +8,7 @@ package
 	import org.flixel.FlxG;
 	import org.flixel.FlxU;
 	import org.flixel.FlxTimer;
+	import flash.geom.Point;
 	
 	public class Player extends FlxSprite
 	{
@@ -20,7 +21,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = 4;
+		public const ANTI_GRAVITY:Number = 250;
 		
 		//player win
 		private var levelSuccess:Boolean = false;
@@ -90,8 +91,14 @@ package
 			if (FlxG.keys.justPressed("SPACE") && (_currentPlanet != null)) {
 				var tempPlanet:Planet = _currentPlanet;
 				_currentPlanet = null;
-				velocity.x = this.x - tempPlanet.getCenter().x * ANTI_GRAVITY;
-				velocity.y = this.y - tempPlanet.getCenter().y * ANTI_GRAVITY;
+				
+				var tempPoint:Point = new Point
+					(this.x - tempPlanet.getCenter().x, this.y - tempPlanet.getCenter().y);
+				tempPoint.normalize(1);
+				velocity.x = tempPoint.x * ANTI_GRAVITY;
+				velocity.y = tempPoint.y * ANTI_GRAVITY;
+				
+				
 			}
 			
 			// player walks around the current planet using left and right arrow keys
