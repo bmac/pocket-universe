@@ -12,7 +12,7 @@ package
 	public class Player extends FlxSprite
 	{
 		
-		[Embed (source = "../assets/drop/jump_frame_1.png")] private var player_Sprite:Class;
+		[Embed(source="../assets/drop/sprite sheet smaller.png")] private var player_Sprite:Class;
 
 		
 		private var planets:FlxGroup;
@@ -20,7 +20,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = -100;
+		public const ANTI_GRAVITY:Number = 4;
 		
 		//player win
 		private var levelSuccess:Boolean = false;
@@ -44,8 +44,11 @@ package
 		{
 			this.planets = planets;
 			super(20, 60);
+
 			currentCheckpoint = firstPlanet;
 			firstPlanet.PlaceOnPlanet(this);
+			this.loadGraphic(player_Sprite, true, true, 60, 50);
+			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6);
 		}
 		
 		override public function update():void
@@ -118,8 +121,8 @@ package
 			if (FlxG.keys.SPACE && FlxG.overlap(this, planets) ) {
 				_currentPlanet = null;
 				do_planet_gravity();
-				velocity.x = velocity.x * ANTI_GRAVITY;
-				velocity.y = velocity.y * ANTI_GRAVITY;
+				velocity.x = this.x - planet.getCenter().x * ANTI_GRAVITY;
+				velocity.y = this.y - planet.getCenter().y * ANTI_GRAVITY;
 			}
 		}
 		
@@ -151,7 +154,7 @@ package
 		
 		public function do_animation():void
 		{
-			// run appropriate animation
+			//this.play("crawl");
 		}		
 		
 		// function for touching checkpoint
