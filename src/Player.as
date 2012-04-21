@@ -87,17 +87,6 @@ package
 			
 			if (this.getIsWalking())
 			{
-				/*
-				//more test code
-				if (FlxG.keys.RIGHT)
-					_locationOnPlanet = (90);
-				if (FlxG.keys.LEFT)
-					_locationOnPlanet =  (270);
-				if (FlxG.keys.DOWN)
-					_locationOnPlanet = (180);
-				if (FlxG.keys.UP)
-					_locationOnPlanet = (360);
-				*/
 					
 				_currentPlanet.PlaceOnPlanet(this);
 				
