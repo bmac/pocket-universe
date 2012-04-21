@@ -25,8 +25,6 @@ package
 			this._checkpoint = checkpoint;
 			super(x, y);
 			this.loadGraphic(apple_sprite);
-			//this.scale.x = 1;
-			//this.scale.y = 1;
 		}
 		
 		//The Rectangular Size of this planet (ie the texture size)
