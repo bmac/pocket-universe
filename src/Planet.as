@@ -45,7 +45,7 @@ package
 		//Returns the center of this Circle
 		public function getCenter():FlxPoint 
 		{
-			return new FlxPoint( (this.x + this.getSize() / 2), (this.y + this.getSize() / 2 ));
+			return new FlxPoint(this.x + (this.width / 2), this.y + (0.5 * this.height))
 		}
 		
 		

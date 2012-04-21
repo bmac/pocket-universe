@@ -12,8 +12,8 @@ package
 	public class Player extends FlxSprite
 	{
 		
-		[Embed(source="../assets/drop/sprite sheet smaller.png")] private var player_Sprite:Class;
-
+		[Embed(source="../assets/drop/sprite sheet smaller.png")]
+		private var player_Sprite:Class;
 		
 		private var planets:FlxGroup;
 		private var anti_gravity_flag:Boolean = false;
@@ -33,7 +33,6 @@ package
 		
 		private var frozen:Boolean = false;
 		
-		
 		public function Player(point:FlxPoint, planets:FlxGroup)
 		{
 			this.planets = planets;
@@ -45,25 +44,31 @@ package
 		
 		override public function update():void
 		{
-			if (!FlxG.overlap(this, planets)){
+			if (!this.is_on_planet())
+			{
 				do_planet_gravity();
-			} else {
+			}
+			else
+			{
 				velocity.x = 0;
 				velocity.y = 0;
 			}
 			do_input();
 			do_animation();
-			super.update();		
+			super.update();
 		}
 		
 		public function do_input():void
 		{
-			if (FlxG.keys.RIGHT && FlxG.overlap(this, planets)) {
+			if (FlxG.keys.RIGHT && FlxG.overlap(this, planets))
+			{
 				// find the overlaping planet
 				var planet:Planet;
-				for (var i:int = 0, len:int = planets.length; i < len; i++) {
+				for (var i:int = 0, len:int = planets.length; i < len; i++)
+				{
 					planet = planets.members[i];
-					if (FlxG.overlap(this, planet)) {
+					if (this.is_on_planet())
+					{
 						break;
 					}
 				}
@@ -72,7 +77,8 @@ package
 				this.y = -1 * new_position.y;
 			}
 			
-			if (FlxG.keys.SPACE && FlxG.overlap(this, planets)) {
+			if (FlxG.keys.SPACE && this.is_on_planet())
+			{
 				do_planet_gravity();
 				velocity.x = velocity.x * ANTI_GRAVITY;
 				velocity.y = velocity.y * ANTI_GRAVITY;
@@ -81,26 +87,27 @@ package
 		
 		public function do_planet_gravity():void
 		{
-			for (var i:int = 0, len:int = planets.length; i < len; i++) {
-				var planet:Planet = planets.members[i]; 
-				var xx:Number = planet.x - this.x;
-				var yy:Number = planet.y - this.y;
-				var r:Number = Math.sqrt( xx * xx + yy * yy );
+			for (var i:int = 0, len:int = planets.length; i < len; i++)
+			{
+				var planet:Planet = planets.members[i];
+				var xx:Number = planet.getCenter().x - this.getCenterX();
+				var yy:Number = planet.getCenter().y - this.getCenterY();
+				var r:Number = Math.sqrt(xx * xx + yy * yy);
 				
 				var gravitational_strength:Number = G * planet.getMass() / Math.pow(r, 2);
-
-				var gravity_x:Number = planet.x - this.x;
-				var gravity_y:Number = planet.y - this.y;
+				
+				var gravity_x:Number = planet.getCenter().x - this.getCenterX();
+				var gravity_y:Number = planet.getCenter().y - this.getCenterY();
 				
 				this.velocity.x += gravity_x * gravitational_strength;
-				this.velocity.y += gravity_y * gravitational_strength;	
+				this.velocity.y += gravity_y * gravitational_strength;
 			}
 		}
 		
 		public function do_animation():void
 		{
 			//this.play("crawl");
-		}		
+		}
 		
 		// function for touching checkpoint
 		public function reachedCheckpoint(checkpointPlanet:Planet):void
@@ -113,6 +120,7 @@ package
 		{
 			levelSuccess = true;
 		}
+		
 		public function getSuccess():Boolean
 		{
 			return levelSuccess;
@@ -133,7 +141,7 @@ package
 		}
 		
 		// change player to frozen
-		public function freeze():void 
+		public function freeze():void
 		{
 			// change animation to frozen
 			this.frozen = true;
@@ -145,6 +153,42 @@ package
 		{
 			// return animation to normal
 			this.frozen = false;
+		}
+		
+		public function is_on_planet():Boolean
+		{
+			for (var i:int = 0, len:int = planets.length; i < len; i++)
+			{
+				var planet:Planet = planets.members[i];
+				//trace("this.getRadii() ", this.getRadii());
+				//trace("planet.getRadii() ", planet.getRadii());
+				//trace("FlxU.getDistance(this.getCenter(), planet.getCenter()) ", FlxU.getDistance(new FlxPoint(this.getCenterX(), this.getCenterY()), planet.getCenter()));
+				//trace("get center ", this.getCenterX(), this.getCenterY());
+				trace("get planet center ", planet.getCenter().x, planet.getCenter().y);
+				//trace("this x, y ", this.x, this.y);
+				if (this.getRadii() + planet.getRadii() > 
+				FlxU.getDistance(new FlxPoint(getCenterX(), getCenterY()), planet.getCenter())) {
+					return true;
+				}
+			}
+			return false;
+		
+		}
+		
+		public function getRadii():Number
+		{
+			return height / 2;
+		}
+		
+		//Returns the center of this Circle
+		public function getCenterX():Number 
+		{
+			return this.x + (this.width / 2);
+		}
+		
+		public function getCenterY():Number 
+		{
+			return this.y + (this.height / 2);
 		}
 	}
 
