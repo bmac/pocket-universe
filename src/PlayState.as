@@ -4,7 +4,7 @@ package
 
 	public class PlayState extends FlxState
 	{
-		
+		private var camera:Camera;
 		private var planets:FlxGroup;
 		private var player:Player;
 		private var obstacles:FlxGroup;
@@ -15,6 +15,9 @@ package
 
 		override public function create():void
 		{
+			// create camera
+			camera = new Camera(new FlxPoint(0, 0), 640, 480, 1);
+			
 			// create all the planets for the level
 			planets = new FlxGroup();
 			planets.add(new GrapePlanet(100, 70, 1));
@@ -28,6 +31,7 @@ package
 			player = new Player(planets.members[0].getPointAt(planets.members[0].getCheckpoint()), planets);
 			
 			// add all to the world
+			add(camera);
 			add(planets);
 			add(obstacles);
 			add(player);
