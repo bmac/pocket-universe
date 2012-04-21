@@ -89,5 +89,9 @@ package
 				player.reachedCheckpoint(this);
 			}
 		}
+		
+		public function getRadii():Number {
+			return height / 2;
+		}
 	}
 }
