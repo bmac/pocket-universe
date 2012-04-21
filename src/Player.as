@@ -131,6 +131,10 @@ package
 			this.frozen = false;
 		}
 		
+		public function playerLocation():FlxPoint
+		{
+			return new FlxPoint(this.x, this.y);
+		}
 	}
 
 }
