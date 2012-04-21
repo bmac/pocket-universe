@@ -9,15 +9,20 @@ package
 		private var player:Player;
 		private var obstacles:FlxGroup;
 		
+
+		//camera options
+		private var cameraOrigin:FlxPoint = new FlxPoint(0, 0);
+		private var width:int = 640;
+		private var height:int = 480;
+		private var zoom:int = 1;
+		
+		
 		public function PlayState()
 		{
 		}
 
 		override public function create():void
-		{
-			// create camera
-			camera = new Camera(new FlxPoint(0, 0), 640, 480, 1);
-			
+		{			
 			// create all the planets for the level
 			planets = new FlxGroup();
 			planets.add(new GrapePlanet(100, 70, 1));
@@ -30,11 +35,14 @@ package
 			// create the player
 			player = new Player(planets.members[0].getPointAt(planets.members[0].getCheckpoint()), planets);
 			
+			// create camera
+			camera = new Camera(cameraOrigin, width, height, zoom, player);
+			
 			// add all to the world
-			add(camera);
 			add(planets);
 			add(obstacles);
 			add(player);
+			add(camera);
 		}
 	}
 }
