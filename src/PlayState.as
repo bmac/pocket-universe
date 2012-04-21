@@ -8,7 +8,7 @@ package
 		private var planets:FlxGroup;
 		private var player:Player;
 		private var obstacles:FlxGroup;
-		
+		private var music:MusicController;
 
 		//camera options
 		private var cameraOrigin:FlxPoint = new FlxPoint(0, 0);
@@ -40,7 +40,8 @@ package
 			// create camera
 			//FlxG.camera.target = player;
 			
-			
+			// start the music
+			music = new MusicController();
 			
 			// add all to the world
 			add(planets);
