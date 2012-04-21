@@ -22,6 +22,9 @@ package
 		public const G:Number = 90;
 		public const ANTI_GRAVITY:Number = -100;
 		
+		//player win
+		private var levelSuccess:Boolean = false;
+		
 		//player checkpoint
 		private var currentCheckpoint:Planet;
 		
@@ -149,12 +152,28 @@ package
 			currentCheckpoint = checkpointPlanet;
 		}
 		
+		// function for player success
+		public function setSuccess():void
+		{
+			levelSuccess = true;
+		}
+		public function getSuccess():Boolean
+		{
+			return levelSuccess;
+		}
+		
 		// function for player death
-		public function playerDies():void
+		public function dies():void
 		{
 			// run death animation
 			this.x = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).x;
 			this.y = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).y;
+		}
+		
+		// return the player's location as a point
+		public function playerLocation():FlxPoint
+		{
+			return new FlxPoint(this.x, this.y);
 		}
 		
 		// change player to frozen
@@ -184,12 +203,6 @@ package
 		{
 			// return animation to normal
 			this.frozen = false;
-		}
-		
-		// return the player's location as a point
-		public function playerLocation():FlxPoint
-		{
-			return new FlxPoint(this.x, this.y);
 		}
 	}
 

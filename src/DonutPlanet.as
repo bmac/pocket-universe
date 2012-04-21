@@ -13,14 +13,12 @@ package
 		//[Embed(source = "../assets/planets/grape-planet.png")] private var grape_planet:Class;		
 		//[Embed(source = "../assets/planets/grapesbackground.png")] private var grape_background:Class;
 		
-		// add donut sprite
-		
 		public function DonutPlanet(x:int, y:int, checkpoint:int) 
 		{
 			super(x, y, checkpoint);
-			//this.loadGraphic();
-			//planet_background = new PlanetBackground(this.x, this.y, );
-			this._mass = DONUT_MASS;
+			//this.loadGraphic(donut_planet, , , , );
+			//planet_background = new PlanetBackground(this.x, this.y, donut_background);
+			this.planetMass = DONUT_MASS;
 			this.checkpoint = 0;
 		}
 		
