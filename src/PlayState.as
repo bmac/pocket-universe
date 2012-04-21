@@ -12,8 +12,8 @@ package
 
 		//camera options
 		private var cameraOrigin:FlxPoint = new FlxPoint(0, 0);
-		private var width:int = 640;
-		private var height:int = 480;
+		private var width:int = 960;
+		private var height:int = 540;
 		private var zoom:int = 1;
 		
 		
@@ -36,7 +36,7 @@ package
 			player = new Player(planets.members[0].getPointAt(planets.members[0].getCheckpoint()), planets);
 			
 			// create camera
-			camera = new Camera(cameraOrigin, width, height, zoom, player);
+			camera = new Camera(cameraOrigin, width, height, player, zoom);
 			
 			// add all to the world
 			add(planets);

@@ -107,8 +107,8 @@ package
 		public function playerDies():void
 		{
 			// run death animation
-			this.x = currentCheckpoint.getPointAt(currenCheckpoint.getCheckpoint()).x;
-			this.y = currentCheckpoint.getPointAt(currenCheckpoint.getCheckpoint()).y;
+			this.x = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).x;
+			this.y = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).y;
 		}
 		
 		// change player to frozen

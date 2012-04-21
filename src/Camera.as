@@ -10,8 +10,9 @@ package
 	public class Camera extends FlxCamera 
 	{
 		private var player:Player;
+		private var cameraVelocity:Number = 0;
 		
-		public function Camera(point:FlxPoint, Width:int, Height:int, Zoom:Number=0, player:Player) 
+		public function Camera(point:FlxPoint, Width:int, Height:int, player:Player, Zoom:Number=0) 
 		{
 			super(point.x, point.y, Width, Height, Zoom);
 			this.player = player;
@@ -35,7 +36,7 @@ package
 		
 		public function followPlayer():void 
 		{
-			var playerLocation:FlxPoint = worldPositionToScreenPosition(player.playerLocation);
+			var playerLocation:FlxPoint = worldPositionToScreenPosition(player.playerLocation());
 			
 			if (playerLocation.x < 100) // player moving left
 			{
