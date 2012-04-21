@@ -39,7 +39,7 @@ package
 			this.planets = planets;
 			super(20, 60);
 			currentCheckpoint = planets.members[0];
-			this.loadGraphic(player_Sprite, true, true, 70, 50);
+			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6);
 		}
 		
@@ -99,7 +99,7 @@ package
 		
 		public function do_animation():void
 		{
-			this.play("crawl");
+			//this.play("crawl");
 		}		
 		
 		// function for touching checkpoint
