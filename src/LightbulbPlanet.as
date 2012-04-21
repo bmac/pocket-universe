@@ -1,5 +1,7 @@
 package  
 {
+	import org.flixel.FlxPoint;
+	
 	/**
 	 * ...
 	 * @author 
@@ -14,14 +16,17 @@ package
 		[Embed(source="../assets/planets/Lightblulb-surfaceanimation.png")] private var lightbulb_planet:Class;		
 		[Embed(source="../assets/planets/lightblulbbackground.png")] private var lightbulb_background:Class;
 		
-		public function LightbulbPlanet(x:int, y:int, checkpoint:int) 
+		public function LightbulbPlanet(x:int, y:int, scale:Number=1 ,checkpoint:int=0) 
 		{
-			super(x, y, checkpoint, 332);
+			super(x, y, checkpoint);
 			this.loadGraphic(lightbulb_planet, true, false, 332, 330);
 			this.addAnimation("Flash", [0, 1, 2, 3, 2, 1], 1, true);
 			planet_background = new PlanetBackground(this.x, this.y, lightbulb_background);
 			this.planetMass = LIGHTBULB_MASS;
-			this.checkpoint = 0;			
+			this.setSize (528 * scale);
+			this.scale = new FlxPoint(scale, scale);
+			planet_background.scale = new FlxPoint(scale, scale);
+			this.checkpoint = checkpoint;			
 		}
 
 		

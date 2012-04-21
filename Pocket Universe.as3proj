@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="bin\PocketUniverse.swf" />
     <movie fps="30" />
-    <movie width="960" />
-    <movie height="540" />
+    <movie width="800" />
+    <movie height="600" />
     <movie version="10" />
     <movie minorVersion="1" />
     <movie platform="Flash Player" />
