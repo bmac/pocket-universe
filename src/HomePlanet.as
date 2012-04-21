@@ -10,13 +10,13 @@ package
 		
 		private var planet_background:PlanetBackground;
 		
-		//[Embed(source = "../assets/planets/*-planet.png")] private var *_planet:Class;		
+		[Embed(source="../assets/planets/WATER PLANET.png")] private var water_planet:Class;		
 		//[Embed(source = "../assets/planets/*background.png")] private var *_background:Class;
 		
 		public function HomePlanet(x:int, y:int, checkpoint:int) 
 		{
 			super(x, y, checkpoint);
-			//this.loadGraphic(home_planet, , , , );
+			this.loadGraphic(water_planet);
 			//planet_background = new PlanetBackground(this.x, this.y, home_planet_background);
 			this.planetMass = HOME_MASS;
 		}
