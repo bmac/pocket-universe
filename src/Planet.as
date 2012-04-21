@@ -58,11 +58,11 @@ package
 		//Returns a point at the specified position on this planet
 		public function getPointAt(position:int):FlxPoint
 		{
-			/*
+			
 			if ((position < 1) || (position > 360))
 			{
 				throw new ArgumentError("Position is out of bounds. Must be within 1-360");
-			}*/
+			}
 			
 			var point:FlxPoint = new FlxPoint();
 			
@@ -70,8 +70,11 @@ package
 			var centerY:int = this.getCenter().y;
 			var radius:Number = this.getRadius();
 			
-			point.x = centerX + radius * Math.cos(position);
-			point.y = centerY + radius * Math.sin(position);
+			var newAngle:int = position - 90; //This is done so that 0 is at the top of the planets
+			
+			//angleInDegrees * Math.PI / 180F
+			point.x = centerX + radius * Math.cos(newAngle * Math.PI /180);
+			point.y = centerY + radius * Math.sin(newAngle * Math.PI /180);
 			
 			return point;
 		}
@@ -79,12 +82,15 @@ package
 		//TODO: If we need to place obstacles, we need an abstract class
 		public function PlaceOnPlanet(gameObject:Player) 
 		{
+			
 			//For now, let's force the player's position to 0
 			//gameObject.x = this.x + this.origin.x - (gameObject.width /2);
 			//gameObject.y = this.y - (gameObject.height);
 						
 			//newPosition is relative to the planet's origin
 			var newPosition: FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet()); 
+			
+			trace("new X {0} and new Y {1}", newPosition.x, newPosition.y);
 			
 			//This should adjust the position of the object based on it's size
 			//newPosition.x = newPosition.x - (gameObject.width / 2);

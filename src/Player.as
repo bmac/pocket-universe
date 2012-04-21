@@ -38,8 +38,7 @@ package
 		
 		private var frozen:Boolean = false;
 		
-		private var _lastWalkTime:int;
-		private var _walkRate:int = 1; //In ticks?
+		private var _playerSpeed:int = 1;
 		
 		public function Player(firstPlanet:Planet, planets:FlxGroup)
 		{
@@ -88,23 +87,42 @@ package
 			
 			if (this.getIsWalking())
 			{
+				/*
+				//more test code
+				if (FlxG.keys.RIGHT)
+					_locationOnPlanet = (90);
+				if (FlxG.keys.LEFT)
+					_locationOnPlanet =  (270);
+				if (FlxG.keys.DOWN)
+					_locationOnPlanet = (180);
+				if (FlxG.keys.UP)
+					_locationOnPlanet = (360);
+				*/
+					
+				_currentPlanet.PlaceOnPlanet(this);
+				
 				if ((FlxG.keys.RIGHT || FlxG.keys.LEFT) ) 
 				{
-					//if (_lastWalkTime == 0 || (_lastWalkTime+ _walkRate) <= (FlxU.getTicks() ))
-					//{
-					//	_lastWalkTime = FlxU.getTicks();
 						
-						var playerSpeed:int = 10;
+						var playerSpeed:int = 1;
 					
 						//Move the player left or right on the planet
 						if (FlxG.keys.RIGHT)
-							_locationOnPlanet+=playerSpeed;
+							_locationOnPlanet+= _playerSpeed;
 						if (FlxG.keys.LEFT)
-							_locationOnPlanet-=playerSpeed;
+							_locationOnPlanet-= _playerSpeed;
 						
-						
+						//Makes sure that the new position is within bounds
+						if (_locationOnPlanet > 360)
+						{
+							_locationOnPlanet -= 360;
+						}
+						if (_locationOnPlanet < 0)
+						{
+							_locationOnPlanet += 360;
+						}
+							
 						this._currentPlanet.PlaceOnPlanet(this);
-					//}
 				}
 			}
 			
