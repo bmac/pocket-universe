@@ -7,18 +7,26 @@ package
 	 * ...
 	 * @author Chris
 	 */
-	public class Camera extends FlxCamera 
+	public class Camera
 	{
+		public var x:int;
+		public var y:int;
+		public var Width:int;
+		public var Height:int;		
 		private var player:Player;
+		
 		private var cameraVelocity:Number = 0;
 		
-		public function Camera(point:FlxPoint, Width:int, Height:int, player:Player, Zoom:Number=0) 
+		public function Camera(point:FlxPoint, Width:int, Height:int, player:Player) 
 		{
-			super(point.x, point.y, Width, Height, Zoom);
+			this.x = point.x;
+			this.y = point.y;
+			this.Width = Width;
+			this.Height = Height;
 			this.player = player;
 		}
 		
-		override public function update():void
+		public function update():void
 		{
 			followPlayer();
 		}

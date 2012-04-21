@@ -9,7 +9,7 @@ package
 	public class Planet extends FlxSprite
 	{
 		private var _size:int;
-		private var _mass:int;
+		private var _mass:int = 1;
 		
 		[Embed (source = "../assets/planets/grape-planet.png")] private var apple_sprite:Class;
 
