@@ -37,7 +37,6 @@ package
 		
 		override public function update():void
 		{
-			
 			if (!FlxG.overlap(this, planets)){
 				do_planet_gravity();
 			} else {
@@ -105,12 +104,14 @@ package
 		public function playerDies():void
 		{
 			// run death animation
-			
+			this.x = currentCheckpoint.getPointAt(currenCheckpoint.getCheckpoint()).x;
+			this.y = currentCheckpoint.getPointAt(currenCheckpoint.getCheckpoint()).y;
 		}
 		
-		// change animation to frozen
+		// change player to frozen
 		public function freeze():void 
 		{
+			// change animation to frozen
 			this.frozen = true;
 			timer.start(10, 1, this.defrost);
 		}
@@ -118,6 +119,7 @@ package
 		// defrosts player
 		public function defrost():void
 		{
+			// return animation to normal
 			this.frozen = false;
 		}
 		
