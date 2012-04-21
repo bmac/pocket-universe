@@ -17,7 +17,7 @@ package
 		{
 			// create all the planets for the level
 			planets = new FlxGroup();
-			planets.add(new Planet(10, 20, 1));
+			planets.add(new Planet(10, 20, 1, 16));
 			
 			// create all the obstacles for the level
 			obstacles = new FlxGroup();

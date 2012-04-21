@@ -15,7 +15,8 @@ package
 		
 		public function SpongePlanet(x:int, y:int, checkpoint:int) 
 		{
-			super(x, y, checkpoint);
+			//TODO: Change the size of the call into the constructor
+			super(x, y, checkpoint, 100);
 			//this.loadGraphic(sponge_planet, , , , );
 			//planet_background = new PlanetBackground(this.x, this.y, sponge_background);
 			this.planetMass = SPONGE_MASS;

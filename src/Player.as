@@ -20,7 +20,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = -100;
+		public const ANTI_GRAVITY:Number = 4;
 		
 		//player win
 		private var levelSuccess:Boolean = false;
@@ -31,13 +31,22 @@ package
 		//player boosts
 		private var timer:FlxTimer = new FlxTimer();
 		
+		private var _currentPlanet:Planet;
+		
+		//The player's position on the current planet
+		private var _locationOnPlanet:Number = 1;
+		
 		private var frozen:Boolean = false;
 		
-		public function Player(point:FlxPoint, planets:FlxGroup)
+		private var _playerSpeed:int = 1;
+		
+		public function Player(firstPlanet:Planet, planets:FlxGroup)
 		{
 			this.planets = planets;
 			super(20, 60);
-			currentCheckpoint = planets.members[0];
+			
+			currentCheckpoint = firstPlanet;
+			firstPlanet.PlaceOnPlanet(this);
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6);
 		}
@@ -70,37 +79,95 @@ package
 					if (this.is_on_planet())
 					{
 						break;
+						if (this.getIsWalking()) //Player already landed on a planet
+						{
+							//Jump code goes here?
+						}
+						else
+						{
+							//player is floating around, check to see if he has landed on a planet
+							if (FlxG.overlap(this, planets))
+							{
+								// find the overlaping planet (ie the planet the player landed on)
+								var planet:Planet;
+								for (var i:int = 0, len:int = planets.length; i < len; i++)
+								{
+									planet = planets.members[i];
+									if (FlxG.overlap(this, planet))
+									{
+										_currentPlanet = planet;
+										break;
+									}
+								}
+							}
+						}
+						
+						if (this.getIsWalking())
+						{
+							
+							_currentPlanet.PlaceOnPlanet(this);
+							
+							if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
+							{
+								
+								var playerSpeed:int = 1;
+								
+								//Move the player left or right on the planet
+								if (FlxG.keys.RIGHT)
+									_locationOnPlanet += _playerSpeed;
+								if (FlxG.keys.LEFT)
+									_locationOnPlanet -= _playerSpeed;
+								
+								//Makes sure that the new position is within bounds
+								if (_locationOnPlanet > 360)
+								{
+									_locationOnPlanet -= 360;
+								}
+								if (_locationOnPlanet < 0)
+								{
+									_locationOnPlanet += 360;
+								}
+								
+								this._currentPlanet.PlaceOnPlanet(this);
+							}
+						}
+						
+						if (FlxG.keys.SPACE && FlxG.overlap(this, planets))
+						{
+							_currentPlanet = null;
+							do_planet_gravity();
+							velocity.x = this.x - planet.getCenter().x * ANTI_GRAVITY;
+							velocity.y = this.y - planet.getCenter().y * ANTI_GRAVITY;
+						}
 					}
 				}
-				var new_position:FlxPoint = FlxU.rotatePoint(this.x, this.y, planet.x, planet.y, 1);
-				this.x = new_position.x;
-				this.y = -1 * new_position.y;
 			}
-			
-			if (FlxG.keys.SPACE && this.is_on_planet())
-			{
-				do_planet_gravity();
-				velocity.x = velocity.x * ANTI_GRAVITY;
-				velocity.y = velocity.y * ANTI_GRAVITY;
-			}
+		}
+		
+		public function getIsWalking():Boolean
+		{
+			return (this._currentPlanet != null);
 		}
 		
 		public function do_planet_gravity():void
 		{
-			for (var i:int = 0, len:int = planets.length; i < len; i++)
+			if (!this.getIsWalking())
 			{
-				var planet:Planet = planets.members[i];
-				var xx:Number = planet.getCenter().x - this.getCenterX();
-				var yy:Number = planet.getCenter().y - this.getCenterY();
-				var r:Number = Math.sqrt(xx * xx + yy * yy);
-				
-				var gravitational_strength:Number = G * planet.getMass() / Math.pow(r, 2);
-				
-				var gravity_x:Number = planet.getCenter().x - this.getCenterX();
-				var gravity_y:Number = planet.getCenter().y - this.getCenterY();
-				
-				this.velocity.x += gravity_x * gravitational_strength;
-				this.velocity.y += gravity_y * gravitational_strength;
+				for (var i:int = 0, len:int = planets.length; i < len; i++)
+				{
+					var planet:Planet = planets.members[i];
+					var xx:Number = planet.getCenter().x - this.getCenterX();
+					var yy:Number = planet.getCenter().y - this.getCenterY();
+					var r:Number = Math.sqrt(xx * xx + yy * yy);
+					
+					var gravitational_strength:Number = G * planet.getMass() / Math.pow(r, 2);
+					
+					var gravity_x:Number = planet.getCenter().x - this.getCenterX();
+					var gravity_y:Number = planet.getCenter().y - this.getCenterY();
+					
+					this.velocity.x += gravity_x * gravitational_strength;
+					this.velocity.y += gravity_y * gravitational_strength;
+				}
 			}
 		}
 		
@@ -148,6 +215,21 @@ package
 			timer.start(10, 1, this.defrost);
 		}
 		
+		public function getLocationOnPlanet():int
+		{
+			return _locationOnPlanet;
+		}
+		
+		public function setLocationOnPlanet(location:int):void
+		{
+			if ((location < 1) || (location > 360))
+			{
+				throw new ArgumentError("Position is out of bounds. Must be within 1-360");
+			}
+			
+			_locationOnPlanet = location;
+		}
+		
 		// defrosts player
 		public function defrost():void
 		{
@@ -160,14 +242,8 @@ package
 			for (var i:int = 0, len:int = planets.length; i < len; i++)
 			{
 				var planet:Planet = planets.members[i];
-				//trace("this.getRadii() ", this.getRadii());
-				//trace("planet.getRadii() ", planet.getRadii());
-				//trace("FlxU.getDistance(this.getCenter(), planet.getCenter()) ", FlxU.getDistance(new FlxPoint(this.getCenterX(), this.getCenterY()), planet.getCenter()));
-				//trace("get center ", this.getCenterX(), this.getCenterY());
-				trace("get planet center ", planet.getCenter().x, planet.getCenter().y);
-				//trace("this x, y ", this.x, this.y);
-				if (this.getRadii() + planet.getRadii() > 
-				FlxU.getDistance(new FlxPoint(getCenterX(), getCenterY()), planet.getCenter())) {
+				if (this.getRadii() + planet.getRadii() > FlxU.getDistance(new FlxPoint(getCenterX(), getCenterY()), planet.getCenter()))
+				{
 					return true;
 				}
 			}
@@ -181,12 +257,12 @@ package
 		}
 		
 		//Returns the center of this Circle
-		public function getCenterX():Number 
+		public function getCenterX():Number
 		{
 			return this.x + (this.width / 2);
 		}
 		
-		public function getCenterY():Number 
+		public function getCenterY():Number
 		{
 			return this.y + (this.height / 2);
 		}
