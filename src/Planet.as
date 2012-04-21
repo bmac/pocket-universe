@@ -6,25 +6,15 @@ package
 	 * ...
 	 * @author Vinny
 	 */
-	public class Planet 
+	public class Planet extends FlxSprite
 	{
-		private var _position:FlxPoint;
 		private var _size:int;
+		private var _mass:int;
 		
-		public function Planet() 
+		public function Planet(x:int, y:int) 
 		{
-			
-		}
-		
-		///Returns the position of the planet within the world
-		//TODO: in Pixels???
-		public function getPosition():FlxPoint
-		{
-			return _position;
-		}
-		public function setPosition(position:FlxPoint):void
-		{
-			_position = position;
+			this.x = x;
+			this.y = y;
 		}
 		
 		//The Rectangular Size of this planet (ie the texture size)
@@ -43,6 +33,7 @@ package
 			return new FlxPoint( (this.getSize() / 2), (this.getSize() / 2 ));
 		}
 		
+		/*
 		//Returns a point at the specified position on this planet
 		public function getPointAt(position:int):FlxPoint
 		{
@@ -53,5 +44,6 @@ package
 			
 			
 		}
-
+		*/
+	}
 }
