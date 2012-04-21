@@ -20,12 +20,10 @@ package
 		 */
 		protected var checkpoint:int;
 		
-		public function Planet(x:int, y:int, checkpoint:int, size:int) 
+		public function Planet(x:int, y:int, checkpoint:int) 
 		{
 			this.checkpoint = checkpoint;
 			super(x, y);
-			_size = size;
-			this.loadGraphic(apple_sprite);
 		}
 		
 		//The Rectangular Size of this planet (ie the texture size)
