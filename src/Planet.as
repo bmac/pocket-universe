@@ -20,10 +20,11 @@ package
 		 */
 		protected var checkpoint:int;
 		
-		public function Planet(x:int, y:int, checkpoint:int) 
+		public function Planet(x:int, y:int, checkpoint:int, size:int) 
 		{
 			this.checkpoint = checkpoint;
 			super(x, y);
+			_size = size;
 			this.loadGraphic(apple_sprite);
 		}
 		
@@ -37,35 +38,61 @@ package
 			_size = size;
 		}
 		
+		public function getRadius():Number
+		{
+			return this.getSize() / 2;
+		}
+		
 		public function getMass():int
 		{
 			return planetMass;
 		}
 		
-		//Returns the center of this Circle
+		//Returns the center of this Circle in the world
 		public function getCenter():FlxPoint 
 		{
-			return new FlxPoint( (this.x + this.getSize() / 2), (this.y + this.getSize() / 2 ));
+			return new FlxPoint(this.origin.x + this.x, this.origin.y + this.y);
 		}
 		
 		
 		//Returns a point at the specified position on this planet
 		public function getPointAt(position:int):FlxPoint
 		{
-			var point:FlxPoint = new FlxPoint();
-			
+			/*
 			if ((position < 1) || (position > 360))
 			{
 				throw new ArgumentError("Position is out of bounds. Must be within 1-360");
-			}
+			}*/
 			
-			// find the center point of the planet
-			point = this.getCenter(); 
-			// calculate the x and y for the position and store in the point
-			point.x = point.x + _size * Math.cos(position * 2 * Math.PI / 360);
-			point.y = point.y + _size * Math.sin(position * 2 * Math.PI / 360);
+			var point:FlxPoint = new FlxPoint();
+			
+			var centerX:int = this.getCenter().x;
+			var centerY:int = this.getCenter().y;
+			var radius:Number = this.getRadius();
+			
+			point.x = centerX + radius * Math.cos(position);
+			point.y = centerY + radius * Math.sin(position);
 			
 			return point;
+		}
+		
+		//TODO: If we need to place obstacles, we need an abstract class
+		public function PlaceOnPlanet(gameObject:Player) 
+		{
+			//For now, let's force the player's position to 0
+			//gameObject.x = this.x + this.origin.x - (gameObject.width /2);
+			//gameObject.y = this.y - (gameObject.height);
+						
+			//newPosition is relative to the planet's origin
+			var newPosition: FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet()); 
+			
+			//This should adjust the position of the object based on it's size
+			//newPosition.x = newPosition.x - (gameObject.width / 2);
+			//newPosition.y = newPosition.y - (gameObject.height)
+			
+			gameObject.x = newPosition.x;
+			gameObject.y = newPosition.y;
+			
 		}
 		
 		public function getCheckpoint():int

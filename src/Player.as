@@ -28,8 +28,15 @@ package
 		//player boosts
 		private var timer:FlxTimer = new FlxTimer();
 		
+		private var _currentPlanet:Planet;
+		
+		//The player's position on the current planet
+		private var _locationOnPlanet:Number = 1;
+		
 		private var frozen:Boolean = false;
 		
+		private var _lastWalkTime:int;
+		private var _walkRate:int = 1; //In ticks?
 		
 		public function Player(point:FlxPoint, planets:FlxGroup)
 		{
@@ -53,42 +60,81 @@ package
 		
 		public function do_input():void
 		{
-			if (FlxG.keys.RIGHT && FlxG.overlap(this, planets)) {
-				// find the overlaping planet
-				var planet:Planet;
-				for (var i:int = 0, len:int = planets.length; i < len; i++) {
-					planet = planets.members[i];
-					if (FlxG.overlap(this, planet)) {
-						break;
+			if (this.getIsWalking()) //Player already landed on a planet
+			{
+				//Jump code goes here?
+			}
+			else
+			{
+				//player is floating around, check to see if he has landed on a planet
+				if (FlxG.overlap(this, planets))
+				{
+					// find the overlaping planet (ie the planet the player landed on)
+					var planet:Planet;
+					for (var i:int = 0, len:int = planets.length; i < len; i++) {
+						planet = planets.members[i];
+						if (FlxG.overlap(this, planet)) 
+						{
+							_currentPlanet = planet;
+							break;
+						}
 					}
 				}
-				var new_position:FlxPoint = FlxU.rotatePoint(this.x, this.y, planet.x, planet.y, 1);
-				this.x = new_position.x;
-				this.y = -1 * new_position.y;
 			}
 			
-			if (FlxG.keys.SPACE && FlxG.overlap(this, planets)) {
+			if (this.getIsWalking())
+			{
+				if ((FlxG.keys.RIGHT || FlxG.keys.LEFT) ) 
+				{
+					//if (_lastWalkTime == 0 || (_lastWalkTime+ _walkRate) <= (FlxU.getTicks() ))
+					//{
+					//	_lastWalkTime = FlxU.getTicks();
+						
+						var playerSpeed:int = 10;
+					
+						//Move the player left or right on the planet
+						if (FlxG.keys.RIGHT)
+							_locationOnPlanet+=playerSpeed;
+						if (FlxG.keys.LEFT)
+							_locationOnPlanet-=playerSpeed;
+						
+						
+						this._currentPlanet.PlaceOnPlanet(this);
+					//}
+				}
+			}
+			
+			if (FlxG.keys.SPACE && FlxG.overlap(this, planets) ) {
+				_currentPlanet = null;
 				do_planet_gravity();
 				velocity.x = velocity.x * ANTI_GRAVITY;
 				velocity.y = velocity.y * ANTI_GRAVITY;
 			}
 		}
 		
+		public function getIsWalking():Boolean 
+		{
+			return (this._currentPlanet != null);
+		}
+		
 		public function do_planet_gravity():void
 		{
-			for (var i:int = 0, len:int = planets.length; i < len; i++) {
-				var planet:Planet = planets.members[i]; 
-				var xx:Number = planet.x - this.x;
-				var yy:Number = planet.y - this.y;
-				var r:Number = Math.sqrt( xx * xx + yy * yy );
-				
-				var gravitational_strength:Number = G * planet.getMass() / Math.pow(r, 2);
+			if (!this.getIsWalking())
+			{
+				for (var i:int = 0, len:int = planets.length; i < len; i++) {
+					var planet:Planet = planets.members[i]; 
+					var xx:Number = planet.x - this.x;
+					var yy:Number = planet.y - this.y;
+					var r:Number = Math.sqrt( xx * xx + yy * yy );
+					
+					var gravitational_strength:Number = G * planet.getMass() / Math.pow(r, 2);
 
-				var gravity_x:Number = planet.x - this.x;
-				var gravity_y:Number = planet.y - this.y;
-				
-				this.velocity.x += gravity_x * gravitational_strength;
-				this.velocity.y += gravity_y * gravitational_strength;	
+					var gravity_x:Number = planet.x - this.x;
+					var gravity_y:Number = planet.y - this.y;
+					
+					this.velocity.x += gravity_x * gravitational_strength;
+					this.velocity.y += gravity_y * gravitational_strength;	
+				}
 			}
 		}
 		
@@ -117,6 +163,20 @@ package
 			// change animation to frozen
 			this.frozen = true;
 			timer.start(10, 1, this.defrost);
+		}
+		
+		public function getLocationOnPlanet():int
+		{
+			return _locationOnPlanet;
+		}
+		public function setLocationOnPlanet(location:int):void 
+		{
+			if ((location < 1) || (location > 360))
+			{
+				throw new ArgumentError("Position is out of bounds. Must be within 1-360");
+			}
+			
+			_locationOnPlanet = location;
 		}
 		
 		// defrosts player
