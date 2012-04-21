@@ -69,14 +69,14 @@ package
 			if (!this.getIsWalking()) //Player already landed on a planet
 			{
 				//player is floating around, check to see if he has landed on a planet
-				if (FlxG.overlap(this, planets))
+				if (this.is_on_planet())
 				{
 					// find the overlaping planet (ie the planet the player landed on)
 					var planet:Planet;
 					for (var i:int = 0, len:int = planets.length; i < len; i++)
 					{
 						planet = planets.members[i];
-						if (FlxG.overlap(this, planet))
+						if (this.is_on_planet())
 						{
 							_currentPlanet = planet;
 							break;

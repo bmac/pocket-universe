@@ -16,9 +16,8 @@ package
 		{
 			super(x, y, checkpoint, 100);
 			this.loadGraphic(sponge_planet);
-			this.planetMass = SPONGE_MASS;
+			this.planetMass = SPONGE_MASS;		
 		}
-		
 		
 		override public function playerCollision(player:Player):void
 		{
