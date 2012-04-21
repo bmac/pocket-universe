@@ -1,11 +1,15 @@
-package
+package  
 {
+	/**
+	 * ...
+	 * @author Vinny
+	 */
 	import org.flixel.*;
 
-	public class PlayState extends FlxState
+	public class Level extends FlxState
 	{
 		private var camera:Camera;
-		private var planets:FlxGroup;
+		private var planets:FlxGroup = new FlxGroup();
 		private var player:Player;
 		private var obstacles:FlxGroup;
 		private var music:MusicController;
@@ -16,27 +20,15 @@ package
 		private var height:int = 540;
 		private var zoom:int = 1;
 		
-		
-		public function PlayState()
+
+		public function CreatePlanets(planets:FlxGroup) : void 
 		{
+			throw Error("Please Override CreatePlanets Method");
 		}
-
+		
 		override public function create():void
-		{			
-			// create all the planets for the level
-			planets = new FlxGroup();
-			//planets.add(new SpongePlanet(250, 250, 1));
-			planets.add(new LightbulbPlanet(100, 70, 1));
-			//planets.add(new LightbulbPlanet(800, 740, 0));
-			//planets.add(new LightbulbPlanet(400, 490, 0));
-			//planets.add(new SpongePlanet(50, 50, 1));
-			//planets.add(new LightbulbPlanet(100, 70, 1));
-			//planets.add(new LightbulbPlanet(800, 740, 0));
-			//planets.add(new LightbulbPlanet(200, 150, 0));
-			//planets.add(new SpongePlanet(50, 500, 1));
-
-			// create all the obstacles for the level
-			//obstacles = new FlxGroup();
+		{	
+			this.CreatePlanets(planets);
 			
 			// create the player
 			player = new Player(planets.members[0], planets);
@@ -58,8 +50,10 @@ package
 			super.update();
 			if (player.getSuccess() == true)
 			{
-				FlxG.switchState(new PlayState);
+				//TODO: Determine what to do about win condition...
+				FlxG.switchState(new MenuState());
 			}
 		}
 	}
+
 }

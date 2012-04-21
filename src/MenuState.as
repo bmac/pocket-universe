@@ -1,5 +1,6 @@
 package
 {
+	import levels.Level01;
 	import org.flixel.*;
 
 	public class MenuState extends FlxState
@@ -24,7 +25,7 @@ package
 		private function startGame():void
 		{
 			FlxG.mouse.hide();
-			FlxG.switchState(new PlayState);
+			FlxG.switchState(new Level01);
 		}
 		
 		private function devGame():void
