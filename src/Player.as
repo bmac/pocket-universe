@@ -82,7 +82,7 @@ package
 				var yy:Number = planet.y - this.y;
 				var r:Number = Math.sqrt( xx * xx + yy * yy );
 				
-				var gravitational_strength:Number = G * planet.mass / Math.pow(r, 2);
+				var gravitational_strength:Number = G * planet.getMass() / Math.pow(r, 2);
 
 				var gravity_x:Number = planet.x - this.x;
 				var gravity_y:Number = planet.y - this.y;

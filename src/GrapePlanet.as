@@ -6,6 +6,7 @@ package
 	 */
 	public class GrapePlanet extends Planet
 	{
+		public const GRAPE_MASS:int = 1;
 		private var planet_background:PlanetBackground;
 		
 		[Embed(source = "../assets/planets/grape-planet.png")] private var grape_planet:Class;		
@@ -16,6 +17,7 @@ package
 			super(x, y, checkpoint);
 			this.loadGraphic(grape_planet);
 			planet_background = new PlanetBackground(this.x, this.y, grape_background);
+			this.planetMass = GRAPE_MASS;
 
 		}
 		

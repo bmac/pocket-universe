@@ -9,7 +9,7 @@ package
 	public class Planet extends FlxSprite
 	{
 		private var _size:int;
-		private var _mass:int = 1;
+		protected var planetMass:int = 1;
 		
 		[Embed (source = "../assets/planets/grape-planet.png")] private var apple_sprite:Class;
 
@@ -18,11 +18,11 @@ package
 		 * If 1 to 360 the planet is a checkpoint,
 		 * the value is the starting position for player
 		 */
-		private var _checkpoint:int;
+		protected var checkpoint:int;
 		
 		public function Planet(x:int, y:int, checkpoint:int) 
 		{
-			this._checkpoint = checkpoint;
+			this.checkpoint = checkpoint;
 			super(x, y);
 			this.loadGraphic(apple_sprite);
 		}
@@ -35,6 +35,11 @@ package
 		public function setSize(size:int):void
 		{
 			_size = size;
+		}
+		
+		public function getMass():int
+		{
+			return planetMass;
 		}
 		
 		//Returns the center of this Circle
@@ -65,12 +70,12 @@ package
 		
 		public function getCheckpoint():int
 		{
-			return _checkpoint;
+			return checkpoint;
 		}
 		// returns true if the planet is a valid checkpoint planet
 		public function isCheckpoint():Boolean
 		{
-			if ((_checkpoint > 0) && (_checkpoint <= 360))
+			if ((checkpoint > 0) && (checkpoint <= 360))
 			{
 				return true;
 			}
