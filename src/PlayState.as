@@ -17,6 +17,8 @@ package
 			FlxG.bgColor = 0x000000;
 			planets = new FlxGroup();
 			planets.add(new Planet(10, 20));
+			planets.add(new Planet(200, 40));
+			planets.add(new Planet(40, 90));
 			player = new Player(planets);
 			add(planets);
 			add(player);
