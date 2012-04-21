@@ -47,5 +47,14 @@ package
 			add(obstacles);
 			add(player);
 		}
+		
+		override public function update():void
+		{
+			super.update();
+			if (player.getSuccess() == true)
+			{
+				FlxG.switchState(new PlayState);
+			}
+		}
 	}
 }
