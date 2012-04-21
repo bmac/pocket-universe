@@ -20,7 +20,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = -100;
+		public const ANTI_GRAVITY:Number = 4;
 		
 		//player win
 		private var levelSuccess:Boolean = false;
@@ -57,7 +57,7 @@ package
 		public function do_input():void
 		{
 			if (FlxG.keys.RIGHT && FlxG.overlap(this, planets)) {
-				// find the overlaping planet
+				// find the overlapping planet
 				var planet:Planet;
 				for (var i:int = 0, len:int = planets.length; i < len; i++) {
 					planet = planets.members[i];
@@ -71,9 +71,16 @@ package
 			}
 			
 			if (FlxG.keys.SPACE && FlxG.overlap(this, planets)) {
+				// find the overlapping planet
+				for (i = 0, len = planets.length; i < len; i++) {
+					planet = planets.members[i];
+					if (FlxG.overlap(this, planet)) {
+						break;
+					}
+				}
 				do_planet_gravity();
-				velocity.x = velocity.x * ANTI_GRAVITY;
-				velocity.y = velocity.y * ANTI_GRAVITY;
+				velocity.x = this.x - planet.getCenter().x * ANTI_GRAVITY;
+				velocity.y = this.y - planet.getCenter().y * ANTI_GRAVITY;
 			}
 		}
 		
