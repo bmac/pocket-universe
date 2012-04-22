@@ -21,11 +21,12 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
+		
 		public const ANTI_GRAVITY:Number = -120;
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
-		private const GRAVITY_JUMP_DELAY:Number = 0.2;
+		private const GRAVITY_JUMP_DELAY:Number = 0.5;
 		
 		private var keyboardEnabled:Boolean = true;
 		//player win
@@ -85,7 +86,7 @@ package
 			}
 			
 			//this.play("stand");
-			if (!this.getIsWalking()) //Player already landed on a planet
+			if (!this.isWalking()) //Player already landed on a planet
 			{
 				//player is floating around, check to see if he has landed on a planet
 				if (this.is_on_planet())
@@ -97,10 +98,12 @@ package
 						planet = planets.members[i];
 						if (this.getRadius() + planet.getRadius() > FlxU.getDistance(getCenter(), planet.getCenter()))
 						{
+							
+							//Land on the planet!
 							_currentPlanet = planet;
+							this.play("idle");
 							_currentPlanet.playerCollision(this);
-							//planet.HelpReceivePlayer(this)
-							_locationOnPlanet = 1;
+							planet.HelpReceivePlayer(this);
 							velocity.x = 0;
 							velocity.y = 0;
 							break;
@@ -113,6 +116,7 @@ package
 				// player jumps perpendicular using spacebar
 				if (FlxG.keys.SPACE && (_currentPlanet != null))
 				{
+					
 					this.play("jump");
 					var xx:Number = _currentPlanet.getCenter().x - this.getCenter().x;
 					var yy:Number = _currentPlanet.getCenter().y - this.getCenter().y;
@@ -130,65 +134,74 @@ package
 				}
 				
 				// player walks around the current planet using left and right arrow keys
-				if (this.getIsWalking())
+				if (this.isWalking())
 				{
 					if (FlxG.keys.U)
 					{
 						_locationOnPlanet = 360;
 						_currentPlanet.PlaceOnPlanet(this);
 					}
-					
-					if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
+					// player walks around the current planet using left and right arrow keys
+					if (this.isWalking())
 					{
-						this.play("crawl");
-						
-						//Move the player left or right on the planet
-						if (FlxG.keys.RIGHT)
+						if (FlxG.keys.U)
 						{
-							_locationOnPlanet += _playerSpeed;
-							this.facing = FlxObject.RIGHT;
-						}
-						if (FlxG.keys.LEFT)
-						{
-							_locationOnPlanet -= _playerSpeed;
-							this.facing = FlxObject.LEFT;
+							_locationOnPlanet = 360;
+							_currentPlanet.PlaceOnPlanet(this);
 						}
 						
-						//Makes sure that the new position is within bounds
-						if (_locationOnPlanet > 360)
+						if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
 						{
-							_locationOnPlanet -= 360;
+							this.play("crawl");
+							
+							//Move the player left or right on the planet
+							if (FlxG.keys.RIGHT)
+							{
+								_locationOnPlanet += _playerSpeed;
+								this.facing = FlxObject.RIGHT;
+							}
+							if (FlxG.keys.LEFT)
+							{
+								_locationOnPlanet -= _playerSpeed;
+								this.facing = FlxObject.LEFT;
+							}
+							
+							//Makes sure that the new position is within bounds
+							if (_locationOnPlanet > 360)
+							{
+								_locationOnPlanet -= 360;
+							}
+							if (_locationOnPlanet <= 0)
+							{
+								_locationOnPlanet += 360;
+							}
+							
+							this._currentPlanet.PlaceOnPlanet(this);
+							
+							var playerSpeed:int = 1;
+							
+							//Move the player left or right on the planet
+							if (FlxG.keys.RIGHT)
+								_locationOnPlanet += _playerSpeed;
+							if (FlxG.keys.LEFT)
+								_locationOnPlanet -= _playerSpeed;
+							
+							//Makes sure that the new position is within bounds
+							if (_locationOnPlanet > 360)
+							{
+								_locationOnPlanet -= 360;
+							}
+							if (_locationOnPlanet < 0)
+							{
+								_locationOnPlanet += 360;
+							}
+							
+							this._currentPlanet.PlaceOnPlanet(this);
 						}
-						if (_locationOnPlanet <= 0)
-						{
-							_locationOnPlanet += 360;
-						}
-						
-						this._currentPlanet.PlaceOnPlanet(this);
-						
-						var playerSpeed:int = 1;
-						
-						//Move the player left or right on the planet
-						if (FlxG.keys.RIGHT)
-							_locationOnPlanet += _playerSpeed;
-						if (FlxG.keys.LEFT)
-							_locationOnPlanet -= _playerSpeed;
-						
-						//Makes sure that the new position is within bounds
-						if (_locationOnPlanet > 360)
-						{
-							_locationOnPlanet -= 360;
-						}
-						if (_locationOnPlanet < 0)
-						{
-							_locationOnPlanet += 360;
-						}
-						
-						this._currentPlanet.PlaceOnPlanet(this);
 					}
 				}
 				
-				if (FlxG.keys.justReleased("LEFT") || FlxG.keys.justReleased("RIGHT"))
+				if ((FlxG.keys.justReleased("LEFT") || FlxG.keys.justReleased("RIGHT")) && (isWalking()))
 				{
 					this.play("idle");
 				}
@@ -215,14 +228,14 @@ package
 			isJumping = false;
 		}
 		
-		public function getIsWalking():Boolean
+		public function isWalking():Boolean
 		{
 			return (this._currentPlanet != null);
 		}
 		
 		public function do_planet_gravity():void
 		{
-			if (!this.getIsWalking())
+			if (!this.isWalking())
 			{
 				for (var i:int = 0, len:int = planets.length; i < len; i++)
 				{
@@ -298,10 +311,10 @@ package
 		
 		public function setLocationOnPlanet(location:int):void
 		{
-			if ((location < 1) || (location > 360))
-			{
-				throw new ArgumentError("Position is out of bounds. Must be within 1-360");
-			}
+			if (location < 1)
+				location += 360;
+			else if (location > 360)
+				location -= 360;
 			
 			_locationOnPlanet = location;
 		}
