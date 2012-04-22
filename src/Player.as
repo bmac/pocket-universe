@@ -13,7 +13,7 @@ package
 	public class Player extends FlxSprite
 	{
 		
-		[Embed(source="../assets/drop/sprite sheet smaller.png")]
+		[Embed(source="../assets/drop/ALL THE SPRITES.png")]
 		private var player_Sprite:Class;
 		
 		private var planets:FlxGroup;
@@ -21,6 +21,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
+
 		public const ANTI_GRAVITY:Number = 500;
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
@@ -49,16 +50,23 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
-
 			_locationOnPlanet = currentCheckpoint.getCheckpoint()
-			this.loadGraphic(player_Sprite, true, true, 60, 50);
-			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
+			this._currentPlanet = firstPlanet ;
+			this.loadGraphic(player_Sprite, true, true, 150, 150);
+			this.addAnimation('jump', [1, 2, 3], 6, false);
+			this.addAnimation('stand', [0], 6, false);
+			this.addAnimation('crawl', [4, 5, 6, 7, 8], 6, false);
+			this.addAnimation('die', [9, 10, 11, 12, 13, 14], 6, false);
+			this.addAnimation('splash', [15, 16, 17, 18, 19, 20, 21, 22, 23], 6, false);
+			this.addAnimation('idle', [0, 1, 2, 1], 6, true);
 			firstPlanet.PlaceOnPlanet(this);
+			
+			this.play("idle");
 		}
 		
 		override public function update():void
 		{
-			if (!_currentPlanet && !isJumping){
+			if (_currentPlanet && !isJumping){
 				do_planet_gravity();
 			}
 			else
@@ -73,6 +81,7 @@ package
 		
 		public function do_input():void
 		{
+			//this.play("stand");
 			if (!this.getIsWalking()) //Player already landed on a planet
 			{
 				//player is floating around, check to see if he has landed on a planet
@@ -96,6 +105,7 @@ package
 			// player jumps perpendicular using spacebar
 			if (FlxG.keys.justPressed("SPACE") && (_currentPlanet != null)) {
 				jump();
+				this.play("jump");
 				
 			}
 			
@@ -158,6 +168,11 @@ package
 					this._currentPlanet.PlaceOnPlanet(this);
 				}
 			}
+			
+			if (FlxG.keys.justReleased("LEFT") || FlxG.keys.justReleased("RIGHT"))
+			{
+				this.play("idle");
+			}
 		}
 		
 		private function jump():void
@@ -205,6 +220,7 @@ package
 					this.velocity.x += gravity_x * gravitational_strength;
 					this.velocity.y += gravity_y * gravitational_strength;
 				}
+				this.angle = Math.atan(this.velocity.x/this.velocity.y)/Math.PI*180 + 180;
 			}
 		}
 		
@@ -229,6 +245,7 @@ package
 		public function dies():void
 		{
 			// run death animation
+			this.play("die");
 			this.x = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).x;
 			this.y = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).y;
 		}
@@ -241,6 +258,9 @@ package
 
 		public function getLocationOnPlanet():int
 		{
+			if (_locationOnPlanet == 0)
+				return 360;
+			
 			return _locationOnPlanet;
 		}
 		
@@ -271,7 +291,7 @@ package
 		
 		public function getRadii():Number
 		{
-			return height / 2;
+			return 20;
 		}
 		
 		//Returns the center of this Circle in the world

@@ -20,7 +20,8 @@ package
 			this.loadGraphic(sponge_planet);
 			this.planetMass = SPONGE_MASS;
 			this.setSize (528 * scale);
-			this.scale = new FlxPoint(scale,scale);
+			this.scale = new FlxPoint(scale, scale);
+			this.checkpoint = checkpoint;
 		}
 		
 		override public function playerCollision(player:Player):void

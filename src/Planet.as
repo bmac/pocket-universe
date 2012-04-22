@@ -82,7 +82,7 @@ package
 		{
 			
 			//Height adjustment to make the object appear ontop of the planet... also adjusts for any gaps on the sprite
-			var heightAdjustment:int = (gameObject.height / 2) - 8;
+			var heightAdjustment:int = (gameObject.height / 2) - 50;
 			
 			//newPosition is relative to the planet's origin
 			var newPosition:FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet(), heightAdjustment); 
@@ -121,6 +121,16 @@ package
 		
 		public function getRadii():Number {
 			return height / 2;
+		}
+		
+		//This method is called to help the player Land on the planet after a jump
+		public function HelpReceivePlayer(player:Player) : void
+		{
+			var radians:Number = Math.atan2(this.getCenter().x - player.getCenter().x, this.getCenter().y - player.getCenter().y)
+			var degrees:Number = (radians/Math.PI)*180;
+			
+			player.setLocationOnPlanet( (degrees as int));
+			this.PlaceOnPlanet(player);
 		}
 	}
 }
