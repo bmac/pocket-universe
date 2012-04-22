@@ -11,8 +11,13 @@ package
 		public static const DEFAULT_SIZE:int = 534;
 		
 		private var planet_background:PlanetBackground;
+		private var water_swirl_layer:PlanetBackground;
+		private var lilly_pads:PlanetBackground;
 		
 		[Embed(source="../assets/planets/WATER PLANET.png")] private var water_planet:Class;		
+		[Embed(source = "../assets/planets/White Swirl.png")] private var water_swirl:Class;	
+		[Embed(source="../assets/planets/Waterworld - Lillypad.png")] private var lilly_pads_sprite:Class;		
+		
 		//[Embed(source = "../assets/planets/*background.png")] private var *_background:Class;
 		
 		public function HomePlanet(x:int, y:int, scale:Number=1 ,checkpoint:int=0, mass:Number=DEFAULT_MASS) 
@@ -24,19 +29,23 @@ package
 			this.setSize (DEFAULT_SIZE * scale);
 			this.scale = new FlxPoint(scale, scale);
 			this.checkpoint = checkpoint;
+			water_swirl_layer = new PlanetBackground(this.x, this.y, water_swirl, scale);
+			lilly_pads = new PlanetBackground(this.x, this.y, lilly_pads_sprite, scale);
 		}
 		
-		/*override public function update():void
+		override public function update():void
 		{
-			planet_background.update();
+			water_swirl_layer.update();
+			lilly_pads.update();
 			super.update();		
 		}
 		
 		override public function draw():void
 		{
-			planet_background.draw();
-			super.draw();		
-		}*/
+			super.draw();
+			water_swirl_layer.draw();
+			lilly_pads.draw();
+		}
 		
 		override public function playerCollision(player:Player):void
 		{
