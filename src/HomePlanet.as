@@ -31,6 +31,7 @@ package
 			this.planetMass = mass;
 			
 			this.setSize (DEFAULT_SIZE * scale);
+
 			this.scale = new FlxPoint(scale, scale);
 			this.checkpoint = checkpoint;
 			water_swirl_layer = new PlanetBackground(this.x, this.y, water_swirl, scale);

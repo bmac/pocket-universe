@@ -91,11 +91,7 @@ package
 		override public function update():void
 		{
 			super.update();
-			if (player.getQuit())
-			{
-				//TODO: Determine what to do about win condition...
-				FlxG.switchState(new MenuState());
-			}
+			
 			if (player.getSuccess())
 			{
 				//TODO: Determine what to do about win condition...
@@ -131,6 +127,10 @@ package
 			{
 				camTarget.x = player.x;
 				camTarget.y = player.y;
+			}
+			if (FlxG.keys.Q)
+			{
+				FlxG.switchState(new MenuState());
 			}
 		}
 	}

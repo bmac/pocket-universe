@@ -9,6 +9,7 @@ package levels
 	 */
 	public class Level02 extends Level 
 	{
+		private const baseUnit:int = DonutPlanet.DEFAULT_SIZE / 2;
 		
 		override public function CreatePlanets(planets:FlxGroup):void 
 		{
@@ -43,7 +44,7 @@ package levels
 			if (player.getSuccess())
 			{
 				//TODO: Determine what to do about win condition...
-				FlxG.switchState(new Level02());
+				FlxG.switchState(new Level03());
 			}
 		}
 	}
