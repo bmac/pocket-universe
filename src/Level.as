@@ -5,25 +5,24 @@ package
 	 * @author Vinny
 	 */
 	import org.flixel.*;
+	import flash.geom.Point;
 
 	public class Level extends FlxState
 	{
-		private var camera:Camera;
+		public const CAM_SPEED:Number = 500;
 		private var planets:FlxGroup = new FlxGroup();
 		protected var player:Player;
 		private var obstacles:FlxGroup;
 		private var starfield:FlxGroup;
 		private var music:MusicController;
-
-		//camera options
-		private var cameraOrigin:FlxPoint = new FlxPoint(0, 0);
-		private var width:int = 960;
-		private var height:int = 540;
-		private var zoom:int = 1;
 		
+		//camera options
+		private var camTarget:FlxObject = new FlxObject(0,0,0,0);
 
 		public function CreatePlanets(planets:FlxGroup) : void 
 		{
+			// First planet created is starting planet
+			// Second planet created should be home
 			throw Error("Please Override CreatePlanets Method");
 		}
 		
@@ -38,7 +37,9 @@ package
 			player = new Player(planets.members[0], planets);
 			
 			// create camera
-			FlxG.camera.target = player;
+			camTarget.x = planets.members[1].getCenter().x;
+			camTarget.y = planets.members[1].getCenter().y;
+			FlxG.camera.target = camTarget;
 			
 			// start the music
 			music = new MusicController();
@@ -47,6 +48,7 @@ package
 			//add(new FlxSprite(0,0,bg));
 			
 			// add all to the world
+			add(camTarget);
 			add(planets);
 			//add(obstacles);
 			add(player);
@@ -85,6 +87,10 @@ package
 				//TODO: Determine what to do about win condition...
 				FlxG.switchState(new MenuState());
 			}
+			var tempPoint:Point = new Point((player.x + player.width/2 - camTarget.x), (player.y + player.height/2 - camTarget.y));
+			tempPoint.normalize(1);
+			camTarget.velocity.x = tempPoint.x * CAM_SPEED;
+			camTarget.velocity.y = tempPoint.y * CAM_SPEED;
 		}
 	}
 

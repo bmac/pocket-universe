@@ -13,12 +13,10 @@ package levels
 			// create all the planets for the level
 			
 			planets.add(new SpongePlanet(350, 350, 0.5, 1));
-			planets.add(new LightbulbPlanet(20, 20, .75));
-			planets.add(new DonutPlanet(800, 800, 1));
 			planets.add(new HomePlanet(200, 800, 0.75));
-			
-			planets.add(new DonutPlanet(1300, 800, 1));
-			
+			planets.add(new LightbulbPlanet(20, 20, .75));
+			planets.add(new DonutPlanet(800, 800, 1));			
+			planets.add(new DonutPlanet(1300, 800, 1));			
 			planets.add(new DonutPlanet(1800, 800, 1));
 			
 			/*planets.add(new LightbulbPlanet(800, 740, 0));
