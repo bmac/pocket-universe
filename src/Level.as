@@ -57,7 +57,7 @@ package
 			player = new Player(planets.members[0], planets);
 			
 			// goal reporting
-			for (var i:int = 0; i < planets.members.length; i++)
+			for (i = 0; i < planets.members.length; i++)
 			{
 				if (planets.members[i] is HomePlanet)
 				{
