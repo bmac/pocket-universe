@@ -41,7 +41,14 @@ package levels
 			
 			planets.add(new HomePlanet(2000, 2000, 0.5));
 		}
-		
+	
+		override public function update():void
+		{
+			super.update();
+			if (player.getSuccess())
+			{
+				FlxG.switchState(new CreditsState());
+			}
+		}
 	}
-
 }
