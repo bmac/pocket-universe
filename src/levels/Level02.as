@@ -15,28 +15,22 @@ package levels
 		{
 			// create all the planets for the level
 			
-			planets.add(new SpongePlanet(-500, 2160, 2, 45, 20));
-			/*planets.add(new LightbulbPlanet(650, 1860, .25, 0));
-			planets.add(new LightbulbPlanet(600, 1960, .25, 0));
-			planets.add(new LightbulbPlanet(650, 2060, .25, 0));*/
-			
-			planets.add(new DonutPlanet(400, 1760, .5, 0, 4));
-			planets.add(new DonutPlanet(800, 2060, .5, 0, 4));
-			planets.add(new DonutPlanet(1100, 1660, .5, 0, 4));
-			planets.add(new DonutPlanet(1400, 1360, .5, 0, 4));
-			
-			/*planets.add(new LightbulbPlanet(20, 20, .75));
-			planets.add(new DonutPlanet(800, 800, 1));
-			planets.add(new HomePlanet(200, 800, 0.75));*/
-			
-			/*planets.add(new LightbulbPlanet(800, 740, 0));
-			planets.add(new LightbulbPlanet(400, 490, 0));
-			planets.add(new SpongePlanet(50, 50, 1));
-			planets.add(new LightbulbPlanet(100, 70, 1));
-			planets.add(new LightbulbPlanet(800, 740, 0));
-			planets.add(new LightbulbPlanet(200, 150, 0));
-			planets.add(new SpongePlanet(50, 500, 1));
-			/**/
+			planets.add(new SpongePlanet	(baseUnit * 0,		baseUnit * -1,	1.5,	135, 20));	//00
+			planets.add(new DonutPlanet		(baseUnit * 5,		baseUnit * 0,	.5,		0));		//01
+			planets.add(new SpongePlanet	(baseUnit * 7.5,	baseUnit * 0.5,	.5,		0));		//02
+			planets.add(new DonutPlanet		(baseUnit * 11.5,	baseUnit * 1,	.5,		0));		//03
+			planets.add(new DonutPlanet		(baseUnit * 1,		baseUnit * 3,	.5,		0));		//04
+			planets.add(new DonutPlanet		(baseUnit * 5,		baseUnit * 2.5,	.5,		0));		//05
+			planets.add(new LightbulbPlanet	(baseUnit * 9.75,	baseUnit * 2,	.5,		0));		//06
+			planets.add(new SpongePlanet	(baseUnit * 8,		baseUnit * 4,	.5,		0));		//07
+			planets.add(new DonutPlanet		(baseUnit * 12,		baseUnit * 4.2,	.5,		0));		//08
+			planets.add(new DonutPlanet		(baseUnit * 0,		baseUnit * 5.5,	.5,		0));		//09
+			planets.add(new LightbulbPlanet	(baseUnit * 4.5,	baseUnit * 5.2,	.5,		0));		//10
+			planets.add(new LightbulbPlanet	(baseUnit * 12,		baseUnit * 6,	.5,		0));		//11
+			planets.add(new SpongePlanet	(baseUnit * 2,		baseUnit * 7,	.5,		0));		//12
+			planets.add(new DonutPlanet		(baseUnit * 6,		baseUnit * 6.6,	.5,		0));		//13
+			planets.add(new DonutPlanet		(baseUnit * 10,		baseUnit * 6.8,	.5,		0));		//14
+			planets.add(new HomePlanet		(baseUnit * 14,		baseUnit * 7.5,	.5,		0));		//15
 		}
 		override public function update():void
 		{

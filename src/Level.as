@@ -15,6 +15,10 @@ package
 		private var starfield:FlxGroup;
 		private var music:MusicController;
 		
+		// goal distance
+		private var goalDist:FlxText = new FlxText(250, 205, 200, "");
+		private var goalPlanet:HomePlanet;
+		
 		public function CreatePlanets(planets:FlxGroup):void
 		{
 			// First planet created is starting planet
@@ -52,6 +56,18 @@ package
 			// create the player
 			player = new Player(planets.members[0], planets);
 			
+			// goal reporting
+			for (var i:int = 0; i < planets.members.length; i++)
+			{
+				if (planets.members[i] is HomePlanet)
+				{
+					goalPlanet = planets.members[i];
+					break;
+				}
+			}
+			
+			goalDist.setFormat(null, 20, 0xFF00FF, "center");
+			
 			// create camera
 			FlxG.camera.target = player;
 			
@@ -60,6 +76,7 @@ package
 						
 			// add all to the world
 			add(planets);
+			add(goalDist);
 			//add(obstacles);
 			add(player);
 		}
@@ -73,6 +90,9 @@ package
 			{
 				FlxG.switchState(new MenuState());
 			}
+			goalDist.x = player.x +250;
+			goalDist.y = player.y +205;
+			goalDist.text = "Distance to goal: " + Math.floor(Math.abs(Math.sqrt(Math.pow((player.x + player.width / 2) - (goalPlanet.x + goalPlanet.width / 2), 2) + Math.pow((player.y + player.width / 2) - (goalPlanet.y + goalPlanet.width / 2), 2))));
 		}
 	}
 
