@@ -10,8 +10,7 @@ package levels
 		private const baseUnit:int = DonutPlanet.DEFAULT_SIZE / 2;
 		
 		public function DevLevel02() 
-		{
-			
+		{	
 		}
 		
 		override public function CreatePlanets(planets:FlxGroup):void 
