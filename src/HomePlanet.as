@@ -7,7 +7,7 @@ package
 	 */
 	public class HomePlanet extends Planet 
 	{
-		public const HOME_MASS:int = 1;
+		public const HOME_MASS:int = 5;
 		
 		private var planet_background:PlanetBackground;
 		
