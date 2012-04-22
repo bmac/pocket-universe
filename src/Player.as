@@ -219,7 +219,7 @@ package
 					this.velocity.x += gravity_x * gravitational_strength;
 					this.velocity.y += gravity_y * gravitational_strength;
 				}
-				this.angle = Math.atan(this.velocity.x/this.velocity.y)/Math.PI*180 + 180;
+				//this.angle = Math.atan(this.velocity.x/this.velocity.y)/Math.PI*180 + 180;
 			}
 		}
 		
