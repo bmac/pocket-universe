@@ -1,5 +1,6 @@
 package levels 
 {
+	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	
 	/**
@@ -28,7 +29,15 @@ package levels
 			planets.add(new SpongePlanet(50, 500, 1));
 			/**/
 		}
-		
+		override public function update():void
+		{
+			super.update();
+			if (player.getSuccess())
+			{
+				//TODO: Determine what to do about win condition...
+				FlxG.switchState(new Level03());
+			}
+		}
 	}
 
 }
