@@ -5,7 +5,9 @@ package
 
 	public class MenuState extends FlxState
 	{
-		private var title:FlxText = new FlxText(200, 10, 500, "Pocket Universe");	
+		private var titleText:FlxText = new FlxText(0, 50, 960, "Pocket Universe");
+		private var startText:FlxText = new FlxText(0, 230, 960, "Press ENTER to Start");
+		private var creditsText:FlxText = new FlxText(0, 450, 960, "Press C for Credits");
 		private var levelTutorialButton:FlxButton;
 		private var level1Button:FlxButton;
 		private var level2Button:FlxButton;
@@ -24,9 +26,11 @@ package
 
 		override public function create():void
 		{
-			FlxG.mouse.show();
+			//FlxG.mouse.show();
 			
-			levelTutorialButton = new FlxButton(0, 0, "Tutorial", startLevelTutorial);
+
+			
+			/*levelTutorialButton = new FlxButton(0, 0, "Tutorial", startLevelTutorial);
 			add(levelTutorialButton);
 			
 			level1Button = new FlxButton(0, 20, "Level 1", startLevel1);
@@ -50,13 +54,37 @@ package
 			devLevel3Button = new FlxButton(100, 60, "Dev Level 3", devLevel03);
 			add(devLevel3Button);
 			
-			title.setFormat(null, 40, 0xFF00FF, "center");
-			add(title);
-			
 			add(new FlxButton(0, 80, "Credits", gotoCredits));
+			*/
+			titleText.setFormat(null, 40, 0xFFFFFF, "center", 0x555555);
+			startText.setFormat(null, 50, 0x33FF55, "center")
+			creditsText.setFormat(null, 30, 0xFF00FF, "center");
+			add(titleText);
+			add(startText);
+			add(creditsText);
+			
+			
 			
 			// start the music
 			music = new MusicController();
+		}
+		
+		override public function update():void
+		{
+			if (FlxG.keys.ENTER)
+			{
+				startGame();
+			}
+			if (FlxG.keys.C)
+			{
+				gotoCredits();
+			}
+		}
+		
+		private function startGame():void
+		{
+			FlxG.mouse.hide();
+			FlxG.switchState(new LevelTutorial);
 		}
 		
 		private function startLevelTutorial():void
