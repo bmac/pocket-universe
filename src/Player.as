@@ -51,6 +51,7 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
+			currentCheckpoint.addWater();
 			_locationOnPlanet = currentCheckpoint.getCheckpoint()
 			this._currentPlanet = firstPlanet;
 			this.loadGraphic(player_Sprite, true, true, 150, 150);
