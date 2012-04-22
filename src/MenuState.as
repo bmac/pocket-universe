@@ -1,11 +1,13 @@
 package
 {
 	import levels.Level01;
+	import levels.Level02;
 	import org.flixel.*;
 
 	public class MenuState extends FlxState
 	{
-		private var startButton:FlxButton;
+		private var level1Button:FlxButton;
+		private var level2Button:FlxButton;
 		private var devButton:FlxButton;
 
 		public function MenuState()
@@ -15,17 +17,26 @@ package
 		override public function create():void
 		{
 			FlxG.mouse.show();
-			startButton = new FlxButton(0, 0, "Start Game", startGame);
-			add(startButton);
+			level1Button = new FlxButton(0, 0, "Level 1", startLevel1);
+			add(level1Button);
 			
-			devButton = new FlxButton(0, 20, "Dev Mode", devGame);
+			level2Button = new FlxButton(0, 20, "Level 2", startLevel2);
+			add(level2Button);
+			
+			devButton = new FlxButton(0, 40, "Dev Mode", devGame);
 			add(devButton);
 		}
 
-		private function startGame():void
+		private function startLevel1():void
 		{
 			FlxG.mouse.hide();
 			FlxG.switchState(new Level01);
+		}
+		
+		private function startLevel2():void
+		{
+			FlxG.mouse.hide();
+			FlxG.switchState(new Level02);
 		}
 		
 		private function devGame():void
