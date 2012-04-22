@@ -49,7 +49,6 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
-
 			_locationOnPlanet = currentCheckpoint.getCheckpoint()
 			this._currentPlanet = firstPlanet ;
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
