@@ -51,6 +51,7 @@ package
 			currentCheckpoint = firstPlanet;
 
 			_locationOnPlanet = currentCheckpoint.getCheckpoint()
+			this._currentPlanet = firstPlanet ;
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
 			firstPlanet.PlaceOnPlanet(this);
@@ -241,6 +242,9 @@ package
 
 		public function getLocationOnPlanet():int
 		{
+			if (_locationOnPlanet == 0)
+				return 360;
+			
 			return _locationOnPlanet;
 		}
 		
