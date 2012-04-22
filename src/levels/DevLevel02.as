@@ -24,7 +24,7 @@ package levels
 			
 			
 			/* planets in order:
-				 * 00: (-2,		-2)		sponge [double size]
+				 * 00: (0,		-1)		sponge [double size]
 				 * 01: (5,		0)		donut
 				 * 02: (7.5,	0.5)	sponge
 				 * 03: (11.5,	1)		donut
@@ -41,7 +41,7 @@ package levels
 				 * 14: (10,		6.8)	donut
 				 * 15: (14,		7.5)	HOME
 			*/
-			planets.add(new SpongePlanet	(baseUnit * 5,		baseUnit * 0,	.5,		0));		//00
+			planets.add(new SpongePlanet	(baseUnit * 0,		baseUnit * -1,	1.5,	135, 20));	//00
 			planets.add(new DonutPlanet		(baseUnit * 5,		baseUnit * 0,	.5,		0));		//01
 			planets.add(new SpongePlanet	(baseUnit * 7.5,	baseUnit * 0.5,	.5,		0));		//02
 			planets.add(new DonutPlanet		(baseUnit * 11.5,	baseUnit * 1,	.5,		0));		//03
