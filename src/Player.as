@@ -298,9 +298,11 @@ package
 		
 		public function deathAnimation(unused:Object):void
 		{
-			currentCheckpoint.PlaceOnPlanet(this);
 			_currentPlanet = currentCheckpoint;
+			_locationOnPlanet = currentCheckpoint.getCheckpoint();
+			currentCheckpoint.PlaceOnPlanet(this);
 			keyboardEnabled = true;
+			this.play("idle");
 		}
 		
 		// return the player's location as a point
