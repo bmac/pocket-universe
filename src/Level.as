@@ -10,7 +10,7 @@ package
 	{
 		private var camera:Camera;
 		private var planets:FlxGroup = new FlxGroup();
-		private var player:Player;
+		protected var player:Player;
 		private var obstacles:FlxGroup;
 		private var music:MusicController;
 

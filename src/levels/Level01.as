@@ -1,5 +1,6 @@
 package levels 
 {
+	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	/**
 	 * ...
