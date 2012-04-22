@@ -13,7 +13,7 @@ package
 	public class Player extends FlxSprite
 	{
 		
-		[Embed(source="../assets/drop/sprite sheet smaller.png")]
+		[Embed(source="../assets/drop/ALL THE SPRITES.png")]
 		private var player_Sprite:Class;
 		
 		private var planets:FlxGroup;
@@ -52,7 +52,10 @@ package
 			//_locationOnPlanet = currentCheckpoint.getCheckpoint()
 			//firstPlanet.PlaceOnPlanet(this);
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
-			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
+			this.addAnimation('jump', [1, 2, 3], 6, false);
+			this.addAnimation('crawl', [5, 6, 7, 8, 9], 6, false);
+			this.addAnimation('die', [9, 10, 11, 12, 13, 14], 6, false);
+			this.addAnimation('splash', [15, 16, 17, 18, 19, 20, 21, 22, 23], 6, false);
 		}
 		
 		override public function update():void
@@ -94,6 +97,7 @@ package
 			// player jumps perpendicular using spacebar
 			if (FlxG.keys.justPressed("SPACE") && (_currentPlanet != null)) {
 				jump();
+				this.play("jump");
 				
 			}
 			
@@ -227,6 +231,7 @@ package
 		public function dies():void
 		{
 			// run death animation
+			this.play("die");
 			this.x = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).x;
 			this.y = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).y;
 		}
