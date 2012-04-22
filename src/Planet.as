@@ -130,7 +130,6 @@ package
 			
 			player.setLocationOnPlanet( degrees);
 			this.PlaceOnPlanet(player);
-			
 		}
 	}
 }
