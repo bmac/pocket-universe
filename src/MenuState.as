@@ -53,6 +53,8 @@ package
 			title.setFormat(null, 40, 0xFF00FF, "center");
 			add(title);
 			
+			add(new FlxButton(0, 80, "Credits", gotoCredits));
+			
 			// start the music
 			music = new MusicController();
 		}
@@ -103,6 +105,12 @@ package
 		{
 			FlxG.mouse.hide();
 			FlxG.switchState(new DevLevel03);
+		}
+		
+		private function gotoCredits():void
+		{
+			FlxG.mouse.hide();
+			FlxG.switchState(new CreditsState);
 		}
 	}
 }
