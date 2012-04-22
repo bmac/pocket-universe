@@ -94,10 +94,10 @@ package
 					for (var i:int = 0, len:int = planets.length; i < len; i++)
 					{
 						planet = planets.members[i];
-						trace("overlap ", FlxG.overlap(this, planet));
-						if (FlxG.overlap(this, planet))
+						if (this.getRadius() + planet.getRadius() > FlxU.getDistance(getCenter(), planet.getCenter()))
 						{
 							_currentPlanet = planet;
+							//planet.HelpReceivePlayer(this)
 							_locationOnPlanet = 1;
 							velocity.x = 0;
 							velocity.y = 0;
