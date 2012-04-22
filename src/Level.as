@@ -26,8 +26,11 @@ package
 			throw Error("Please Override CreatePlanets Method");
 		}
 		
+		[Embed(source = "../assets/yaybackground.png")] private var bg:Class;
+		
 		override public function create():void
-		{	
+		{			
+			
 			this.CreatePlanets(planets);
 			
 			// create the player
@@ -38,6 +41,9 @@ package
 			
 			// start the music
 			music = new MusicController();
+			
+			
+			add(new FlxSprite(0,0,bg));
 			
 			// add all to the world
 			add(planets);
