@@ -54,7 +54,7 @@ package
 		override public function update():void
 		{
 			super.update();
-			if (player.getSuccess())
+			if (player.getQuit())
 			{
 				//TODO: Determine what to do about win condition...
 				FlxG.switchState(new MenuState());

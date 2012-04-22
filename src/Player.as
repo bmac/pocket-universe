@@ -32,6 +32,9 @@ package
 		//player win
 		private var levelSuccess:Boolean = false;
 		
+		//player quit
+		private var levelQuit:Boolean = false;
+		
 		//player checkpoint
 		private var currentCheckpoint:Planet;
 		
@@ -140,6 +143,11 @@ package
 					{
 						_locationOnPlanet = 360;
 						_currentPlanet.PlaceOnPlanet(this);
+					}
+					// player quit
+					if (FlxG.keys.Q)
+					{
+						levelQuit = true;
 					}
 					// player walks around the current planet using left and right arrow keys
 					if (this.isWalking())
@@ -342,6 +350,10 @@ package
 		public function getCenter():FlxPoint
 		{
 			return new FlxPoint(this.origin.x + this.x, this.origin.y + this.y);
+		}
+		public function getQuit():Boolean
+		{
+			return levelQuit;
 		}
 	}
 
