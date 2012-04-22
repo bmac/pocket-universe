@@ -296,12 +296,8 @@ package
 			for (var i:int = 0, len:int = planets.length; i < len; i++)
 			{
 				var planet:Planet = planets.members[i];
-<<<<<<< HEAD
-				if (this.getRadii() + planet.getRadius() > FlxU.getDistance(new FlxPoint(getCenter().x, getCenter().y), planet.getCenter()))
-=======
-				
+
 				if (this.getRadius() + planet.getRadius() > FlxU.getDistance(getCenter(), planet.getCenter()))
->>>>>>> 9d62183da4c503dcd1017cac21572335e3ff3f9f
 				{
 					return true;
 				}
