@@ -31,6 +31,15 @@ package
 			player.reachedCheckpoint(this);
 			FlxG.play(checkpoint_sound);
 		}
+		
+		public function addWater():void
+		{
+			
+		}
+		public function removeWater():void
+		{
+			
+		}
 	}
 
 }

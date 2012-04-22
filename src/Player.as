@@ -31,9 +31,9 @@ package
 		private var keyboardEnabled:Boolean = true;
 		//player win
 		private var levelSuccess:Boolean = false;
-
+		
 		//player checkpoint
-		private var currentCheckpoint:Planet;
+		private var currentCheckpoint:SpongePlanet;
 		
 		//player boosts
 		private var timer:FlxTimer = new FlxTimer();
@@ -47,7 +47,7 @@ package
 		
 		private var _playerSpeed:int = 1;
 		
-		public function Player(firstPlanet:Planet, planets:FlxGroup)
+		public function Player(firstPlanet:SpongePlanet, planets:FlxGroup)
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
@@ -256,9 +256,14 @@ package
 		}
 		
 		// function for touching checkpoint
-		public function reachedCheckpoint(checkpointPlanet:Planet):void
+		public function reachedCheckpoint(checkpointPlanet:SpongePlanet):void
 		{
-			currentCheckpoint = checkpointPlanet;
+			if (checkpointPlanet.x != currentCheckpoint.x)
+			{
+				currentCheckpoint.removeWater();
+				currentCheckpoint = checkpointPlanet;
+				currentCheckpoint.addWater();
+			}
 		}
 		
 		// function for player success
