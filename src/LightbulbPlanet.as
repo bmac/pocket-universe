@@ -23,7 +23,8 @@ package
 			this.addAnimation("Flash", [0, 1, 2, 3, 2, 1], 1, true);
 			planet_background = new PlanetBackground(this.x, this.y, lightbulb_background);
 			this.planetMass = LIGHTBULB_MASS;
-			this.setSize (528 * scale);
+			this.setSize (330 * scale);
+			
 			this.scale = new FlxPoint(scale, scale);
 			planet_background.scale = new FlxPoint(scale, scale);
 			this.checkpoint = checkpoint;			

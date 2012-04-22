@@ -49,13 +49,15 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
-			//_locationOnPlanet = currentCheckpoint.getCheckpoint()
-			//firstPlanet.PlaceOnPlanet(this);
-			this.loadGraphic(player_Sprite, true, true, 60, 50);
+			_locationOnPlanet = currentCheckpoint.getCheckpoint()
+			this._currentPlanet = firstPlanet ;
+			this.loadGraphic(player_Sprite, true, true, 150, 150);
 			this.addAnimation('jump', [1, 2, 3], 6, false);
-			this.addAnimation('crawl', [5, 6, 7, 8, 9], 6, false);
+			this.addAnimation('stand', [0], 6, false);
+			this.addAnimation('crawl', [4, 5, 6, 7, 8, 0], 6, false);
 			this.addAnimation('die', [9, 10, 11, 12, 13, 14], 6, false);
 			this.addAnimation('splash', [15, 16, 17, 18, 19, 20, 21, 22, 23], 6, false);
+			firstPlanet.PlaceOnPlanet(this);
 		}
 		
 		override public function update():void
@@ -75,6 +77,7 @@ package
 		
 		public function do_input():void
 		{
+			//this.play("stand");
 			if (!this.getIsWalking()) //Player already landed on a planet
 			{
 				//player is floating around, check to see if he has landed on a planet
@@ -88,6 +91,7 @@ package
 						if (FlxG.overlap(this, planet))
 						{
 							_currentPlanet = planet;
+							_locationOnPlanet = 1;
 							break;
 						}
 					}
@@ -244,6 +248,9 @@ package
 
 		public function getLocationOnPlanet():int
 		{
+			if (_locationOnPlanet == 0)
+				return 360;
+			
 			return _locationOnPlanet;
 		}
 		
@@ -257,20 +264,6 @@ package
 			_locationOnPlanet = location;
 		}
 				
-		/*/ change player to frozen
-		public function freeze():void 
-		{
-			// change animation to frozen
-			this.frozen = true;
-			timer.start(10, 1, this.defrost);
-		}
-		
-		// defrosts player
-		public function defrost():void
-		{
-			// return animation to normal
-			this.frozen = false;
-		}*/
 		
 		public function is_on_planet():Boolean
 		{
@@ -288,7 +281,7 @@ package
 		
 		public function getRadii():Number
 		{
-			return height / 2;
+			return 20;
 		}
 		
 		//Returns the center of this Circle in the world
