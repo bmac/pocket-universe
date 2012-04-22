@@ -199,7 +199,6 @@ package
 			}
 			if (animate_splash_flag)
 			{
-				trace(x, y);
 				this.x += (getCenter().x > this._currentPlanet.getCenter().x) ? -1 : 1;
 				this.y += (getCenter().y > this._currentPlanet.getCenter().y) ? -1 : 1;
 			}
