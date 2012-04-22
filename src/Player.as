@@ -49,7 +49,8 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
-			_locationOnPlanet = currentCheckpoint.getCheckpoint();
+			_locationOnPlanet = currentCheckpoint.getCheckpoint()
+			this._currentPlanet = firstPlanet ;
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
 			firstPlanet.PlaceOnPlanet(this);
@@ -204,6 +205,7 @@ package
 					this.velocity.x += gravity_x * gravitational_strength;
 					this.velocity.y += gravity_y * gravitational_strength;
 				}
+				this.angle = Math.atan(this.velocity.x/this.velocity.y)/Math.PI*180 + 180;
 			}
 		}
 		
@@ -240,6 +242,9 @@ package
 
 		public function getLocationOnPlanet():int
 		{
+			if (_locationOnPlanet == 0)
+				return 360;
+			
 			return _locationOnPlanet;
 		}
 		
