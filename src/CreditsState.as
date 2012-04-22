@@ -12,7 +12,9 @@ package
 
 		private var music:MusicController;
 		
-		private var player:FlxSprite;
+		private var drop:FlxSprite;
+		
+		[Embed(source="../assets/drop/ALL THE SPRITES.png")] private var player_sprite:Class;
 		
 		public function CreditsState() 
 		{
@@ -21,6 +23,11 @@ package
 		
 		override public function create():void
 		{
+			drop = new FlxSprite(369, -40)
+			drop.loadGraphic(player_sprite, true, true, 150, 150);
+			drop.addAnimation('idle', [0, 1, 2, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 2, 1, 3, 3, 3, 3, 2, 1, 0, 0, 0], 6, true);
+			add(drop);
+			drop.play("idle");
 			FlxG.mouse.show();
 			add(new FlxButton(430, 70, "Go To Menu", gotoMenu));
 			
