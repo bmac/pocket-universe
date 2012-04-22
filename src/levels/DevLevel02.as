@@ -33,8 +33,8 @@ package levels
 				 * 
 			*/
 			
-			planets.add(new DonutPlanet(baseUnit * 5, 0, .5, 0);
-			planets.add(new DonutPlanet(baseUnit * 1, baseUnit * 3, .5, 0);
+			planets.add(new DonutPlanet(baseUnit * 5, 0, .5, 0));
+			planets.add(new DonutPlanet(baseUnit * 1, baseUnit * 3, .5, 0));
 			
 			//
 			
