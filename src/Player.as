@@ -21,22 +21,23 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = -50;
+		public const ANTI_GRAVITY:Number = -120;
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
 		private const GRAVITY_JUMP_DELAY:Number = 0.2;
 		
+		private var keyboardEnabled:Boolean = true;
 		//player win
 		private var levelSuccess:Boolean = false;
 		
 		//player checkpoint
 		private var currentCheckpoint:Planet;
 		
-		/*/player boosts
-		   private var timer:FlxTimer = new FlxTimer();
+		//player boosts
+		private var timer:FlxTimer = new FlxTimer();
 		
-		 private var frozen:Boolean = false;*/
+		/*private var frozen:Boolean = false;*/
 		
 		private var _currentPlanet:Planet;
 		
@@ -97,6 +98,7 @@ package
 						if (this.getRadius() + planet.getRadius() > FlxU.getDistance(getCenter(), planet.getCenter()))
 						{
 							_currentPlanet = planet;
+							_currentPlanet.playerCollision(this);
 							//planet.HelpReceivePlayer(this)
 							_locationOnPlanet = 1;
 							velocity.x = 0;
@@ -106,88 +108,90 @@ package
 					}
 				}
 			}
-			
-			// player jumps perpendicular using spacebar
-			if (FlxG.keys.SPACE && (_currentPlanet != null))
+			if (keyboardEnabled)
 			{
-				this.play("jump");
-				var xx:Number = _currentPlanet.getCenter().x - this.getCenter().x;
-				var yy:Number = _currentPlanet.getCenter().y - this.getCenter().y;
-				var r:Number = Math.sqrt(xx * xx + yy * yy);
-				
-				var gravitational_strength:Number = G * _currentPlanet.getMass() / Math.pow(r, 2);
-				
-				var gravity_x:Number = _currentPlanet.getCenter().x - this.getCenter().x;
-				var gravity_y:Number = _currentPlanet.getCenter().y - this.getCenter().y;
-				
-				this.velocity.x = gravity_x * gravitational_strength * ANTI_GRAVITY;
-				this.velocity.y = gravity_y * gravitational_strength * ANTI_GRAVITY;
-				_currentPlanet = null;
-				
-			}
-			
-			// player walks around the current planet using left and right arrow keys
-			if (this.getIsWalking())
-			{
-				if (FlxG.keys.U)
+				// player jumps perpendicular using spacebar
+				if (FlxG.keys.SPACE && (_currentPlanet != null))
 				{
-					_locationOnPlanet = 360;
-					_currentPlanet.PlaceOnPlanet(this);
+					this.play("jump");
+					var xx:Number = _currentPlanet.getCenter().x - this.getCenter().x;
+					var yy:Number = _currentPlanet.getCenter().y - this.getCenter().y;
+					var r:Number = Math.sqrt(xx * xx + yy * yy);
+					
+					var gravitational_strength:Number = G * _currentPlanet.getMass() / Math.pow(r, 2);
+					
+					var gravity_x:Number = _currentPlanet.getCenter().x - this.getCenter().x;
+					var gravity_y:Number = _currentPlanet.getCenter().y - this.getCenter().y;
+					
+					this.velocity.x = gravity_x * gravitational_strength * ANTI_GRAVITY;
+					this.velocity.y = gravity_y * gravitational_strength * ANTI_GRAVITY;
+					_currentPlanet = null;
+					
 				}
 				
-				if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
+				// player walks around the current planet using left and right arrow keys
+				if (this.getIsWalking())
 				{
-					this.play("crawl");
-					
-					//Move the player left or right on the planet
-					if (FlxG.keys.RIGHT)
+					if (FlxG.keys.U)
 					{
-						_locationOnPlanet += _playerSpeed;
-						this.facing = FlxObject.RIGHT;
-					}
-					if (FlxG.keys.LEFT)
-					{
-						_locationOnPlanet -= _playerSpeed;
-						this.facing = FlxObject.LEFT;
+						_locationOnPlanet = 360;
+						_currentPlanet.PlaceOnPlanet(this);
 					}
 					
-					//Makes sure that the new position is within bounds
-					if (_locationOnPlanet > 360)
+					if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
 					{
-						_locationOnPlanet -= 360;
+						this.play("crawl");
+						
+						//Move the player left or right on the planet
+						if (FlxG.keys.RIGHT)
+						{
+							_locationOnPlanet += _playerSpeed;
+							this.facing = FlxObject.RIGHT;
+						}
+						if (FlxG.keys.LEFT)
+						{
+							_locationOnPlanet -= _playerSpeed;
+							this.facing = FlxObject.LEFT;
+						}
+						
+						//Makes sure that the new position is within bounds
+						if (_locationOnPlanet > 360)
+						{
+							_locationOnPlanet -= 360;
+						}
+						if (_locationOnPlanet <= 0)
+						{
+							_locationOnPlanet += 360;
+						}
+						
+						this._currentPlanet.PlaceOnPlanet(this);
+						
+						var playerSpeed:int = 1;
+						
+						//Move the player left or right on the planet
+						if (FlxG.keys.RIGHT)
+							_locationOnPlanet += _playerSpeed;
+						if (FlxG.keys.LEFT)
+							_locationOnPlanet -= _playerSpeed;
+						
+						//Makes sure that the new position is within bounds
+						if (_locationOnPlanet > 360)
+						{
+							_locationOnPlanet -= 360;
+						}
+						if (_locationOnPlanet < 0)
+						{
+							_locationOnPlanet += 360;
+						}
+						
+						this._currentPlanet.PlaceOnPlanet(this);
 					}
-					if (_locationOnPlanet <= 0)
-					{
-						_locationOnPlanet += 360;
-					}
-					
-					this._currentPlanet.PlaceOnPlanet(this);
-					
-					var playerSpeed:int = 1;
-					
-					//Move the player left or right on the planet
-					if (FlxG.keys.RIGHT)
-						_locationOnPlanet += _playerSpeed;
-					if (FlxG.keys.LEFT)
-						_locationOnPlanet -= _playerSpeed;
-					
-					//Makes sure that the new position is within bounds
-					if (_locationOnPlanet > 360)
-					{
-						_locationOnPlanet -= 360;
-					}
-					if (_locationOnPlanet < 0)
-					{
-						_locationOnPlanet += 360;
-					}
-					
-					this._currentPlanet.PlaceOnPlanet(this);
 				}
-			}
-			
-			if (FlxG.keys.justReleased("LEFT") || FlxG.keys.justReleased("RIGHT"))
-			{
-				this.play("idle");
+				
+				if (FlxG.keys.justReleased("LEFT") || FlxG.keys.justReleased("RIGHT"))
+				{
+					this.play("idle");
+				}
 			}
 		}
 		
@@ -247,7 +251,15 @@ package
 		// function for player success
 		public function setSuccess():void
 		{
+			keyboardEnabled = false;
+			this.play("splash");
+			timer.start(2, 1, playSplash);
+		}
+		
+		public function playSplash(unused:Object):void
+		{
 			levelSuccess = true;
+			keyboardEnabled = true;
 		}
 		
 		public function getSuccess():Boolean
@@ -258,10 +270,16 @@ package
 		// function for player death
 		public function dies():void
 		{
-			// run death animation
+			keyboardEnabled = false;
 			this.play("die");
-			this.x = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).x;
-			this.y = currentCheckpoint.getPointAt(currentCheckpoint.getCheckpoint()).y;
+			timer.start(2.5, 1, deathAnimation);
+		}
+		
+		public function deathAnimation(unused:Object):void
+		{
+			currentCheckpoint.PlaceOnPlanet(this);
+			_currentPlanet = currentCheckpoint;
+			keyboardEnabled = true;
 		}
 		
 		// return the player's location as a point
