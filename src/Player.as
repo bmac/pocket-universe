@@ -49,7 +49,7 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
-			_locationOnPlanet = currentCheckpoint.getCheckpoint()
+			//_locationOnPlanet = currentCheckpoint.getCheckpoint()
 			//firstPlanet.PlaceOnPlanet(this);
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
@@ -82,7 +82,7 @@ package
 					for (var i:int = 0, len:int = planets.length; i < len; i++)
 					{
 						planet = planets.members[i];
-						if (this.is_on_planet())
+						if (FlxG.overlap(this, planet))
 						{
 							_currentPlanet = planet;
 							break;

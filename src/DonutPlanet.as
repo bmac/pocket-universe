@@ -6,11 +6,11 @@ package
 	 */
 	public class DonutPlanet extends Planet 
 	{
-		public const DONUT_MASS:int = 1;
+		public const DONUT_MASS:int = 8;
 		
 		private var planet_background:PlanetBackground;
 		
-		[Embed(source = "../assets/planets/DonutPlanet.png")] private var donut_planet:Class;		
+		[Embed(source = "../assets/planets/doughnut.png")] private var donut_planet:Class;		
 		
 		public function DonutPlanet(x:int, y:int, checkpoint:int) 
 		{
