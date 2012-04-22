@@ -254,7 +254,7 @@ package
 			keyboardEnabled = false;
 			this.play("splash");
 			animate_splash_flag = true;
-			timer.start(2, 1, playSplash);
+			timer.start(3, 1, playSplash);
 		}
 		
 		public function playSplash(unused:Object):void
