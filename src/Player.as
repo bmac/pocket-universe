@@ -21,11 +21,13 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = -50;
+
+		public const ANTI_GRAVITY:Number = -120;
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
 		private const GRAVITY_JUMP_DELAY:Number = 0.5;
+
 		
 		//player win
 		private var levelSuccess:Boolean = false;
@@ -84,7 +86,7 @@ package
 			}
 			
 			//this.play("stand");
-			if (!this.getIsWalking()) //Player already landed on a planet
+			if (!this.isWalking()) //Player already landed on a planet
 			{
 				//player is floating around, check to see if he has landed on a planet
 				if (this.is_on_planet())
@@ -129,7 +131,7 @@ package
 			}
 			
 			// player walks around the current planet using left and right arrow keys
-			if (this.getIsWalking())
+			if (this.isWalking())
 			{
 				if (FlxG.keys.U)
 				{
@@ -187,7 +189,7 @@ package
 				}
 			}
 			
-			if (FlxG.keys.justReleased("LEFT") || FlxG.keys.justReleased("RIGHT"))
+			if ((FlxG.keys.justReleased("LEFT") || FlxG.keys.justReleased("RIGHT")) && (isWalking()))
 			{
 				this.play("idle");
 			}
@@ -213,14 +215,14 @@ package
 			isJumping = false;
 		}
 		
-		public function getIsWalking():Boolean
+		public function isWalking():Boolean
 		{
 			return (this._currentPlanet != null);
 		}
 		
 		public function do_planet_gravity():void
 		{
-			if (!this.getIsWalking())
+			if (!this.isWalking())
 			{
 				for (var i:int = 0, len:int = planets.length; i < len; i++)
 				{
@@ -295,7 +297,7 @@ package
 			for (var i:int = 0, len:int = planets.length; i < len; i++)
 			{
 				var planet:Planet = planets.members[i];
-				
+
 				if (this.getRadius() + planet.getRadius() > FlxU.getDistance(getCenter(), planet.getCenter()))
 				{
 					return true;
