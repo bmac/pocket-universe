@@ -141,67 +141,67 @@ package
 						_locationOnPlanet = 360;
 						_currentPlanet.PlaceOnPlanet(this);
 					}
-						
-						if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
-						{
-							this.play("crawl");
-							
-							//Move the player left or right on the planet
-							if (FlxG.keys.RIGHT)
-							{
-								_locationOnPlanet += _playerSpeed;
-								this.facing = FlxObject.RIGHT;
-							}
-							if (FlxG.keys.LEFT)
-							{
-								_locationOnPlanet -= _playerSpeed;
-								this.facing = FlxObject.LEFT;
-							}
-							
-							//Makes sure that the new position is within bounds
-							if (_locationOnPlanet > 360)
-							{
-								_locationOnPlanet -= 360;
-							}
-							if (_locationOnPlanet <= 0)
-							{
-								_locationOnPlanet += 360;
-							}
-							
-							this._currentPlanet.PlaceOnPlanet(this);
-							
-							var playerSpeed:int = 1;
-							
-							//Move the player left or right on the planet
-							if (FlxG.keys.RIGHT)
-								_locationOnPlanet += _playerSpeed;
-							if (FlxG.keys.LEFT)
-								_locationOnPlanet -= _playerSpeed;
-							
-							//Makes sure that the new position is within bounds
-							if (_locationOnPlanet > 360)
-							{
-								_locationOnPlanet -= 360;
-							}
-							if (_locationOnPlanet < 0)
-							{
-								_locationOnPlanet += 360;
-							}
-							
-							this._currentPlanet.PlaceOnPlanet(this);
-						}
-					}
 					
+					if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
+					{
+						this.play("crawl");
+						
+						//Move the player left or right on the planet
+						if (FlxG.keys.RIGHT)
+						{
+							_locationOnPlanet += _playerSpeed;
+							this.facing = FlxObject.RIGHT;
+						}
+						if (FlxG.keys.LEFT)
+						{
+							_locationOnPlanet -= _playerSpeed;
+							this.facing = FlxObject.LEFT;
+						}
+						
+						//Makes sure that the new position is within bounds
+						if (_locationOnPlanet > 360)
+						{
+							_locationOnPlanet -= 360;
+						}
+						if (_locationOnPlanet <= 0)
+						{
+							_locationOnPlanet += 360;
+						}
+						
+						this._currentPlanet.PlaceOnPlanet(this);
+						
+						var playerSpeed:int = 1;
+						
+						//Move the player left or right on the planet
+						if (FlxG.keys.RIGHT)
+							_locationOnPlanet += _playerSpeed;
+						if (FlxG.keys.LEFT)
+							_locationOnPlanet -= _playerSpeed;
+						
+						//Makes sure that the new position is within bounds
+						if (_locationOnPlanet > 360)
+						{
+							_locationOnPlanet -= 360;
+						}
+						if (_locationOnPlanet < 0)
+						{
+							_locationOnPlanet += 360;
+						}
+						
+						this._currentPlanet.PlaceOnPlanet(this);
+					}
+				}
 				
 				if ((FlxG.keys.justReleased("LEFT") || FlxG.keys.justReleased("RIGHT")) && (isWalking()))
 				{
 					this.play("idle");
 				}
 			}
-			if (animate_splash_flag) {
-					trace(x, y);
-					this.x += (getCenter().x > this._currentPlanet.getCenter().x)? -1: 1;
-					this.y += (getCenter().y > this._currentPlanet.getCenter().y)? -1: 1;
+			if (animate_splash_flag)
+			{
+				trace(x, y);
+				this.x += (getCenter().x > this._currentPlanet.getCenter().x) ? -1 : 1;
+				this.y += (getCenter().y > this._currentPlanet.getCenter().y) ? -1 : 1;
 			}
 		}
 		
@@ -262,7 +262,7 @@ package
 			levelSuccess = true;
 			keyboardEnabled = true;
 			animate_splash_flag = false;
-
+		
 		}
 		
 		public function getSuccess():Boolean
