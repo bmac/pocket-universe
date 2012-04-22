@@ -29,7 +29,7 @@ package levels
 			planets.add(new DonutPlanet		(baseUnit * 6,		baseUnit * 4,	.5,		0, 4));		//11
 			planets.add(new SpongePlanet	(baseUnit * 9,		baseUnit * 6,	.5,		90));		//12
 			planets.add(new HomePlanet		(baseUnit * 12.5,	baseUnit * 5.8,	.5,		0, 7));		//13
-			planets.add(new DonutPlanet		(baseUnit * 16,		baseUnit * 8,	.5,		0, 30));	//14
+			planets.add(new DonutPlanet		(baseUnit * 15.5,		baseUnit * 8,	.5,		0, 30));	//14
 			planets.add(new DonutPlanet		(baseUnit * -5,		baseUnit * 4,	.5,		0, 30));	//15
 			
 			
@@ -46,7 +46,6 @@ package levels
 			super.update();
 			if (player.getSuccess())
 			{
-				//TODO: Determine what to do about win condition...
 				FlxG.switchState(new Level04());
 			}
 		}
