@@ -119,10 +119,6 @@ package
 			
 		}
 		
-		public function getRadii():Number {
-			return height / 2;
-		}
-		
 		//This method is called to help the player Land on the planet after a jump
 		public function HelpReceivePlayer(player:Player) : void
 		{
