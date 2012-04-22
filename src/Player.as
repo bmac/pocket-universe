@@ -25,7 +25,7 @@ package
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
-		private const GRAVITY_JUMP_DELAY:Number = 0.2;
+		private const GRAVITY_JUMP_DELAY:Number = 0.5;
 		
 		//player win
 		private var levelSuccess:Boolean = false;
@@ -96,9 +96,11 @@ package
 						planet = planets.members[i];
 						if (this.getRadius() + planet.getRadius() > FlxU.getDistance(getCenter(), planet.getCenter()))
 						{
+							
+							//Land on the planet!
 							_currentPlanet = planet;
-							//planet.HelpReceivePlayer(this)
-							_locationOnPlanet = 1;
+							planet.HelpReceivePlayer(this)
+							this.play("idle");
 							velocity.x = 0;
 							velocity.y = 0;
 							break;
@@ -280,10 +282,10 @@ package
 		
 		public function setLocationOnPlanet(location:int):void
 		{
-			if ((location < 1) || (location > 360))
-			{
-				throw new ArgumentError("Position is out of bounds. Must be within 1-360");
-			}
+			if (location < 1)
+				location += 360;
+			else if (location > 360)
+				location -= 360;
 			
 			_locationOnPlanet = location;
 		}

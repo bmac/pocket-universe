@@ -16,6 +16,10 @@ package levels
 			planets.add(new DonutPlanet(800, 800, 1));
 			planets.add(new HomePlanet(200, 800, 0.75));
 			
+			planets.add(new DonutPlanet(1300, 800, 1));
+			
+			planets.add(new DonutPlanet(1800, 800, 1));
+			
 			/*planets.add(new LightbulbPlanet(800, 740, 0));
 			planets.add(new LightbulbPlanet(400, 490, 0));
 			planets.add(new SpongePlanet(50, 50, 1));

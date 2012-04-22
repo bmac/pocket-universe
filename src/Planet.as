@@ -122,11 +122,15 @@ package
 		//This method is called to help the player Land on the planet after a jump
 		public function HelpReceivePlayer(player:Player) : void
 		{
-			var radians:Number = Math.atan2(this.getCenter().x - player.getCenter().x, this.getCenter().y - player.getCenter().y)
-			var degrees:Number = (radians/Math.PI)*180;
 			
-			player.setLocationOnPlanet( (degrees as int));
+			var radians:Number = Math.atan2(this.getCenter().x - player.getCenter().x, this.getCenter().y - player.getCenter().y);
+			var degrees:int = new int ((radians/Math.PI)*180);
+			
+			degrees = 360 - degrees ;
+			
+			player.setLocationOnPlanet( degrees);
 			this.PlaceOnPlanet(player);
+			
 		}
 	}
 }
