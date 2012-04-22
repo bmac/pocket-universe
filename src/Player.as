@@ -13,8 +13,9 @@ package
 	public class Player extends FlxSprite
 	{
 		
-		[Embed(source="../assets/drop/ALL THE SPRITES.png")]
-		private var player_Sprite:Class;
+		[Embed(source = "../assets/drop/ALL THE SPRITES.png")] private var player_Sprite:Class;
+		[Embed(source ="../assets/audio/checkpoint.mp3")] private var checkpoint_sound:Class;
+
 		
 		private var planets:FlxGroup;
 		private var anti_gravity_flag:Boolean = false;
@@ -61,6 +62,7 @@ package
 			this.addAnimation('splash', [15, 16, 17, 18, 19, 20, 21, 22, 23], 6, false);
 			this.addAnimation('idle', [0, 1, 2, 1, 0, 0, 0, 0], 6, true);
 			firstPlanet.PlaceOnPlanet(this);
+			this.addAnimationCallback(animationCallback);
 			
 			this.play("idle");
 		}
@@ -241,6 +243,7 @@ package
 		{
 			if (checkpointPlanet.x != currentCheckpoint.x)
 			{
+				FlxG.play(checkpoint_sound);
 				currentCheckpoint.removeWater();
 				currentCheckpoint = checkpointPlanet;
 				currentCheckpoint.addWater();
@@ -333,6 +336,13 @@ package
 		public function getCenter():FlxPoint
 		{
 			return new FlxPoint(this.origin.x + this.x, this.origin.y + this.y);
+		}
+		
+		public function animationCallback( name:String, frameNum:uint, frameIndex:uint):void
+		{
+			if (name == "splash" && frameNum == 8) {
+				this.kill();
+			}
 		}
 	}
 

@@ -10,18 +10,12 @@ package levels
 		private const baseUnit:int = DonutPlanet.DEFAULT_SIZE / 2;
 		
 		public function DevLevel02() 
-		{
-			
+		{	
 		}
 		
 		override public function CreatePlanets(planets:FlxGroup):void 
 		{
 			// populate universe with planets here
-			/*planets.add(new SpongePlanet(0, 0, 1.5, 45, 20));
-			planets.add(new DonutPlanet(900, -400, .5, 0))
-			planets.add(new DonutPlanet(1300, 0, .5, 0))
-			planets.add(new DonutPlanet(1700, -200, .5, 0))*/
-			
 			
 			/* planets in order:
 				 * 00: (0,		-1)		sponge [double size]
@@ -57,16 +51,6 @@ package levels
 			planets.add(new DonutPlanet		(baseUnit * 6,		baseUnit * 6.6,	.5,		0));		//13
 			planets.add(new DonutPlanet		(baseUnit * 10,		baseUnit * 6.8,	.5,		0));		//14
 			planets.add(new HomePlanet		(baseUnit * 14,		baseUnit * 7.5,	.5,		0));		//15
-			
-			/*planets.add(new SpongePlanet(-500, 2160, 2, 45, 20));
-			planets.add(new LightbulbPlanet(650, 1860, .25, 0));
-			planets.add(new LightbulbPlanet(600, 1960, .25, 0));
-			planets.add(new LightbulbPlanet(650, 2060, .25, 0));*/
-			
-			/*planets.add(new DonutPlanet(400, 1760, .5, 0, 4));
-			planets.add(new DonutPlanet(800, 2060, .5, 0, 4));
-			planets.add(new DonutPlanet(1100, 1660, .5, 0, 4));
-			planets.add(new DonutPlanet(1400, 1360, .5, 0, 4));*/
 			
 		}
 		

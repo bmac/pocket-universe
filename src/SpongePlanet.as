@@ -15,8 +15,7 @@ package
 		private var display_overlay:Boolean = false;
 		
 		[Embed(source = "../assets/planets/sponge.png")] private var sponge_planet:Class;
-		[Embed(source = "../assets/planets/sponge-overlay-fill.png")] private var sponge_planet_overlay:Class;
-		[Embed(source="../assets/audio/checkpoint.mp3")] private var checkpoint_sound:Class;		
+		[Embed(source = "../assets/planets/sponge-overlay-fill.png")] private var sponge_planet_overlay:Class;		
 		
 		public function SpongePlanet(x:int, y:int, scale:Number = 1, checkpoint:int = 0, mass:Number = DEFAULT_MASS)
 		{
@@ -33,6 +32,7 @@ package
 			this.sponge_overlay.scale = this.scale;
 			this.sponge_overlay.addAnimation("Soaking", [0, 1, 2, 3, 4, 5], 12, false);
 			this.sponge_overlay.addAnimation("Drying", [5, 4, 3, 2, 1, 0], 12, false);
+			sponge_overlay.addAnimationCallback(animationCallback);
 			FlxG.state.add(sponge_overlay);
 		}
 		
@@ -54,7 +54,6 @@ package
 		override public function playerCollision(player:Player):void
 		{
 			player.reachedCheckpoint(this);
-			FlxG.play(checkpoint_sound);
 		}
 		
 		public function addWater():void
@@ -69,7 +68,7 @@ package
 		}
 		public function animationCallback( name:String, frameNum:uint, frameIndex:uint):void
 		{
-			if (name == "Drying" && frameIndex == 5) {
+			if (name == "Drying" && frameIndex == 0) {
 				display_overlay = false;
 			}
 		}
