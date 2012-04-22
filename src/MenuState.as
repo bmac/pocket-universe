@@ -26,7 +26,7 @@ package
 			devButton = new FlxButton(0, 40, "Dev Mode", devGame);
 			add(devButton);
 		}
-
+		
 		private function startLevel1():void
 		{
 			FlxG.mouse.hide();

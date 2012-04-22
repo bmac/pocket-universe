@@ -7,18 +7,18 @@ package
 	 */
 	public class SpongePlanet extends Planet 
 	{
-		public const SPONGE_MASS:int = 5;
+		public static const DEFAULT_SPONGE_MASS:int = 5;
 		
 		private var planet_background:PlanetBackground;
 		
 		[Embed(source = "../assets/planets/sponge.png")] private var sponge_planet:Class;		
 		
-		public function SpongePlanet(x:int, y:int, scale:Number=1 ,checkpoint:int=0) 
-		{			
+		public function SpongePlanet(x:int, y:int, scale:Number = 1, checkpoint:int = 0, mass:int = 5)
+		{
 			super(x, y, checkpoint);
 			
 			this.loadGraphic(sponge_planet);
-			this.planetMass = SPONGE_MASS;
+			this.planetMass = mass;
 			this.setSize (528 * scale);
 			this.scale = new FlxPoint(scale, scale);
 			this.checkpoint = checkpoint;
