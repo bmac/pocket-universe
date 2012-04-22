@@ -14,8 +14,16 @@ package levels
 		{
 			// create all the planets for the level
 			
-			planets.add(new SpongePlanet(-500, 2160, 3, 45, 30));
-			planets.add(new LightbulbPlanet(20, 20, .75));
+			planets.add(new SpongePlanet(-500, 2160, 2, 45, 20));
+			/*planets.add(new LightbulbPlanet(650, 1860, .25, 0));
+			planets.add(new LightbulbPlanet(600, 1960, .25, 0));
+			planets.add(new LightbulbPlanet(650, 2060, .25, 0));*/
+			
+			planets.add(new DonutPlanet(400, 1760, .5, 0, 4));
+			planets.add(new DonutPlanet(800, 2060, .5, 0, 4));
+			planets.add(new DonutPlanet(1100, 1660, .5, 0, 4));
+			planets.add(new DonutPlanet(1400, 1360, .5, 0, 4));
+			
 			/*planets.add(new LightbulbPlanet(20, 20, .75));
 			planets.add(new DonutPlanet(800, 800, 1));
 			planets.add(new HomePlanet(200, 800, 0.75));*/
@@ -35,7 +43,7 @@ package levels
 			if (player.getSuccess())
 			{
 				//TODO: Determine what to do about win condition...
-				FlxG.switchState(new Level02());
+				FlxG.switchState(new Level03());
 			}
 		}
 	}

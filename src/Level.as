@@ -25,30 +25,8 @@ package
 		[Embed(source="../assets/yaybackground.png")]
 		private var bg:Class;
 		
-		override public function create():void
+		override public function create():void			
 		{
-			
-			this.CreatePlanets(planets);
-			
-			// create the player
-			player = new Player(planets.members[0], planets);
-			
-			// create camera
-			FlxG.camera.target = player;
-			FlxG.camera.antialiasing = true;
-			
-			// start the music
-			music = new MusicController();
-			
-			//add(new FlxSprite(0,0,bg));
-			
-			// add all to the world
-			add(planets);
-			//add(obstacles);
-			add(player);
-			
-			FlxG.bgColor = 0xff181818;
-			
 			starfield = new FlxGroup();
 			add(starfield);
 			
@@ -56,11 +34,11 @@ package
 			{
 				var s:Star = new Star();
 				s.spawn(Math.random() * FlxG.camera.screen.width, Math.random() * FlxG.camera.screen.height - 10);
-				s.scrollFactor = new FlxPoint(-0.05, -0.05);
+				s.scrollFactor = new FlxPoint( -0.05, -0.05);
 				starfield.add(s);
 				
 			}
-			for (var i:int = 0; i < 150; i++)
+			for (i = 0; i < 150; i++)
 			{
 				s = new Star();
 				s.spawn(Math.random() * FlxG.camera.screen.width, Math.random() * FlxG.camera.screen.height - 10);
@@ -68,7 +46,22 @@ package
 				starfield.add(s);
 				
 			}
-		
+
+			this.CreatePlanets(planets);
+			
+			// create the player
+			player = new Player(planets.members[0], planets);
+			
+			// create camera
+			FlxG.camera.target = player;
+			
+			// start the music
+			music = new MusicController();
+						
+			// add all to the world
+			add(planets);
+			//add(obstacles);
+			add(player);
 		}
 		
 		override public function update():void
