@@ -7,7 +7,7 @@ package
 	 */
 	public class SpongePlanet extends Planet 
 	{
-		public const SPONGE_MASS:int = 1;
+		public const SPONGE_MASS:int = 5;
 		
 		private var planet_background:PlanetBackground;
 		

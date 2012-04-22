@@ -23,6 +23,10 @@ package
 		public const G:Number = 90;
 		public const ANTI_GRAVITY:Number = 250;
 		
+		private var jumpTimer:FlxTimer = new FlxTimer();
+		private var isJumping:Boolean = false;
+		private const GRAVITY_JUMP_DELAY:Number = 0.2;
+		
 		//player win
 		private var levelSuccess:Boolean = false;
 		
@@ -45,6 +49,7 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
+
 			_locationOnPlanet = currentCheckpoint.getCheckpoint()
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
@@ -53,7 +58,7 @@ package
 		
 		override public function update():void
 		{
-			if (!_currentPlanet){
+			if (!_currentPlanet && !isJumping){
 				do_planet_gravity();
 			}
 			else
@@ -78,7 +83,7 @@ package
 					for (var i:int = 0, len:int = planets.length; i < len; i++)
 					{
 						planet = planets.members[i];
-						if (this.is_on_planet())
+						if (FlxG.overlap(this, planet))
 						{
 							_currentPlanet = planet;
 							_locationOnPlanet = 1;
@@ -90,15 +95,7 @@ package
 			
 			// player jumps perpendicular using spacebar
 			if (FlxG.keys.justPressed("SPACE") && (_currentPlanet != null)) {
-				var tempPlanet:Planet = _currentPlanet;
-				_currentPlanet = null;
-				
-				var tempPoint:Point = new Point
-					(this.x - tempPlanet.getCenter().x, this.y - tempPlanet.getCenter().y);
-				tempPoint.normalize(1);
-				velocity.x = tempPoint.x * ANTI_GRAVITY;
-				velocity.y = tempPoint.y * ANTI_GRAVITY;
-				
+				jump();
 				
 			}
 			
@@ -161,6 +158,27 @@ package
 					this._currentPlanet.PlaceOnPlanet(this);
 				}
 			}
+		}
+		
+		private function jump():void
+		{
+			var tempPlanet:Planet = _currentPlanet;
+			_currentPlanet = null;
+			
+			var tempPoint:Point = new Point
+				(this.x - tempPlanet.getCenter().x, this.y - tempPlanet.getCenter().y);
+			tempPoint.normalize(1);
+			velocity.x = tempPoint.x * ANTI_GRAVITY;
+			velocity.y = tempPoint.y * ANTI_GRAVITY;
+			
+			isJumping = true;
+			
+			jumpTimer.start(GRAVITY_JUMP_DELAY, 1, this.enableGravity);
+		}
+		
+		private function enableGravity(unused:Object):void
+		{
+			isJumping = false;
 		}
 		
 		public function getIsWalking():Boolean
