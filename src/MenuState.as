@@ -2,12 +2,14 @@ package
 {
 	import levels.Level01;
 	import levels.Level02;
+	import levels.Level03;
 	import org.flixel.*;
 
 	public class MenuState extends FlxState
 	{
 		private var level1Button:FlxButton;
 		private var level2Button:FlxButton;
+		private var level3Button:FlxButton;
 		private var devButton:FlxButton;
 
 		public function MenuState()
@@ -23,7 +25,10 @@ package
 			level2Button = new FlxButton(0, 20, "Level 2", startLevel2);
 			add(level2Button);
 			
-			devButton = new FlxButton(0, 40, "Dev Mode", devGame);
+			level3Button = new FlxButton(0, 40, "Level 3", startLevel3);
+			add(level3Button);
+			
+			devButton = new FlxButton(0, 60, "Dev Mode", devGame);
 			add(devButton);
 		}
 		
@@ -37,6 +42,12 @@ package
 		{
 			FlxG.mouse.hide();
 			FlxG.switchState(new Level02);
+		}
+		
+		private function startLevel3():void
+		{
+			FlxG.mouse.hide();
+			FlxG.switchState(new Level03);
 		}
 		
 		private function devGame():void
