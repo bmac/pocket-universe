@@ -15,8 +15,7 @@ package
 		private var display_overlay:Boolean = false;
 		
 		[Embed(source = "../assets/planets/sponge.png")] private var sponge_planet:Class;
-		[Embed(source = "../assets/planets/sponge-overlay-fill.png")] private var sponge_planet_overlay:Class;
-		[Embed(source="../assets/audio/checkpoint.mp3")] private var checkpoint_sound:Class;		
+		[Embed(source = "../assets/planets/sponge-overlay-fill.png")] private var sponge_planet_overlay:Class;		
 		
 		public function SpongePlanet(x:int, y:int, scale:Number = 1, checkpoint:int = 0, mass:Number = DEFAULT_MASS)
 		{
@@ -55,7 +54,6 @@ package
 		override public function playerCollision(player:Player):void
 		{
 			player.reachedCheckpoint(this);
-			FlxG.play(checkpoint_sound);
 		}
 		
 		public function addWater():void

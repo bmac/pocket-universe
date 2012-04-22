@@ -13,8 +13,9 @@ package
 	public class Player extends FlxSprite
 	{
 		
-		[Embed(source="../assets/drop/ALL THE SPRITES.png")]
-		private var player_Sprite:Class;
+		[Embed(source = "../assets/drop/ALL THE SPRITES.png")] private var player_Sprite:Class;
+		[Embed(source ="../assets/audio/checkpoint.mp3")] private var checkpoint_sound:Class;
+
 		
 		private var planets:FlxGroup;
 		private var anti_gravity_flag:Boolean = false;
@@ -242,6 +243,7 @@ package
 		{
 			if (checkpointPlanet.x != currentCheckpoint.x)
 			{
+				FlxG.play(checkpoint_sound);
 				currentCheckpoint.removeWater();
 				currentCheckpoint = checkpointPlanet;
 				currentCheckpoint.addWater();
