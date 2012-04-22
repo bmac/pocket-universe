@@ -41,7 +41,7 @@ package
 			
 			add(createText(450, 100,"Art:"));
 			add(createText(700, 170, "Breeze"));
-			add(createText(700, 170, "Emily"));
+			add(createText(700, 170, "Emily Hancock"));
 
 			
 			add(createText(700, 100,"Audio:"));
