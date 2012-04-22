@@ -13,12 +13,12 @@ package levels
 		private const baseUnit:int = DonutPlanet.DEFAULT_SIZE / 2;
 		
 		// tutorial text
-		private var arrowKeybinds:FlxText = new FlxText			(baseUnit * 0,	baseUnit * 1,		200, "Use arrow keys to move around the planet!");
-		private var spaceKeybind:FlxText = new FlxText			(baseUnit * 0, 	baseUnit * -.5, 	200, "Use the spacebar to jump off the planet!");
+		private var arrowKeybinds:FlxText = new FlxText			(baseUnit * 0,	baseUnit * -.5,		200, "Use arrow keys to move around the planet!");
+		private var spaceKeybind:FlxText = new FlxText			(baseUnit * 1.5,baseUnit * -.5, 	200, "Use the spacebar to jump off the planet!");
 		private var spongeDescription:FlxText = new FlxText		(baseUnit * 5, 	baseUnit * -.5, 	200, "Sponge planets are checkpoints.  If you die, you respawn at the last sponge planet you touched");
 		private var donutDescription:FlxText = new FlxText		(baseUnit * 3, 	baseUnit * -.5, 	200, "Donut planets are safe to land on");
 		private var lightbulbDescription:FlxText = new FlxText	(baseUnit * 7, 	baseUnit * -.5, 	200, "Lightbulb planets cause you to evaporate! They send you back to the last Sponge Planet you touched");
-		private var goalDescription:FlxText = new FlxText		(baseUnit * 10,	baseUnit * -.5, 	200, "Try to find and land on the goal planet, to beat the level!");
+		private var goalDescription:FlxText = new FlxText		(baseUnit * 10,	baseUnit * -.5, 	200, "Try to find and land on the pond planet, to beat the level!");
 		
 		override public function create():void
 		{
@@ -49,7 +49,7 @@ package levels
 			planets.add(new LightbulbPlanet	(baseUnit * 8,		baseUnit * .5,	 .75,	0, 0.5));	//03
 			planets.add(new DonutPlanet		(baseUnit * 7,		baseUnit * 3,	 .75,	0));		//04
 			planets.add(new DonutPlanet		(baseUnit * 7,		baseUnit * -2,	 .75,	0));		//05
-			planets.add(new HomePlanet		(baseUnit * 10,		baseUnit * 0,	 1,		0, 1.25));	//06	//15
+			planets.add(new HomePlanet		(baseUnit * 10,		baseUnit * 0,	 .75,	0, 1.25));	//06	//15
 		}
 		override public function update():void
 		{

@@ -12,6 +12,7 @@ package
 		private var level1Button:FlxButton;
 		private var level2Button:FlxButton;
 		private var level3Button:FlxButton;
+		private var level4Button:FlxButton;
 		
 		private var devTutorialButton:FlxButton;
 		private var devLevel1Button:FlxButton;
@@ -41,11 +42,15 @@ package
 			
 			level3Button = new FlxButton(0, 60, "Level 3", startLevel3);
 			add(level3Button);
-			
+
+			level4Button = new FlxButton(0, 60, "Level 4", startLevel4);
+			add(level4Button);
+
 			devTutorialButton = new FlxButton(100, 0, "Dev Tutorial", devLevelTutorial);
 			add(devTutorialButton);
 			
 			devLevel1Button = new FlxButton(100, 20, "Dev Level 1", devLevel01);
+
 			add(devLevel1Button);
 			
 			devLevel2Button = new FlxButton(100, 40, "Dev Level 2", devLevel02);
@@ -111,6 +116,12 @@ package
 			FlxG.switchState(new Level03);
 		}
 		
+
+		private function startLevel4():void
+		{
+			FlxG.mouse.hide();
+			FlxG.switchState(new Level04);
+		}
 		private function devLevelTutorial():void
 		{
 			FlxG.mouse.hide();
