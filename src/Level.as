@@ -13,7 +13,6 @@ package
 		protected var player:Player;
 		private var obstacles:FlxGroup;
 		private var starfield:FlxGroup;
-		private var music:MusicController;
 		
 		// goal distance
 		private var goalDist:FlxText = new FlxText(250, 205, 200, "");
@@ -70,9 +69,6 @@ package
 			
 			// create camera
 			FlxG.camera.target = player;
-			
-			// start the music
-			music = new MusicController();
 						
 			// add all to the world
 			add(planets);

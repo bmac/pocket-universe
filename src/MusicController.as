@@ -26,12 +26,17 @@ package
 		private var incidentalDelayMin:int = 7;
 		private var incidentalDelayMax:int = 10;
 		private var lastIncidental:int = 999;
+		private var musicIsPlaying:Boolean = false;
 		
 		public function MusicController() 
 		{
-			FlxG.debug=true;
-			eventTimer.start(2, 1, this.fireIncidental);
-			FlxG.playMusic(chords);
+			FlxG.debug = true;
+			if (!musicIsPlaying)
+			{
+				eventTimer.start(2, 1, this.fireIncidental);
+				FlxG.playMusic(chords);
+				musicIsPlaying = true;
+			}
 		}
 		
 		public function fireIncidental(unused:Object):void

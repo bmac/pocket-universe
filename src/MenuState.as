@@ -13,6 +13,8 @@ package
 		private var devLevel2Button:FlxButton;
 		private var devLevel3Button:FlxButton;
 
+		private var music:MusicController;
+		
 		public function MenuState()
 		{
 		}
@@ -37,6 +39,9 @@ package
 			
 			devLevel3Button = new FlxButton(100, 40, "Dev Level 3", devLevel03);
 			add(devLevel3Button);
+			
+			// start the music
+			music = new MusicController();
 		}
 		
 		private function startLevel1():void
