@@ -49,10 +49,11 @@ package
 		{
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
-			//_locationOnPlanet = currentCheckpoint.getCheckpoint()
-			//firstPlanet.PlaceOnPlanet(this);
+
+			_locationOnPlanet = currentCheckpoint.getCheckpoint()
 			this.loadGraphic(player_Sprite, true, true, 60, 50);
 			this.addAnimation('crawl', [0, 1, 2, 3, 4], 6, false);
+			firstPlanet.PlaceOnPlanet(this);
 		}
 		
 		override public function update():void
@@ -85,6 +86,7 @@ package
 						if (FlxG.overlap(this, planet))
 						{
 							_currentPlanet = planet;
+							_locationOnPlanet = 1;
 							break;
 						}
 					}
@@ -252,20 +254,6 @@ package
 			_locationOnPlanet = location;
 		}
 				
-		/*/ change player to frozen
-		public function freeze():void 
-		{
-			// change animation to frozen
-			this.frozen = true;
-			timer.start(10, 1, this.defrost);
-		}
-		
-		// defrosts player
-		public function defrost():void
-		{
-			// return animation to normal
-			this.frozen = false;
-		}*/
 		
 		public function is_on_planet():Boolean
 		{
