@@ -21,7 +21,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = 250;
+		public const ANTI_GRAVITY:Number = 2500;
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
