@@ -16,6 +16,8 @@ package
 		
 		[Embed(source="../assets/drop/ALL THE SPRITES.png")] private var player_sprite:Class;
 		
+		private var backText:FlxText = new FlxText(0, 450, 960, "Press ESC to Return");
+		
 		public function CreditsState() 
 		{
 			
@@ -28,8 +30,8 @@ package
 			drop.addAnimation('idle', [0, 1, 2, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 2, 1, 3, 3, 3, 3, 2, 1, 0, 0, 0], 6, true);
 			add(drop);
 			drop.play("idle");
-			FlxG.mouse.show();
-			add(new FlxButton(430, 70, "Go To Menu", gotoMenu));
+			//FlxG.mouse.show();
+			//add(new FlxButton(430, 70, "Go To Menu", gotoMenu));
 			
 			add(createText(100, 100, "Programming:"));
 			add(createText(100, 170, "Jonathan Rubinger"));
@@ -47,11 +49,20 @@ package
 			add(createText(700, 100,"Audio:"));
 			add(createText(700, 170, "Jonathan Rubinger"));
 
-			
+			backText.setFormat(null, 30, 0xFF00FF, "center");
+			add(backText);
 			
 			// start the music
 			music = new MusicController();
 			
+		}
+		
+		override public function update():void
+		{
+			if (FlxG.keys.ESCAPE)
+			{
+				gotoMenu();
+			}
 		}
 		
 		private function gotoMenu():void
