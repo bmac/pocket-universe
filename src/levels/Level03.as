@@ -29,14 +29,16 @@ package levels
 			planets.add(new DonutPlanet		(baseUnit * 6,		baseUnit * 4,	.5,		0, 4));		//11
 			planets.add(new SpongePlanet	(baseUnit * 9,		baseUnit * 6,	.5,		90));		//12
 			planets.add(new HomePlanet		(baseUnit * 12.5,	baseUnit * 5.8,	.5,		0, 7));		//13
-			planets.add(new DonutPlanet		(baseUnit * 15.5,	baseUnit * 8,	.5,		0, 18));	//13
+			planets.add(new DonutPlanet		(baseUnit * 16,		baseUnit * 8,	.5,		0, 30));	//14
+			planets.add(new DonutPlanet		(baseUnit * -5,		baseUnit * 4,	.5,		0, 30));	//15
 			
-			planets.add(new LightbulbPlanet	(baseUnit * 10,		baseUnit * 3,	.5,		0));		//14
-			planets.add(new LightbulbPlanet	(baseUnit * 3,		baseUnit * 3,	.5,		0));		//15
-			planets.add(new LightbulbPlanet	(baseUnit * 4,		baseUnit * -2,	.5,		0));		//16
-			planets.add(new LightbulbPlanet	(baseUnit * 4.5,	baseUnit * 1.5,	.5,		0));		//17
-			planets.add(new LightbulbPlanet	(baseUnit * 3.75,	baseUnit * 2.25, .5,		0));	//18
-			planets.add(new LightbulbPlanet	(baseUnit * 11.25,	baseUnit * 6.5,	.5,		0, 2));		//19	
+			
+			planets.add(new LightbulbPlanet	(baseUnit * 10,		baseUnit * 3,	.5,		0));		//01
+			planets.add(new LightbulbPlanet	(baseUnit * 3,		baseUnit * 3,	.5,		0));		//02
+			planets.add(new LightbulbPlanet	(baseUnit * 4,		baseUnit * -2,	.5,		0));		//03
+			planets.add(new LightbulbPlanet	(baseUnit * 4.5,	baseUnit * 1.5,	.5,		0));		//04
+			planets.add(new LightbulbPlanet	(baseUnit * 3.75,	baseUnit * 2.25, .5,		0));	//05
+			planets.add(new LightbulbPlanet	(baseUnit * 11.25,	baseUnit * 6.5,	.5,		0, 2));		//06	
 		}
 		
 		override public function update():void
