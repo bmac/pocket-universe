@@ -30,6 +30,16 @@ package levels
 			/**/
 		}
 		
+		override public function update():void
+		{
+			super.update();
+			if (player.getSuccess())
+			{
+				//TODO: Determine what to do about win condition...
+				FlxG.switchState(new Level02());
+			}
+		}
+		
 	}
 
 }

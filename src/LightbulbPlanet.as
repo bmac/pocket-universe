@@ -27,7 +27,7 @@ package
 			
 			this.scale = new FlxPoint(scale, scale);
 			planet_background.scale = new FlxPoint(scale, scale);
-			this.checkpoint = checkpoint;			
+			//this.checkpoint = checkpoint;			
 		}
 
 		
@@ -46,7 +46,7 @@ package
 		
 		override public function playerCollision(player:Player):void
 		{
-			//player.dies();
+			player.dies();
 		}
 	}
 }
