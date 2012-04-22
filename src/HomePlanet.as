@@ -36,9 +36,13 @@ package
 			this.checkpoint = checkpoint;
 			water_swirl_layer = new PlanetBackground(this.x, this.y, water_swirl, scale);
 			lilly_pads = new PlanetBackground(this.x, this.y, lilly_pads_sprite, scale);
-			//flower = new FlxSprite(this.x + 200, this.y + 200);
-			//flower.loadGraphic(flower_sprite, true, false, 210, 225);
-			//flower.addAnimation("win", [0, 1], 30, true);			
+			flower = new FlxSprite(this.x + this.getSize() - 50, this.y + 40);
+			flower.loadGraphic(flower_sprite, true, false, 200, 225);
+			flower.addAnimation("win", [3, 4, 5, 6, 7, 8], 6, false);
+			flower.addAnimation("idle", [3], 6, false);
+			FlxG.state.add(flower);
+			flower.play("idle");
+	
 		}
 		
 		override public function update():void
@@ -49,7 +53,7 @@ package
 			}
 			water_swirl_layer.update();
 			lilly_pads.update();
-			//flower.update();
+			flower.update();
 			super.update();		
 		}
 		
@@ -58,7 +62,7 @@ package
 			super.draw();
 			water_swirl_layer.draw();
 			lilly_pads.draw();
-			//flower.draw();
+			flower.draw();
 		}
 		
 		override public function playerCollision(player:Player):void
@@ -66,6 +70,8 @@ package
 			FlxG.play(win_sound);
 			player.setSuccess();
 			rotate_swirl = true;
+			flower.play("win");
+
 		}
 	}
 

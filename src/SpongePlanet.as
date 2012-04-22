@@ -33,6 +33,7 @@ package
 			this.sponge_overlay.scale = this.scale;
 			this.sponge_overlay.addAnimation("Soaking", [0, 1, 2, 3, 4, 5], 12, false);
 			this.sponge_overlay.addAnimation("Drying", [5, 4, 3, 2, 1, 0], 12, false);
+			sponge_overlay.addAnimationCallback(animationCallback);
 			FlxG.state.add(sponge_overlay);
 		}
 		
@@ -69,7 +70,7 @@ package
 		}
 		public function animationCallback( name:String, frameNum:uint, frameIndex:uint):void
 		{
-			if (name == "Drying" && frameIndex == 5) {
+			if (name == "Drying" && frameIndex == 0) {
 				display_overlay = false;
 			}
 		}
