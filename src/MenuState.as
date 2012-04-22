@@ -2,6 +2,7 @@ package
 {
 	import levels.Level01;
 	import levels.Level02;
+	import levels.Level03;
 	import org.flixel.*;
 
 	public class MenuState extends FlxState
