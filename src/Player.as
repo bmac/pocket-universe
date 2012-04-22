@@ -21,11 +21,11 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = 250;
+		public const ANTI_GRAVITY:Number = 500;
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
-		private const GRAVITY_JUMP_DELAY:Number = 0.2;
+		private const GRAVITY_JUMP_DELAY:Number = 1;
 		
 		//player win
 		private var levelSuccess:Boolean = false;
@@ -272,7 +272,7 @@ package
 			for (var i:int = 0, len:int = planets.length; i < len; i++)
 			{
 				var planet:Planet = planets.members[i];
-				if (this.getRadii() + planet.getRadii() > FlxU.getDistance(new FlxPoint(getCenter().x, getCenter().y), planet.getCenter()))
+				if (this.getRadii() + planet.getRadius() > FlxU.getDistance(new FlxPoint(getCenter().x, getCenter().y), planet.getCenter()))
 				{
 					return true;
 				}
