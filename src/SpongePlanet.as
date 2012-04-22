@@ -1,6 +1,6 @@
 package  
 {
-	import org.flixel.FlxPoint;
+	import org.flixel.*;
 	/**
 	 * ...
 	 * @author Chris
@@ -13,6 +13,7 @@ package
 		private var planet_background:PlanetBackground;
 		
 		[Embed(source = "../assets/planets/sponge.png")] private var sponge_planet:Class;		
+		[Embed(source="../assets/audio/checkpoint.mp3")] private var checkpoint_sound:Class;		
 		
 		public function SpongePlanet(x:int, y:int, scale:Number = 1, checkpoint:int = 0, mass:Number = DEFAULT_MASS)
 		{
@@ -28,6 +29,7 @@ package
 		override public function playerCollision(player:Player):void
 		{
 			player.reachedCheckpoint(this);
+			FlxG.play(checkpoint_sound);
 		}
 	}
 

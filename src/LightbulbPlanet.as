@@ -1,6 +1,6 @@
 package  
 {
-	import org.flixel.FlxPoint;
+	import org.flixel.*;
 	
 	/**
 	 * ...
@@ -16,6 +16,7 @@ package
 		
 		[Embed(source="../assets/planets/Lightblulb-surfaceanimation.png")] private var lightbulb_planet:Class;		
 		[Embed(source="../assets/planets/lightblulbbackground.png")] private var lightbulb_background:Class;
+		[Embed(source="../assets/audio/fail.mp3")] private var fail_sound:Class;
 		
 		public function LightbulbPlanet(x:int, y:int, scale:Number=1 ,checkpoint:int=0, mass:Number=DEFAULT_MASS) 
 		{
@@ -48,6 +49,7 @@ package
 		override public function playerCollision(player:Player):void
 		{
 			player.dies();
+			FlxG.play(fail_sound);
 		}
 	}
 }
