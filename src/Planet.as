@@ -82,7 +82,7 @@ package
 		{
 			
 			//Height adjustment to make the object appear ontop of the planet... also adjusts for any gaps on the sprite
-			var heightAdjustment:int = (gameObject.height / 2) - 8;
+			var heightAdjustment:int = (gameObject.height / 2) - 50;
 			
 			//newPosition is relative to the planet's origin
 			var newPosition:FlxPoint = this.getPointAt(gameObject.getLocationOnPlanet(), heightAdjustment); 
