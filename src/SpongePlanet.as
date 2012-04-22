@@ -13,7 +13,7 @@ package
 		
 		[Embed(source = "../assets/planets/sponge.png")] private var sponge_planet:Class;		
 		
-		public function SpongePlanet(x:int, y:int, scale:Number = 1, checkpoint:int = 0, mass:Number = 5)
+		public function SpongePlanet(x:int, y:int, scale:Number = 1, checkpoint:int = 0, mass:Number = DEFAULT_SPONGE_MASS)
 		{
 			super(x, y, checkpoint);
 			
