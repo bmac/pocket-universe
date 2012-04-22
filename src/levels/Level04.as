@@ -36,6 +36,8 @@ package levels
 			planets.add(new DonutPlanet(1375, 520, .75,0,20));
 			
 			planets.add(new LightbulbPlanet(1375, 900, .75));
+			planets.add(new SpongePlanet(1800, 900, .75, 360, 3));
+			planets.add(new DonutPlanet(2400, 1300, .75, 0, 20));
 			planets.add(new GrapePlanet(1575, 1500, 1.5));
 			
 			

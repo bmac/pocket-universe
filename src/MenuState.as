@@ -89,7 +89,7 @@ package
 		private function startGame():void
 		{
 			FlxG.mouse.hide();
-			FlxG.switchState(new LevelTutorial);
+			FlxG.switchState(new Level04);
 		}
 		
 		private function startLevelTutorial():void
