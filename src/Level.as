@@ -62,10 +62,7 @@ package
 			
 			// start the music
 			music = new MusicController();
-			
-			
-			//add(new FlxSprite(0,0,bg));
-			
+						
 			// add all to the world
 			add(planets);
 			//add(obstacles);
