@@ -125,8 +125,8 @@ package
 			}
 			if (FlxG.keys.R)
 			{
-				camTarget.x = player.x;
-				camTarget.y = player.y;
+				camTarget.x = player.x + player.width/2;
+				camTarget.y = player.y + player.height/2;
 			}
 			if (FlxG.keys.Q)
 			{
