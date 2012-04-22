@@ -8,6 +8,9 @@ package levels
 	 */
 	public class Level03 extends Level
 	{
+		
+		private const baseUnit:int = DonutPlanet.DEFAULT_SIZE / 2;
+		
 		override public function CreatePlanets(planets:FlxGroup):void 
 		{
 			// create all the planets for the level
