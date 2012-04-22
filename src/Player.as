@@ -18,15 +18,14 @@ package
 		
 		private var planets:FlxGroup;
 		private var anti_gravity_flag:Boolean = false;
+		private var animate_splash_flag:Boolean = false;
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
 		
 		public const ANTI_GRAVITY:Number = -120;
 		
-		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
-		private const GRAVITY_JUMP_DELAY:Number = 0.5;
 		
 		private var keyboardEnabled:Boolean = true;
 		//player win
@@ -135,70 +134,61 @@ package
 				}
 				
 				// player walks around the current planet using left and right arrow keys
-				if (this.isWalking())
+				if (this.isWalking() && !animate_splash_flag)
 				{
 					if (FlxG.keys.U)
 					{
 						_locationOnPlanet = 360;
 						_currentPlanet.PlaceOnPlanet(this);
 					}
-					// player walks around the current planet using left and right arrow keys
-					if (this.isWalking())
+					
+					if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
 					{
-						if (FlxG.keys.U)
+						this.play("crawl");
+						
+						//Move the player left or right on the planet
+						if (FlxG.keys.RIGHT)
 						{
-							_locationOnPlanet = 360;
-							_currentPlanet.PlaceOnPlanet(this);
+							_locationOnPlanet += _playerSpeed;
+							this.facing = FlxObject.RIGHT;
+						}
+						if (FlxG.keys.LEFT)
+						{
+							_locationOnPlanet -= _playerSpeed;
+							this.facing = FlxObject.LEFT;
 						}
 						
-						if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
+						//Makes sure that the new position is within bounds
+						if (_locationOnPlanet > 360)
 						{
-							this.play("crawl");
-							
-							//Move the player left or right on the planet
-							if (FlxG.keys.RIGHT)
-							{
-								_locationOnPlanet += _playerSpeed;
-								this.facing = FlxObject.RIGHT;
-							}
-							if (FlxG.keys.LEFT)
-							{
-								_locationOnPlanet -= _playerSpeed;
-								this.facing = FlxObject.LEFT;
-							}
-							
-							//Makes sure that the new position is within bounds
-							if (_locationOnPlanet > 360)
-							{
-								_locationOnPlanet -= 360;
-							}
-							if (_locationOnPlanet <= 0)
-							{
-								_locationOnPlanet += 360;
-							}
-							
-							this._currentPlanet.PlaceOnPlanet(this);
-							
-							var playerSpeed:int = 1;
-							
-							//Move the player left or right on the planet
-							if (FlxG.keys.RIGHT)
-								_locationOnPlanet += _playerSpeed;
-							if (FlxG.keys.LEFT)
-								_locationOnPlanet -= _playerSpeed;
-							
-							//Makes sure that the new position is within bounds
-							if (_locationOnPlanet > 360)
-							{
-								_locationOnPlanet -= 360;
-							}
-							if (_locationOnPlanet < 0)
-							{
-								_locationOnPlanet += 360;
-							}
-							
-							this._currentPlanet.PlaceOnPlanet(this);
+							_locationOnPlanet -= 360;
 						}
+						if (_locationOnPlanet <= 0)
+						{
+							_locationOnPlanet += 360;
+						}
+						
+						this._currentPlanet.PlaceOnPlanet(this);
+						
+						var playerSpeed:int = 1;
+						
+						//Move the player left or right on the planet
+						if (FlxG.keys.RIGHT)
+							_locationOnPlanet += _playerSpeed;
+						if (FlxG.keys.LEFT)
+							_locationOnPlanet -= _playerSpeed;
+						
+						//Makes sure that the new position is within bounds
+						if (_locationOnPlanet > 360)
+						{
+							_locationOnPlanet -= 360;
+						}
+						if (_locationOnPlanet < 0)
+						{
+							_locationOnPlanet += 360;
+						}
+						
+						this._currentPlanet.PlaceOnPlanet(this);
 					}
 				}
 				
@@ -207,21 +197,11 @@ package
 					this.play("idle");
 				}
 			}
-		}
-		
-		private function jump():void
-		{
-			var tempPlanet:Planet = _currentPlanet;
-			_currentPlanet = null;
-			
-			var tempPoint:Point = new Point(this.x - tempPlanet.getCenter().x, this.y - tempPlanet.getCenter().y);
-			tempPoint.normalize(1);
-			velocity.x = tempPoint.x * ANTI_GRAVITY;
-			velocity.y = tempPoint.y * ANTI_GRAVITY;
-			
-			isJumping = true;
-			
-			jumpTimer.start(GRAVITY_JUMP_DELAY, 1, this.enableGravity);
+			if (animate_splash_flag)
+			{
+				this.x += (getCenter().x > this._currentPlanet.getCenter().x) ? -1 : 1;
+				this.y += (getCenter().y > this._currentPlanet.getCenter().y) ? -1 : 1;
+			}
 		}
 		
 		private function enableGravity(unused:Object):void
@@ -272,6 +252,7 @@ package
 		{
 			keyboardEnabled = false;
 			this.play("splash");
+			animate_splash_flag = true;
 			timer.start(3, 1, playSplash);
 		}
 		
@@ -279,6 +260,8 @@ package
 		{
 			levelSuccess = true;
 			keyboardEnabled = true;
+			animate_splash_flag = false;
+		
 		}
 		
 		public function getSuccess():Boolean

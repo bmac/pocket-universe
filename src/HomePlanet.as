@@ -63,9 +63,9 @@ package
 		
 		override public function playerCollision(player:Player):void
 		{
+			FlxG.play(win_sound);
 			player.setSuccess();
 			rotate_swirl = true;
-			FlxG.play(win_sound);
 		}
 	}
 

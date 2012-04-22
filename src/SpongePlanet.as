@@ -64,12 +64,14 @@ package
 		}
 		public function removeWater():void
 		{
-			sponge_overlay.play("Drying", removeOverlay);
+			sponge_overlay.play("Drying");
 			
 		}
-		public function removeOverlay():void
+		public function animationCallback( name:String, frameNum:uint, frameIndex:uint):void
 		{
-			display_overlay = false;
+			if (name == "Drying" && frameIndex == 5) {
+				display_overlay = false;
+			}
 		}
 	}
 
