@@ -272,7 +272,7 @@ package
 		{
 			keyboardEnabled = false;
 			this.play("splash");
-			timer.start(3, 1, playSplash);
+			timer.start(2, 1, playSplash);
 		}
 		
 		public function playSplash(unused:Object):void
