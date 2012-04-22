@@ -47,7 +47,7 @@ package levels
 			planets.add(new DonutPlanet		(baseUnit * 11.5,	baseUnit * 1,	.5,		0));		//03
 			planets.add(new DonutPlanet		(baseUnit * 1,		baseUnit * 3,	.5,		0));		//04
 			planets.add(new DonutPlanet		(baseUnit * 5,		baseUnit * 2.5,	.5,		0));		//05
-			planets.add(new LightbulbPlanet	(baseUnit * 9.75,	baseUnit * 2,	.5,		0));		//06
+			planets.add(new LightbulbPlanet	(baseUnit * 9.75,	baseUnit * 2,	.5,		0, 10));		//06
 			planets.add(new SpongePlanet	(baseUnit * 8,		baseUnit * 4,	.5,		0));		//07
 			planets.add(new DonutPlanet		(baseUnit * 12,		baseUnit * 4.2,	.5,		0));		//08
 			planets.add(new DonutPlanet		(baseUnit * 0,		baseUnit * 5.5,	.5,		0));		//09
