@@ -58,7 +58,7 @@ package
 		
 		override public function update():void
 		{
-			if (!_currentPlanet && !isJumping){
+			if (_currentPlanet && !isJumping){
 				do_planet_gravity();
 			}
 			else
