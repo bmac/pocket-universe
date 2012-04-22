@@ -22,6 +22,7 @@ package
 			this.planetMass = mass;
 			
 			this.setSize (DEFAULT_SIZE * scale);
+
 			this.scale = new FlxPoint(scale, scale);
 			this.checkpoint = checkpoint;
 		}

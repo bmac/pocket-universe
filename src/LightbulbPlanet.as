@@ -28,7 +28,7 @@ package
 			
 			this.scale = new FlxPoint(scale, scale);
 			planet_background.scale = new FlxPoint(scale, scale);
-			//this.checkpoint = checkpoint;			
+			this.checkpoint = 0;	
 		}
 
 		

@@ -16,8 +16,11 @@ package levels
 		override public function CreatePlanets(planets:FlxGroup):void 
 		{
 			// populate universe with planets here
-			planets.add(new SpongePlanet(0, 0, 2, 45, 20));
-			//planets.add(new DonutPlanet(
+			planets.add(new SpongePlanet(0, 0, 1.5, 45, 20));
+			planets.add(new DonutPlanet(900, -400, .5, 0))
+			planets.add(new DonutPlanet(1300, 0, .5, 0))
+			planets.add(new DonutPlanet(1700, -200, .5, 0))
+			//
 			
 			/*planets.add(new SpongePlanet(-500, 2160, 2, 45, 20));
 			planets.add(new LightbulbPlanet(650, 1860, .25, 0));
