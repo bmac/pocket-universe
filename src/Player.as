@@ -21,7 +21,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = 250;
+		public const ANTI_GRAVITY:Number = 2500;
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
@@ -219,6 +219,7 @@ package
 					this.velocity.x += gravity_x * gravitational_strength;
 					this.velocity.y += gravity_y * gravitational_strength;
 				}
+				this.angle = Math.atan(this.velocity.x/this.velocity.y)/Math.PI*180 + 180;
 			}
 		}
 		
