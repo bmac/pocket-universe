@@ -42,8 +42,9 @@ package
 			
 			
 			add(createText(450, 100,"Art:"));
-			add(createText(450, 170, "Breeze "));
+			add(createText(450, 170, "Breeze Grigas"));
 			add(createText(450, 220, "Emily Hancock"));
+			add(createText(450, 320, "Chester T Kwan"));
 
 			
 			add(createText(700, 100,"Audio:"));
