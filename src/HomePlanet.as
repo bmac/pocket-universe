@@ -1,5 +1,6 @@
 package  
 {
+	import org.flixel.FlxPoint;
 	/**
 	 * ...
 	 * @author Chris
@@ -13,12 +14,15 @@ package
 		[Embed(source="../assets/planets/WATER PLANET.png")] private var water_planet:Class;		
 		//[Embed(source = "../assets/planets/*background.png")] private var *_background:Class;
 		
-		public function HomePlanet(x:int, y:int, checkpoint:int) 
+		public function HomePlanet(x:int, y:int, scale:Number=1 ,checkpoint:int=0) 
 		{
 			super(x, y, checkpoint);
 			this.loadGraphic(water_planet);
-			//planet_background = new PlanetBackground(this.x, this.y, home_planet_background);
 			this.planetMass = HOME_MASS;
+			
+			this.setSize (534 * scale);
+			this.scale = new FlxPoint(scale, scale);
+			this.checkpoint = checkpoint;
 		}
 		
 		/*override public function update():void
