@@ -76,6 +76,7 @@ package
 			if (!_currentPlanet)
 			{
 				do_planet_gravity();
+				this.angle = Math.atan(this.velocity.x/this.velocity.y)/Math.PI*180 + 180;
 			}
 			else
 			{
