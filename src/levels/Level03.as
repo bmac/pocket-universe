@@ -13,13 +13,11 @@ package levels
 			// create all the planets for the level
 			
 			planets.add(new SpongePlanet(350, 350, 0.5, 1));
+			planets.add(new HomePlanet(1300, 1500, 0.25));
 			planets.add(new DonutPlanet(900, 50, 0.5, 1));
 			planets.add(new DonutPlanet(150, 900, 0.5));
 			planets.add(new LightbulbPlanet(900, 900, 0.5));
-			planets.add(new SpongePlanet(1300, 900, 1, 1));
-			planets.add(new HomePlanet(1300, 1300, 0.5));
-			
-			
+			planets.add(new SpongePlanet(1300, 900, 1, 1));			
 		}
 		
 		override public function update():void
