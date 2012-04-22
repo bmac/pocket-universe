@@ -47,7 +47,7 @@ package levels
 			if (player.getSuccess())
 			{
 				//TODO: Determine what to do about win condition...
-				FlxG.switchState(new Level01());
+				FlxG.switchState(new Level04());
 			}
 		}
 		
