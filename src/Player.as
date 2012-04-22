@@ -21,7 +21,7 @@ package
 		
 		public const INPUT_VELOCITY:Number = 30;
 		public const G:Number = 90;
-		public const ANTI_GRAVITY:Number = 2500;
+		public const ANTI_GRAVITY:Number = -50;
 		
 		private var jumpTimer:FlxTimer = new FlxTimer();
 		private var isJumping:Boolean = false;
@@ -34,9 +34,9 @@ package
 		private var currentCheckpoint:Planet;
 		
 		/*/player boosts
-		private var timer:FlxTimer = new FlxTimer();
-				
-		private var frozen:Boolean = false;*/
+		   private var timer:FlxTimer = new FlxTimer();
+		
+		 private var frozen:Boolean = false;*/
 		
 		private var _currentPlanet:Planet;
 		
@@ -50,7 +50,7 @@ package
 			this.planets = planets;
 			currentCheckpoint = firstPlanet;
 			_locationOnPlanet = currentCheckpoint.getCheckpoint()
-			this._currentPlanet = firstPlanet ;
+			this._currentPlanet = firstPlanet;
 			this.loadGraphic(player_Sprite, true, true, 150, 150);
 			this.addAnimation('jump', [1, 2, 3], 6, false);
 			this.addAnimation('stand', [0], 6, false);
@@ -65,7 +65,16 @@ package
 		
 		override public function update():void
 		{
-			if (_currentPlanet && !isJumping){
+			do_input();
+			
+			super.update();
+		}
+		
+		public function do_input():void
+		{
+			
+			if (!_currentPlanet)
+			{
 				do_planet_gravity();
 			}
 			else
@@ -73,13 +82,7 @@ package
 				velocity.x = 0;
 				velocity.y = 0;
 			}
-			do_input();
-
-			super.update();		
-		}
-		
-		public function do_input():void
-		{
+			
 			//this.play("stand");
 			if (!this.getIsWalking()) //Player already landed on a planet
 			{
@@ -91,10 +94,13 @@ package
 					for (var i:int = 0, len:int = planets.length; i < len; i++)
 					{
 						planet = planets.members[i];
+						trace("overlap ", FlxG.overlap(this, planet));
 						if (FlxG.overlap(this, planet))
 						{
 							_currentPlanet = planet;
 							_locationOnPlanet = 1;
+							velocity.x = 0;
+							velocity.y = 0;
 							break;
 						}
 					}
@@ -102,9 +108,21 @@ package
 			}
 			
 			// player jumps perpendicular using spacebar
-			if (FlxG.keys.justPressed("SPACE") && (_currentPlanet != null)) {
-				jump();
+			if (FlxG.keys.SPACE && (_currentPlanet != null))
+			{
 				this.play("jump");
+				var xx:Number = _currentPlanet.getCenter().x - this.getCenter().x;
+				var yy:Number = _currentPlanet.getCenter().y - this.getCenter().y;
+				var r:Number = Math.sqrt(xx * xx + yy * yy);
+				
+				var gravitational_strength:Number = G * _currentPlanet.getMass() / Math.pow(r, 2);
+				
+				var gravity_x:Number = _currentPlanet.getCenter().x - this.getCenter().x;
+				var gravity_y:Number = _currentPlanet.getCenter().y - this.getCenter().y;
+				
+				this.velocity.x = gravity_x * gravitational_strength * ANTI_GRAVITY;
+				this.velocity.y = gravity_y * gravitational_strength * ANTI_GRAVITY;
+				_currentPlanet = null;
 				
 			}
 			
@@ -117,34 +135,33 @@ package
 					_currentPlanet.PlaceOnPlanet(this);
 				}
 				
-				
 				if ((FlxG.keys.RIGHT || FlxG.keys.LEFT))
-				{				
-						this.play("crawl");
-
-						//Move the player left or right on the planet
-						if (FlxG.keys.RIGHT)
-						{
-							_locationOnPlanet += _playerSpeed;
-							this.facing = FlxObject.RIGHT;
-						}
-						if (FlxG.keys.LEFT)
-						{
-							_locationOnPlanet -= _playerSpeed;
-							this.facing = FlxObject.LEFT;
-						}
-						
-						//Makes sure that the new position is within bounds
-						if (_locationOnPlanet > 360)
-						{
-							_locationOnPlanet -= 360;
-						}
-						if (_locationOnPlanet <= 0)
-						{
-							_locationOnPlanet += 360;
-						}
-							
-						this._currentPlanet.PlaceOnPlanet(this);
+				{
+					this.play("crawl");
+					
+					//Move the player left or right on the planet
+					if (FlxG.keys.RIGHT)
+					{
+						_locationOnPlanet += _playerSpeed;
+						this.facing = FlxObject.RIGHT;
+					}
+					if (FlxG.keys.LEFT)
+					{
+						_locationOnPlanet -= _playerSpeed;
+						this.facing = FlxObject.LEFT;
+					}
+					
+					//Makes sure that the new position is within bounds
+					if (_locationOnPlanet > 360)
+					{
+						_locationOnPlanet -= 360;
+					}
+					if (_locationOnPlanet <= 0)
+					{
+						_locationOnPlanet += 360;
+					}
+					
+					this._currentPlanet.PlaceOnPlanet(this);
 					
 					var playerSpeed:int = 1;
 					
@@ -179,8 +196,7 @@ package
 			var tempPlanet:Planet = _currentPlanet;
 			_currentPlanet = null;
 			
-			var tempPoint:Point = new Point
-				(this.x - tempPlanet.getCenter().x, this.y - tempPlanet.getCenter().y);
+			var tempPoint:Point = new Point(this.x - tempPlanet.getCenter().x, this.y - tempPlanet.getCenter().y);
 			tempPoint.normalize(1);
 			velocity.x = tempPoint.x * ANTI_GRAVITY;
 			velocity.y = tempPoint.y * ANTI_GRAVITY;
@@ -219,7 +235,7 @@ package
 					this.velocity.x += gravity_x * gravitational_strength;
 					this.velocity.y += gravity_y * gravitational_strength;
 				}
-				this.angle = Math.atan(this.velocity.x/this.velocity.y)/Math.PI*180 + 180;
+				this.angle = Math.atan(this.velocity.x / this.velocity.y) / Math.PI * 180 + 180;
 			}
 		}
 		
@@ -254,7 +270,7 @@ package
 		{
 			return new FlxPoint(this.x, this.y);
 		}
-
+		
 		public function getLocationOnPlanet():int
 		{
 			if (_locationOnPlanet == 0)
@@ -272,25 +288,24 @@ package
 			
 			_locationOnPlanet = location;
 		}
-				
 		
 		public function is_on_planet():Boolean
 		{
 			for (var i:int = 0, len:int = planets.length; i < len; i++)
 			{
 				var planet:Planet = planets.members[i];
-				if (this.getRadii() + planet.getRadii() > FlxU.getDistance(new FlxPoint(getCenter().x, getCenter().y), planet.getCenter()))
+				
+				if (this.getRadius() + planet.getRadius() > FlxU.getDistance(getCenter(), planet.getCenter()))
 				{
 					return true;
 				}
 			}
 			return false;
-		
 		}
 		
-		public function getRadii():Number
+		public function getRadius():Number
 		{
-			return 20;
+			return 25;
 		}
 		
 		//Returns the center of this Circle in the world
