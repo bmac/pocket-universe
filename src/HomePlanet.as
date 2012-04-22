@@ -1,7 +1,6 @@
 package  
 {
-	import org.flixel.FlxPoint;
-	import org.flixel.FlxSprite;
+	import org.flixel.*;
 	/**
 	 * ...
 	 * @author Chris
@@ -21,6 +20,7 @@ package
 		[Embed(source = "../assets/planets/White Swirl.png")] private var water_swirl:Class;	
 		[Embed(source="../assets/planets/Waterworld - Lillypad.png")] private var lilly_pads_sprite:Class;		
 		[Embed(source="../assets/planets/Waterworld - Lilly - Spritesheet.png")] private var flower_sprite:Class;		
+		[Embed(source="../assets/audio/win.mp3")] private var win_sound:Class;		
 		
 		//[Embed(source = "../assets/planets/*background.png")] private var *_background:Class;
 		
@@ -36,9 +36,9 @@ package
 			this.checkpoint = checkpoint;
 			water_swirl_layer = new PlanetBackground(this.x, this.y, water_swirl, scale);
 			lilly_pads = new PlanetBackground(this.x, this.y, lilly_pads_sprite, scale);
-			flower = new FlxSprite(this.x + 200, this.y + 200);
-			flower.loadGraphic(flower_sprite, true, false, 210, 225);
-			flower.addAnimation("win", [0, 1], 30, true);			
+			//flower = new FlxSprite(this.x + 200, this.y + 200);
+			//flower.loadGraphic(flower_sprite, true, false, 210, 225);
+			//flower.addAnimation("win", [0, 1], 30, true);			
 		}
 		
 		override public function update():void
@@ -49,7 +49,7 @@ package
 			}
 			water_swirl_layer.update();
 			lilly_pads.update();
-			flower.update();
+			//flower.update();
 			super.update();		
 		}
 		
@@ -58,13 +58,14 @@ package
 			super.draw();
 			water_swirl_layer.draw();
 			lilly_pads.draw();
-			flower.draw();
+			//flower.draw();
 		}
 		
 		override public function playerCollision(player:Player):void
 		{
 			player.setSuccess();
 			rotate_swirl = true;
+			FlxG.play(win_sound);
 		}
 	}
 
