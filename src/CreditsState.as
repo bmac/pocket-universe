@@ -10,8 +10,6 @@ package
 		
 		private var level1Button:FlxButton;
 
-		private var music:MusicController;
-		
 		private var drop:FlxSprite;
 		
 		[Embed(source="../assets/drop/ALL THE SPRITES.png")] private var player_sprite:Class;
@@ -52,10 +50,7 @@ package
 
 			backText.setFormat(null, 30, 0xFF00FF, "center");
 			add(backText);
-			
-			// start the music
-			music = new MusicController();
-			
+						
 		}
 		
 		override public function update():void

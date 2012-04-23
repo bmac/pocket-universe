@@ -18,8 +18,6 @@ package
 		private var devLevel1Button:FlxButton;
 		private var devLevel2Button:FlxButton;
 		private var devLevel3Button:FlxButton;
-
-		private var music:MusicController;
 		
 		public function MenuState()
 		{
@@ -70,8 +68,7 @@ package
 			
 			
 			
-			// start the music
-			music = new MusicController();
+			
 		}
 		
 		override public function update():void
@@ -89,7 +86,7 @@ package
 		private function startGame():void
 		{
 			FlxG.mouse.hide();
-			FlxG.switchState(new Level04);
+			FlxG.switchState(new LevelTutorial);
 		}
 		
 		private function startLevelTutorial():void
